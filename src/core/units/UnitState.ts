@@ -1,9 +1,9 @@
 export enum UnitState {
-    WAITING = 'waiting',
-    PICKUP = 'pickup',
-    LOOKING_FOR_DELIVERY_TARGET = 'look for delivery',
-    LOOKING_FOR_DELIVERY_TARGET_EXCEPT_WAREHOUSE = 'look for delivery ex warhouse',
-    DELIVERY = 'delivery',
-    MOVING_TO_INN = 'moving to inn',
-    EATING = 'eating'
+    WAITING = 'Waiting',
+    PICKUP = 'Pickup',
+    LOOKING_FOR_DELIVERY_TARGET = 'Looking for delivery',
+    LOOKING_FOR_DELIVERY_TARGET_EXCEPT_WAREHOUSE = 'Looking for delivery ex warehouse',
+    DELIVERY = 'Delivery',
+    MOVING_TO_INN = 'Moving to inn',
+    EATING = 'Eating'
 }

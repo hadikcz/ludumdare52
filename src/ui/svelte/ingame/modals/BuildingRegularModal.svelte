@@ -66,6 +66,9 @@
         if (outputStorageSubscriber) {
             outputStorageSubscriber.unsubscribe();
         }
+        if (pausedSubscriber) {
+            pausedSubscriber.unsubscribe();
+        }
         visible = false;
     }
 

@@ -50,6 +50,9 @@
         if (inputStorageSubscriber) {
             inputStorageSubscriber.unsubscribe();
         }
+        if (pausedSubscriber) {
+            pausedSubscriber.unsubscribe();
+        }
         lastWarehouse = null;
         visible = false;
     }

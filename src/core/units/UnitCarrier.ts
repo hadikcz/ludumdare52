@@ -4,10 +4,16 @@ import BuildingInn from 'core/building/BuildingInn';
 import { BuildingsEnum } from 'core/building/BuildingsEnum';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
+import Names from 'core/units/Names';
 import { UnitState } from 'core/units/UnitState';
 import delay from 'delay';
 import { Depths } from 'enums/Depths';
+import { Events } from 'enums/Events';
+import ArrayHelpers from 'helpers/ArrayHelpers';
+import NumberHelpers from 'helpers/NumberHelpers';
+import ReactiveVariable from 'helpers/ReactiveVariable';
 import TransformHelpers from 'helpers/TransformHelpers';
+import { Subject } from 'rxjs';
 import GameScene from 'scenes/GameScene';
 
 export default class UnitCarrier extends Container {
@@ -17,11 +23,15 @@ export default class UnitCarrier extends Container {
     private stateText!: Phaser.GameObjects.Text;
     private unitState: UnitState = UnitState.WAITING;
     private carringCargo: ResourceItem|null = null;
-    private hunger: number = 100;
+    private hunger: number = NumberHelpers.randomIntInRange(75, 100);
+    public resource$: Subject<ResourceItem|null>;
+    public hunger$: Subject<number>;
+    public unitState$: ReactiveVariable<UnitState>;
 
     private targetBuilding: IBuilding|null = null;
     private carryItemImage: Phaser.GameObjects.Image;
     protected path: Vector2[] = [];
+    public name: string;
 
     constructor (
         public scene: GameScene,
@@ -45,6 +55,20 @@ export default class UnitCarrier extends Container {
 
         this.draw();
         this.setDepth(Depths.CARRIER);
+
+        this.resource$ = new Subject<ResourceItem|null>();
+        this.hunger$ = new Subject<number>();
+        this.unitState$ = new ReactiveVariable<UnitState>(this.unitState);
+
+        unitImage.setInteractive({ useHandCursor: true });
+        unitImage.on('pointerdown', () => {
+            if (this.scene.input.activePointer.downElement.localName !== 'canvas') {
+                return;
+            }
+            this.scene.events.emit(Events.UI_UNIT_OPEN, this);
+        });
+
+        this.name = ArrayHelpers.getRandomFromArray(Names());
     }
 
     preUpdate (): void {
@@ -56,9 +80,18 @@ export default class UnitCarrier extends Container {
         this.redraw();
     }
 
+    getHunger (): number {
+        return this.hunger;
+    }
+
+    getResource (): ResourceItem|null {
+        return this.carringCargo;
+    }
+
     secondTick (): void {
         this.hunger -= 1;
 
+        this.hunger$.next(this.hunger);
         if (this.hunger <= 0) {
             this.die();
         }
@@ -265,6 +298,8 @@ export default class UnitCarrier extends Container {
 
     private setUnitState (state: UnitState): void {
         this.unitState = state;
+
+        this.unitState$.setValue(state);
     }
 
     private die (): void {
@@ -300,10 +335,13 @@ export default class UnitCarrier extends Container {
 
     private resetHunger (): void {
         this.hunger = 100;
+        this.hunger$.next(this.hunger);
     }
 
     private updateCarryItem (resource: ResourceItem|null = null): void {
         this.carringCargo = resource;
+
+        this.resource$.next(resource);
 
         if (!resource) {
             this.carryItemImage.setVisible(false);

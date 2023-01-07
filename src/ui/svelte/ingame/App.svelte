@@ -7,6 +7,7 @@
 	import BuildingInfo from "ui/svelte/ingame/shop/BuildingInfo.svelte";
 	import BuildingRegularModal from "ui/svelte/ingame/modals/BuildingRegularModal.svelte";
 	import BuildingStorageModal from "ui/svelte/ingame/modals/BuildingStorageModal.svelte";
+	import UnitModal from "ui/svelte/ingame/modals/UnitModal.svelte";
 
     export let scene: GameScene;
 
@@ -38,4 +39,5 @@
 	<BuildingStorageModal scene="{scene}"></BuildingStorageModal>
 	<Shop scene="{scene}"></Shop>
 	<BuildingInfo scene="{scene}"></BuildingInfo>
+	<UnitModal scene="{scene}"></UnitModal>
 </main>

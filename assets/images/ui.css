@@ -1,0 +1,15 @@
+/* -----------------------------------------------------
+   created with https://www.codeandweb.com/texturepacker 
+   -----------------------------------------------------
+   $TexturePacker:SmartUpdate:1bfdff5cd671a2a6c2327e5285c1ae0a:55e3615a2ef082a4a9ceb8baf3517187:4c7ccf045e54e36629c6cbec5cb72956$
+   -----------------------------------------------------
+
+   usage: <span class="{-spritename-} sprite"></span>
+
+   replace {-spritename-} with the sprite you like to use
+
+*/
+
+.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(ui.png);}
+
+.coin {width:22px; height:22px; background-position: -1px -1px}
