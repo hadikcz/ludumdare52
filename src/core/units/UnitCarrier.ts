@@ -12,6 +12,7 @@ export default class UnitCarrier extends Container {
     private stateText!: Phaser.GameObjects.Text;
     private unitState: UnitState = UnitState.WAITING;
     private carringCargo: ResourceItem|null = null;
+    private hunger: number = 100;
 
     private targetBuilding: IBuilding|null = null;
 
@@ -35,6 +36,19 @@ export default class UnitCarrier extends Container {
     preUpdate (): void {
         this.tick();
         this.redraw();
+    }
+
+    secondTick (): void {
+        this.hunger -= 1;
+
+        if (this.hunger < 25) {
+            // show hunger
+            console.log('Carrier is hungry');
+        }
+
+        if (this.hunger <= 0) {
+            this.die();
+        }
     }
 
     tick (): void {
@@ -117,5 +131,12 @@ export default class UnitCarrier extends Container {
 
     private setUnitState (state: UnitState): void {
         this.unitState = state;
+    }
+
+    private die (): void {
+        console.log('DIED');
+        this.targetBuilding = null;
+        this.scene.effectManager.launchFlyText(this.x, this.y, 'DIED');
+        this.destroy(true);
     }
 }
