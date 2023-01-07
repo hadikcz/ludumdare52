@@ -1,11 +1,10 @@
 import AbstractBuilding from 'core/building/AbstractBuilding';
-import BuildingHandler from 'core/building/BuildingHandler';
 import { BuildingsEnum } from 'core/building/BuildingsEnum';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import GameScene from 'scenes/GameScene';
 
-export default class BuildingFarm extends AbstractBuilding implements IBuilding {
+export default class BuildingInn extends AbstractBuilding implements IBuilding {
 
     constructor (
         scene: GameScene,
@@ -16,10 +15,20 @@ export default class BuildingFarm extends AbstractBuilding implements IBuilding 
             scene,
             x,
             y,
-            'farm',
-            BuildingHandler.DEFAULT_STORAGE,
-            BuildingsEnum.FARM,
-            ResourceItem.WHEAT
+            'inn',
+            20,
+            BuildingsEnum.INN,
+            null,
+            ResourceItem.BREAD,
         );
+    }
+
+    async cycle (): Promise<void> {
+        return;
+
+    }
+
+    protected canSpawnResource (): boolean {
+        return false;
     }
 }

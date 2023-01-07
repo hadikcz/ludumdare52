@@ -22,6 +22,7 @@ export default abstract class AbstractBuilding extends Container {
         x: number,
         y: number,
         imageTexture: string,
+        protected storageSize: number = BuildingHandler.DEFAULT_STORAGE,
         private buildingType: BuildingsEnum,
         protected outputItemType: ResourceItem|null = null,
         protected inputItemType: ResourceItem|null = null
@@ -52,9 +53,37 @@ export default abstract class AbstractBuilding extends Container {
         }
     }
 
+    public hasPickupItem (): boolean {
+        return this.outputStorage.length > 0;
+    }
+
+    public getOutputItemType (): ResourceItem|null {
+        return this.outputItemType;
+    }
+
+    public pickupResource (): ResourceItem|null {
+        if (!this.hasPickupItem()) return null;
+
+        return this.outputStorage.pop() || null;
+    }
+
+    public canDelivery (resource: ResourceItem): boolean {
+        return this.inputItemType === resource &&this.inputStorage.length < this.storageSize;
+    }
+
+    public tryDelivery (resource: ResourceItem): boolean {
+        if (!this.canDelivery(resource)) {
+            false;
+        }
+
+        this.inputStorage.push(resource);
+
+        return true;
+    }
+
     protected canSpawnResource (): boolean {
         return Date.now() - this.lastSpawn > this.delayBetweenSpawn
-            && this.outputStorage.length < BuildingHandler.DEFAULT_STORAGE;
+            && this.outputStorage.length < this.storageSize;
     }
 
     protected refreshLastSpawn (): void {
@@ -72,21 +101,21 @@ export default abstract class AbstractBuilding extends Container {
         this.add(this.stateText);
 
         if (this.outputItemType) {
-            this.outputStorageText = this.scene.add.text(50, -50, 'OUT: 0/5', { ...style,color: '#00FF00' });
+            this.outputStorageText = this.scene.add.text(50, -50, 'OUT: 0/' + this.storageSize, { ...style,color: '#00FF00' });
             this.add(this.outputStorageText);
         }
         if (this.inputItemType) {
-            this.inputStorageText = this.scene.add.text(-50, -50, 'OUT: 0/5', { ...style, color: '#FF0000' });
+            this.inputStorageText = this.scene.add.text(-50, -50, 'OUT: 0/' + this.storageSize, { ...style, color: '#FF0000' });
             this.add(this.inputStorageText);
         }
     }
 
     private redraw (): void {
         if (this.outputStorageText) {
-            this.outputStorageText.setText('OUT: ' + this.outputStorage.length + '/' + BuildingHandler.DEFAULT_STORAGE);
+            this.outputStorageText.setText('OUT: ' + this.outputStorage.length + '/' + this.storageSize);
         }
         if (this.inputStorageText) {
-            this.inputStorageText.setText('IN: ' + this.inputStorage.length + '/' + BuildingHandler.DEFAULT_STORAGE);
+            this.inputStorageText.setText('IN: ' + this.inputStorage.length + '/' + this.storageSize);
         }
 
         this.stateText.setText('STATE: ' + this.buildingState);

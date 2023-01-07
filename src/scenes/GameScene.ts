@@ -1,4 +1,5 @@
 import BuildingHandler from 'core/building/BuildingHandler';
+import UnitHandler from 'core/units/UnitHandler';
 import WorldEnv from 'core/WorldEnv';
 import dat, { GUI } from 'dat.gui';
 import EffectManager from 'effects/EffectManager';
@@ -19,7 +20,8 @@ export default class GameScene extends Phaser.Scene {
     private testObject!: Phaser.GameObjects.Image;
     private controls!: Phaser.Cameras.Controls.SmoothedKeyControl;
     public xPos$!: Subject<number>;
-    private buildingHandler!: BuildingHandler;
+    public buildingHandler!: BuildingHandler;
+    public unitHandler!: UnitHandler;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -42,6 +44,7 @@ export default class GameScene extends Phaser.Scene {
         this.testObject = this.add.image(500, 500, 'tiles16');
         this.effectManager = new EffectManager(this);
 
+        this.unitHandler = new UnitHandler(this);
         this.buildingHandler = new BuildingHandler(this);
 
         this.ui = new UI(this);

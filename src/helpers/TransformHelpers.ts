@@ -1,6 +1,7 @@
 import NumberHelpers from 'helpers/NumberHelpers';
 import { Rect } from 'types/Rect';
 import { Vec2 } from 'types/Vec2';
+import Between = Phaser.Math.Angle.Between;
 
 export default class TransformHelpers {
     /**
@@ -39,6 +40,18 @@ export default class TransformHelpers {
         return {
             x: NumberHelpers.randomIntInRange(x1, x2),
             y: NumberHelpers.randomIntInRange(y1, y2)
+        } as Vec2;
+    }
+
+    static moveTo (x1: number, y1: number, x2: number, y2: number, velocity: number): Vec2 {
+        let angle = Between(x1, y1, x2, y2);
+        return TransformHelpers.moveByAngle(x1, y1, velocity, angle);
+    }
+
+    static moveByAngle (x, y, velocity, angle): Vec2 {
+        return {
+            x: x + Math.cos(angle) * velocity,
+            y: y + Math.sin(angle) * velocity
         } as Vec2;
     }
 }

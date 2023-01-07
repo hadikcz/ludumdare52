@@ -7,7 +7,7 @@ import { ResourceItem } from 'core/resources/ResourceItem';
 import delay from 'delay';
 import GameScene from 'scenes/GameScene';
 
-export default class BuildingMill extends AbstractBuilding implements IBuilding {
+export default class BuildingBakery extends AbstractBuilding implements IBuilding {
 
     constructor (
         scene: GameScene,
@@ -18,11 +18,11 @@ export default class BuildingMill extends AbstractBuilding implements IBuilding 
             scene,
             x,
             y,
-            'mill',
+            'bakery',
             BuildingHandler.DEFAULT_STORAGE,
-            BuildingsEnum.MILL,
+            BuildingsEnum.BAKERY,
+            ResourceItem.BREAD,
             ResourceItem.FLOUR,
-            ResourceItem.WHEAT
         );
     }
 
