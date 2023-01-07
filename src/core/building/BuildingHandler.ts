@@ -4,6 +4,7 @@ import BuildingFarm from 'core/building/BuildingFarm';
 import BuildingInn from 'core/building/BuildingInn';
 import BuildingMill from 'core/building/BuildingMill';
 import { BuildingsEnum } from 'core/building/BuildingsEnum';
+import BuildingShopBuilder from 'core/building/BuildingShopBuilder';
 import BuildingWarehouse from 'core/building/BuildingWarehouse';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
@@ -18,10 +19,14 @@ export default class BuildingHandler {
 
     public findBuilding;
     public findBuildingTo;
+    public buildingShopBuilder: BuildingShopBuilder;
+
     constructor (
         private scene: GameScene
     ) {
         this.init();
+
+        this.buildingShopBuilder = new BuildingShopBuilder(this.scene, this);
 
         this.scene.time.addEvent({
             repeat: Infinity,
@@ -38,6 +43,23 @@ export default class BuildingHandler {
             buildings.cycle();
         });
     }
+
+    private init (): void {
+        // this.spawnBuilding(450, 450, BuildingsEnum.FARM);
+        // this.spawnBuilding(350, 650, BuildingsEnum.FARM);
+        // this.spawnBuilding(800, 300, BuildingsEnum.MILL);
+        // this.spawnBuilding(800, 550, BuildingsEnum.BAKERY);
+        // this.spawnBuilding(550, 200, BuildingsEnum.INN);
+        // this.spawnBuilding(750, 100, BuildingsEnum.INN);
+        // this.spawnBuilding(50, 100, BuildingsEnum.WAREHOUSE);
+        // this.spawnBuilding(50, 600, BuildingsEnum.WAREHOUSE);
+
+
+
+        // real game init
+        this.spawnBuilding(600, 450, BuildingsEnum.WAREHOUSE);
+    }
+
 
     findPickUpBuilding (): IBuilding|null {
         for (const building of this.buildings) {
@@ -117,18 +139,7 @@ export default class BuildingHandler {
         return null;
     }
 
-    private init (): void {
-        this.spawnBuilding(450, 450, BuildingsEnum.FARM);
-        this.spawnBuilding(350, 650, BuildingsEnum.FARM);
-        this.spawnBuilding(800, 300, BuildingsEnum.MILL);
-        this.spawnBuilding(800, 550, BuildingsEnum.BAKERY);
-        this.spawnBuilding(550, 200, BuildingsEnum.INN);
-        this.spawnBuilding(750, 100, BuildingsEnum.INN);
-        this.spawnBuilding(50, 100, BuildingsEnum.WAREHOUSE);
-        this.spawnBuilding(50, 600, BuildingsEnum.WAREHOUSE);
-    }
-
-    private spawnBuilding (
+    spawnBuilding (
         x: number,
         y: number,
         buildingType: BuildingsEnum,

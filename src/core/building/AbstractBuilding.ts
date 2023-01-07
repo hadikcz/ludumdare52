@@ -5,6 +5,7 @@ import { ResourceItem } from 'core/resources/ResourceItem';
 import GameScene from 'scenes/GameScene';
 import Container = Phaser.GameObjects.Container;
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
+import { Depths } from 'enums/Depths';
 
 export default abstract class AbstractBuilding extends Container {
 
@@ -29,8 +30,6 @@ export default abstract class AbstractBuilding extends Container {
     ) {
         super(scene, x, y, []);
 
-        console.log(outputItemType);
-
         this.scene.add.existing(this);
 
         let image = this.scene.add.image(0, 0, imageTexture);
@@ -38,6 +37,8 @@ export default abstract class AbstractBuilding extends Container {
         this.add(image);
 
         this.draw();
+
+        this.setDepth(Depths.BUILDINGS);
     }
 
     preUpdate (): void {

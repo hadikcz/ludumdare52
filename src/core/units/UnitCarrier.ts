@@ -6,6 +6,7 @@ import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import { UnitState } from 'core/units/UnitState';
 import delay from 'delay';
+import { Depths } from 'enums/Depths';
 import TransformHelpers from 'helpers/TransformHelpers';
 import GameScene from 'scenes/GameScene';
 
@@ -16,7 +17,7 @@ export default class UnitCarrier extends Container {
     private stateText!: Phaser.GameObjects.Text;
     private unitState: UnitState = UnitState.WAITING;
     private carringCargo: ResourceItem|null = null;
-    private hunger: number = 28;
+    private hunger: number = 100;
 
     private targetBuilding: IBuilding|null = null;
     private carryItemImage: Phaser.GameObjects.Image;
@@ -35,10 +36,11 @@ export default class UnitCarrier extends Container {
         let unitImage = this.scene.add.image(0, 0, 'carrier');
         this.add(unitImage);
 
-        this.carryItemImage = this.scene.add.image(0, 0, 'flour');
+        this.carryItemImage = this.scene.add.image(0, 0, 'flour').setVisible(false);
         this.add(this.carryItemImage);
 
         this.draw();
+        this.setDepth(Depths.CARRIER);
     }
 
     preUpdate (): void {

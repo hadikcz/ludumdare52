@@ -1,3 +1,4 @@
+import Builder from 'core/building/builder/Builder';
 import BuildingHandler from 'core/building/BuildingHandler';
 import Shop from 'core/shop/Shop';
 import UnitHandler from 'core/units/UnitHandler';
@@ -6,7 +7,6 @@ import dat, { GUI } from 'dat.gui';
 import EffectManager from 'effects/EffectManager';
 import $ from 'jquery';
 import Phaser from 'phaser';
-import { Subject } from 'rxjs';
 import UI from 'ui/UI';
 
 declare let window: any;
@@ -20,10 +20,10 @@ export default class GameScene extends Phaser.Scene {
     private worldEnv!: WorldEnv;
     private testObject!: Phaser.GameObjects.Image;
     private controls!: Phaser.Cameras.Controls.SmoothedKeyControl;
-    public xPos$!: Subject<number>;
     public buildingHandler!: BuildingHandler;
     public unitHandler!: UnitHandler;
     public shop!: Shop;
+    public builder!: Builder;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -31,8 +31,6 @@ export default class GameScene extends Phaser.Scene {
 
     create (): void {
         window.scene = this;
-
-        this.xPos$ = new Subject<number>();
 
         this.initDebugUI();
         this.input.setTopOnly(true);
@@ -43,9 +41,10 @@ export default class GameScene extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#3F7B30');
         // this.cameras.main.centerOn(GameConfig.PhaserBasicSettings.gameSize.width / 4, GameConfig.PhaserBasicSettings.gameSize.height / 4);
 
-        this.testObject = this.add.image(500, 500, 'tiles16');
+
         this.effectManager = new EffectManager(this);
 
+        this.builder = new Builder(this);
         this.unitHandler = new UnitHandler(this);
         this.buildingHandler = new BuildingHandler(this);
         this.shop = new Shop(this);
@@ -54,8 +53,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     update (time, delta): void {
-        this.testObject.x -= 0.5;
-        this.xPos$.next(this.testObject.x);
+        this.builder.update();
     }
 
     private initDebugUI (): void {

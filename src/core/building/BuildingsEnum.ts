@@ -1,5 +1,5 @@
 export enum BuildingsEnum {
-    FARM,
+    FARM= 1,
     MILL,
     BAKERY,
     INN,

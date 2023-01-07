@@ -1,4 +1,6 @@
+import BuildingShopBuilder from 'core/building/BuildingShopBuilder';
 import { BuyableEnum } from 'core/shop/BuyableEnum';
+import { Events } from 'enums/Events';
 import { Subject } from 'rxjs';
 import GameScene from 'scenes/GameScene';
 
@@ -6,7 +8,7 @@ export default class Shop {
 
 
     public readonly coins$: Subject<number>;
-    public coins: number = 0;
+    public coins: number = 30;
     public readonly prices: number[] = [];
 
 
@@ -14,15 +16,7 @@ export default class Shop {
         private scene: GameScene
     ) {
         this.coins$ = new Subject<number>();
-
-        this.scene.time.addEvent({
-            repeat: Infinity,
-            delay: 100,
-            callbackScope: this,
-            callback: () => {
-                this.addCoins(2);
-            }
-        });
+        this.scene.events.on(Events.UI_SHOP_TRY_PURCHASE, this.uiTryPurchase.bind(this));
 
         this.prices[BuyableEnum.CARRIER] = 2;
         this.prices[BuyableEnum.FARM] = 2;
@@ -46,5 +40,27 @@ export default class Shop {
         this.coins$.next(this.coins);
 
         return true;
+    }
+
+    canPurchase (buyable: BuyableEnum): boolean {
+        let price = this.prices[buyable];
+
+        return this.coins >= price;
+    }
+
+
+    private uiTryPurchase (buyable: BuyableEnum) {
+        if (!this.canPurchase(buyable)) {
+            console.log('Can not purchase ' + buyable + ' becuase not enoght coiuns');
+            return;
+        }
+        if (buyable === BuyableEnum.CARRIER) {
+            console.log('TODO purchase of carrier');
+        }
+
+        let building = BuildingShopBuilder.translateBuyableToBuilding(buyable);
+
+        // @TODO: CHECK if can pruchase it (coins);
+        this.scene.builder.startBuild(building);
     }
 }

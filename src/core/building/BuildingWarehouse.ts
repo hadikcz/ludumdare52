@@ -15,7 +15,7 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
             scene,
             x,
             y,
-            'storehouse',
+            'warehouse',
             200,
             BuildingsEnum.WAREHOUSE,
             null,

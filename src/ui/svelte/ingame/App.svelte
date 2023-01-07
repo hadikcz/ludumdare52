@@ -7,11 +7,6 @@
 
     export let scene: GameScene;
 
-	let posX = 0;
-	scene.xPos$.subscribe((value) => {
-		posX = value;
-	});
-
 	onDestroy(() => {
 		console.log('main app svelte DESTYROYD');
 	});

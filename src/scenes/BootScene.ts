@@ -29,7 +29,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('farm', 'farm.png');
         this.load.image('inn', 'inn.png');
         this.load.image('mill', 'mill.png');
-        this.load.image('storehouse', 'storehouse.png');
+        this.load.image('warehouse', 'storehouse.png');
         this.load.image('carrier', 'carrier.png');
         this.load.image('wheat', 'wheat.png');
         this.load.image('flour', 'flour.png');
