@@ -6,7 +6,7 @@ import GameScene from 'scenes/GameScene';
 
 export default class Builder {
 
-    private buildMode: BuildingsEnum|null = null;
+    public buildMode: BuildingsEnum|null = null;
     public buildModeRunning$: Subject<boolean>;
     private previewImage: Phaser.GameObjects.Image;
     private canPlace: boolean = false;
@@ -21,14 +21,10 @@ export default class Builder {
             .setDepth(Depths.BUILD_ICON).setVisible(false);
 
         this.scene.input.on('pointerdown', (pointer, obj) => {
-            console.log('click');
             if (this.scene.input.activePointer.downElement.localName !== 'canvas') {
-                console.log('click2');
                 return;
             }
-            console.log('click3');
             if (!this.isBuildMode()) return;
-            console.log('click4');
             this.finishBuilding(pointer.worldX, pointer.worldY);
         });
 
@@ -85,6 +81,9 @@ export default class Builder {
 
         this.scene.buildingHandler.buildingShopBuilder.purchaseBuilding(x, y, this.buildMode);
 
+        if (this.buildMode === BuildingsEnum.PATHWAY || this.buildMode === BuildingsEnum.PATHWAY_DESTROY) {
+            return;
+        }
         this.cancelBuilding();
     }
 
@@ -135,6 +134,10 @@ export default class Builder {
                 return 'inn';
             case BuildingsEnum.WAREHOUSE:
                 return 'warehouse';
+            case BuildingsEnum.PATHWAY:
+                return 'pathway';
+            case BuildingsEnum.PATHWAY_DESTROY:
+                return 'pathway';
             default:
                 return null;
         }

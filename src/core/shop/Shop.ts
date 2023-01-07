@@ -10,6 +10,7 @@ export default class Shop {
     public readonly coins$: Subject<number>;
     public coins: number = 30;
     public readonly prices: number[] = [];
+    public readonly names: number[] = [];
 
 
     constructor (
@@ -24,6 +25,17 @@ export default class Shop {
         this.prices[BuyableEnum.BAKERY] = 2;
         this.prices[BuyableEnum.INN] = 2;
         this.prices[BuyableEnum.WAREHOUSE] = 2;
+        this.prices[BuyableEnum.PATHWAY] = 1;
+        this.prices[BuyableEnum.PATHWAY_DESTROY] = 0;
+
+        this.names[BuyableEnum.CARRIER] = 'Carrier';
+        this.names[BuyableEnum.FARM] = 'Farm';
+        this.names[BuyableEnum.MILL] = 'Mill';
+        this.names[BuyableEnum.BAKERY] = 'Bakery';
+        this.names[BuyableEnum.INN] = 'Inn';
+        this.names[BuyableEnum.WAREHOUSE] = 'Warehouse';
+        this.names[BuyableEnum.PATHWAY] = 'Pathway';
+        this.names[BuyableEnum.PATHWAY_DESTROY] = 'Pathway destroy';
     }
 
     addCoins (coins: number): void {

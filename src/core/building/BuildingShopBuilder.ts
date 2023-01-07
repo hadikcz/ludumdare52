@@ -18,15 +18,18 @@ export default class BuildingShopBuilder {
             return false;
         }
 
-        let placedBuilding = this.buildingHandler.spawnBuilding(x, y, building);
+        if (building !== BuildingsEnum.PATHWAY && building !== BuildingsEnum.PATHWAY_DESTROY) {
+            let placedBuilding = this.buildingHandler.spawnBuilding(x, y, building);
 
-        if (!placedBuilding) {
-            console.error('Building spawn failed');
-            return false;
+            if (!placedBuilding) {
+                console.error('Building spawn failed');
+                return false;
+            }
+
+            let price = this.scene.shop.prices[buyable];
+            this.scene.shop.takeCoins(price);
         }
 
-        let price = this.scene.shop.prices[buyable];
-        this.scene.shop.takeCoins(price);
         return true;
     }
 
@@ -42,6 +45,10 @@ export default class BuildingShopBuilder {
                 return BuyableEnum.INN;
             case BuildingsEnum.WAREHOUSE:
                 return BuyableEnum.WAREHOUSE;
+            case BuildingsEnum.PATHWAY:
+                return BuyableEnum.PATHWAY;
+            case BuildingsEnum.PATHWAY_DESTROY:
+                return BuyableEnum.PATHWAY_DESTROY;
             default:
                 throw new Error('Can not translate buiilding ' + building);
         }
@@ -59,6 +66,10 @@ export default class BuildingShopBuilder {
                 return BuildingsEnum.INN;
             case BuyableEnum.WAREHOUSE:
                 return BuildingsEnum.WAREHOUSE;
+            case BuyableEnum.PATHWAY:
+                return BuildingsEnum.PATHWAY;
+            case BuyableEnum.PATHWAY_DESTROY:
+                return BuildingsEnum.PATHWAY_DESTROY;
             default:
                 throw new Error('Can not translate buiilding ' + buyable);
         }

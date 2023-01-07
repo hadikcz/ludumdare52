@@ -4,6 +4,7 @@
 	import './global.css';
 	import CoinBar from "ui/svelte/ingame/CoinBar.svelte";
 	import Shop from "ui/svelte/ingame/shop/Shop.svelte";
+	import BuildingInfo from "ui/svelte/ingame/shop/BuildingInfo.svelte";
 
     export let scene: GameScene;
 
@@ -32,4 +33,5 @@
 		</div>
 	</div>
 	<Shop scene="{scene}"></Shop>
+	<BuildingInfo scene="{scene}"></BuildingInfo>
 </main>

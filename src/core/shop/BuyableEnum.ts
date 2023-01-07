@@ -4,5 +4,7 @@ export enum BuyableEnum {
     MILL = 'mill',
     BAKERY = 'bakery',
     INN = 'inn',
-    WAREHOUSE = 'warehouse'
+    WAREHOUSE = 'warehouse',
+    PATHWAY = 'PATHWAY',
+    PATHWAY_DESTROY = 'PATHWAY_DESTROY'
 }

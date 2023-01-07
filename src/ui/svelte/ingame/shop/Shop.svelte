@@ -49,18 +49,10 @@
         <ShopPurchaseButton
                 events="{scene.events}"
                 coins="{coins}"
-                price="{scene.shop.prices[BuyableEnum.CARRIER]}"
-                icon="shop_icon_carrier"
-                type="{BuyableEnum.CARRIER}"
-                tooltip="Carrier - carry goods"
-        ></ShopPurchaseButton>
-        <ShopPurchaseButton
-                events="{scene.events}"
-                coins="{coins}"
                 price="{scene.shop.prices[BuyableEnum.FARM]}"
                 icon="shop_icon_farm"
                 type="{BuyableEnum.FARM}"
-                tooltip="Farm - produce wheat"
+                tooltip="{scene.shop.names[BuyableEnum.FARM]} - produce wheat"
         ></ShopPurchaseButton>
         <ShopPurchaseButton
                 events="{scene.events}"
@@ -68,7 +60,7 @@
                 price="{scene.shop.prices[BuyableEnum.MILL]}"
                 icon="shop_icon_mill"
                 type="{BuyableEnum.MILL}"
-                tooltip="Mill - produce flour from wheat"
+                tooltip="{scene.shop.names[BuyableEnum.MILL]} - produce flour from wheat"
         ></ShopPurchaseButton>
         <ShopPurchaseButton
                 events="{scene.events}"
@@ -76,7 +68,7 @@
                 price="{scene.shop.prices[BuyableEnum.BAKERY]}"
                 icon="shop_icon_bakery"
                 type="{BuyableEnum.BAKERY}"
-                tooltip="Bakery - produce bread from flour"
+                tooltip="{scene.shop.names[BuyableEnum.BAKERY]} - produce bread from flour"
         ></ShopPurchaseButton>
         <ShopPurchaseButton
                 events="{scene.events}"
@@ -84,7 +76,7 @@
                 price="{scene.shop.prices[BuyableEnum.INN]}"
                 icon="shop_icon_inn"
                 type="{BuyableEnum.INN}"
-                tooltip="Inn - place where workers eat"
+                tooltip="{scene.shop.names[BuyableEnum.INN]} - place where workers eat"
         ></ShopPurchaseButton>
         <ShopPurchaseButton
                 events="{scene.events}"
@@ -92,7 +84,31 @@
                 price="{scene.shop.prices[BuyableEnum.WAREHOUSE]}"
                 icon="shop_icon_warehouse"
                 type="{BuyableEnum.WAREHOUSE}"
-                tooltip="Warehouse - storage of goods"
+                tooltip="{scene.shop.names[BuyableEnum.WAREHOUSE]} - storage of goods"
+        ></ShopPurchaseButton>
+        <ShopPurchaseButton
+                events="{scene.events}"
+                coins="{coins}"
+                price="{scene.shop.prices[BuyableEnum.CARRIER]}"
+                icon="shop_icon_carrier"
+                type="{BuyableEnum.CARRIER}"
+                tooltip="{scene.shop.names[BuyableEnum.BAKERY]} - carry goods"
+        ></ShopPurchaseButton>
+        <ShopPurchaseButton
+                events="{scene.events}"
+                coins="{coins}"
+                price="{scene.shop.prices[BuyableEnum.PATHWAY]}"
+                icon="shop_icon_pathway"
+                type="{BuyableEnum.PATHWAY}"
+                tooltip="{scene.shop.names[BuyableEnum.PATHWAY]} - pathway for faster movement"
+        ></ShopPurchaseButton>
+        <ShopPurchaseButton
+                events="{scene.events}"
+                coins="{coins}"
+                price="{scene.shop.prices[BuyableEnum.PATHWAY_DESTROY]}"
+                icon="shop_icon_pathway_destroy"
+                type="{BuyableEnum.PATHWAY_DESTROY}"
+                tooltip="{scene.shop.names[BuyableEnum.PATHWAY_DESTROY]} - remove pathway"
         ></ShopPurchaseButton>
     </div>
 </div>

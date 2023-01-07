@@ -34,6 +34,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('wheat', 'wheat.png');
         this.load.image('flour', 'flour.png');
         this.load.image('bread', 'bread.png');
+        this.load.image('pathway', 'pathway.png');
 
 
         this.load.setPath('assets/images');

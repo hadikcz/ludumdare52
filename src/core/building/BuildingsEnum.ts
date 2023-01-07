@@ -3,5 +3,7 @@ export enum BuildingsEnum {
     MILL,
     BAKERY,
     INN,
-    WAREHOUSE
+    WAREHOUSE,
+    PATHWAY,
+    PATHWAY_DESTROY
 }

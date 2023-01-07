@@ -18,6 +18,7 @@ export default abstract class AbstractBuilding extends Container {
     private outputStorageText!: Phaser.GameObjects.Text;
     private inputStorageText!: Phaser.GameObjects.Text;
     private stateText!: Phaser.GameObjects.Text;
+    private image: Phaser.GameObjects.Image;
 
     constructor (
         public scene: GameScene,
@@ -33,9 +34,8 @@ export default abstract class AbstractBuilding extends Container {
 
         this.scene.add.existing(this);
 
-        let image = this.scene.add.image(0, 0, imageTexture);
-
-        this.add(image);
+        this.image = this.scene.add.image(0, 0, imageTexture);
+        this.add(this.image);
 
         this.draw();
 
@@ -88,7 +88,7 @@ export default abstract class AbstractBuilding extends Container {
     }
 
     getImageBounds (): Phaser.Geom.Rectangle {
-        return this.getBounds();
+        return this.image.getBounds();
     }
 
     getDoorSpot (): Vec2 {

@@ -1,4 +1,6 @@
+import { BuildingsEnum } from 'core/building/BuildingsEnum';
 import MatrixWorld from 'core/pathfinding/MatrixWorld';
+import { BuyableEnum } from 'core/shop/BuyableEnum';
 import { Depths } from 'enums/Depths';
 import { Events } from 'enums/Events';
 import GameScene from 'scenes/GameScene';
@@ -38,13 +40,22 @@ export default class PathwayTilemap {
         let pointerTileX = this.layer.worldToTileX(worldPoint.x);
         let pointerTileY = this.layer.worldToTileY(worldPoint.y);
 
-        if (this.scene.input.activePointer.isDown) {
+        if (this.scene.input.activePointer.isDown && this.scene.builder.isBuildMode()) {
             let tile = this.layer.getTileAtWorldXY(worldPoint.x, worldPoint.y);
-            if (!tile || tile.index !== 0) {
-                this.layer.fill(0, pointerTileX, pointerTileY, 1, 1);
+            if (this.scene.builder.buildMode === BuildingsEnum.PATHWAY) {
+                if (!tile || tile.index !== 0) {
+                    if (this.scene.shop.canPurchase(BuyableEnum.PATHWAY)) {
+                        let price = this.scene.shop.prices[BuyableEnum.PATHWAY];
+                        this.layer.fill(0, pointerTileX, pointerTileY, 1, 1);
+                        this.scene.events.emit(Events.PATHWAY_PLACED);
+                        this.scene.shop.takeCoins(price);
+                        this.scene.matrixWorld.updateGrid();
+                    }
+                }
+            }
 
-                this.scene.events.emit(Events.PATHWAY_PLACED);
-
+            if (this.scene.builder.buildMode === BuildingsEnum.PATHWAY_DESTROY) {
+                this.layer.removeTileAtWorldXY(worldPoint.x, worldPoint.y);
                 this.scene.matrixWorld.updateGrid();
             }
         }
