@@ -147,7 +147,6 @@ export default class UnitCarrier extends Container {
                     this.updateCarryItem(null);
                     this.targetBuilding = null;
                     this.setUnitState(UnitState.WAITING);
-                    return;
 
                     return;
                 } else {

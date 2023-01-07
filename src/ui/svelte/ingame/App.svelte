@@ -2,6 +2,8 @@
     import GameScene from "scenes/GameScene";
 	import {onDestroy} from "svelte";
 	import './global.css';
+	import CoinBar from "ui/svelte/ingame/CoinBar.svelte";
+	import Shop from "ui/svelte/ingame/shop/Shop.svelte";
 
     export let scene: GameScene;
 
@@ -31,7 +33,8 @@
 <main style="pointer-events: all">
 	<div class="top-bar">
 		<div style="width: 100px; height: 50px; background: red; color: white">
-			{posX}
+			<CoinBar scene="{scene}"></CoinBar>
 		</div>
 	</div>
+	<Shop scene="{scene}"></Shop>
 </main>

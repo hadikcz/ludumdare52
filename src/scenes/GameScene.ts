@@ -1,4 +1,5 @@
 import BuildingHandler from 'core/building/BuildingHandler';
+import Shop from 'core/shop/Shop';
 import UnitHandler from 'core/units/UnitHandler';
 import WorldEnv from 'core/WorldEnv';
 import dat, { GUI } from 'dat.gui';
@@ -22,6 +23,7 @@ export default class GameScene extends Phaser.Scene {
     public xPos$!: Subject<number>;
     public buildingHandler!: BuildingHandler;
     public unitHandler!: UnitHandler;
+    public shop!: Shop;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -46,6 +48,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.unitHandler = new UnitHandler(this);
         this.buildingHandler = new BuildingHandler(this);
+        this.shop = new Shop(this);
 
         this.ui = new UI(this);
     }
