@@ -1,3 +1,4 @@
+import { BuyableEnum } from 'core/shop/BuyableEnum';
 import UnitCarrier from 'core/units/UnitCarrier';
 import GameScene from 'scenes/GameScene';
 
@@ -34,6 +35,15 @@ export default class UnitHandler {
         this.carriers.push(unit);
 
         return unit;
+    }
+
+    purchaseCarrier (): void {
+        let price = this.scene.shop.prices[BuyableEnum.CARRIER];
+        this.scene.shop.takeCoins(price);
+
+        let spawn = this.scene.buildingHandler.findAnyWarehouse();
+
+        this.spawnCarrier(spawn.x, spawn.y);
     }
 
     private tick (): void {

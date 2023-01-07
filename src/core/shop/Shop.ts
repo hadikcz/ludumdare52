@@ -55,7 +55,10 @@ export default class Shop {
             return;
         }
         if (buyable === BuyableEnum.CARRIER) {
+            this.scene.unitHandler.purchaseCarrier();
             console.log('TODO purchase of carrier');
+
+            return;
         }
 
         let building = BuildingShopBuilder.translateBuyableToBuilding(buyable);

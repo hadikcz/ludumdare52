@@ -120,6 +120,16 @@ export default class BuildingHandler {
         return null;
     }
 
+    findAnyWarehouse (): IBuilding {
+        for (const building of this.buildings) {
+            if (building.getType() === BuildingsEnum.WAREHOUSE) {
+                return building;
+            }
+        }
+
+        throw new Error('Warehouse not found');
+    }
+
     findInnWithFood (): BuildingInn|null {
         let inn = this.findAnyInn();
 
