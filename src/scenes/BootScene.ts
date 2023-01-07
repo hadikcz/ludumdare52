@@ -24,11 +24,15 @@ export default class BootScene extends Phaser.Scene {
         }, this);
 
         // LOAD assets HERE
-        this.load.setPath('assets/images');
-        this.load.image('tiles16', 'tiles16.png');
+        this.load.setPath('assets/images/develop');
+        this.load.image('bakery', 'bakery.png');
+        this.load.image('farm', 'farm.png');
+        this.load.image('inn', 'inn.png');
+        this.load.image('mill', 'mill.png');
+        this.load.image('storehouse', 'storehouse.png');
 
         const settings = { frameWidth: 16, frameHeight: 16 };
-        this.load.spritesheet('xxx', 'xxx.png', settings);
+        // this.load.spritesheet('xxx', 'xxx.png', settings);
     }
 
     private startGame (): void {

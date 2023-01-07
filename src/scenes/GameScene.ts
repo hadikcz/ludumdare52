@@ -1,3 +1,4 @@
+import BuildingHandler from 'core/building/BuildingHandler';
 import WorldEnv from 'core/WorldEnv';
 import dat, { GUI } from 'dat.gui';
 import EffectManager from 'effects/EffectManager';
@@ -18,6 +19,7 @@ export default class GameScene extends Phaser.Scene {
     private testObject!: Phaser.GameObjects.Image;
     private controls!: Phaser.Cameras.Controls.SmoothedKeyControl;
     public xPos$!: Subject<number>;
+    private buildingHandler!: BuildingHandler;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -34,11 +36,13 @@ export default class GameScene extends Phaser.Scene {
         this.worldEnv = new WorldEnv(this);
 
         this.cameras.main.setZoom(1);
-        this.cameras.main.setBackgroundColor('#00');
+        this.cameras.main.setBackgroundColor('#3F7B30');
         // this.cameras.main.centerOn(GameConfig.PhaserBasicSettings.gameSize.width / 4, GameConfig.PhaserBasicSettings.gameSize.height / 4);
 
         this.testObject = this.add.image(500, 500, 'tiles16');
         this.effectManager = new EffectManager(this);
+
+        this.buildingHandler = new BuildingHandler(this);
 
         this.ui = new UI(this);
     }

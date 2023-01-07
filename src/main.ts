@@ -6,7 +6,7 @@ import GameScene from 'scenes/GameScene';
 
 declare let __DEV__: any;
 const config = {
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL,
     pixelArt: true,
     roundPixels: true,
     autoRound: true,
@@ -39,6 +39,8 @@ const config = {
 };
 // @ts-ignore
 const game = new Phaser.Game(config);
+// const canvas = document.createElement('canvas');
+// const ctx = canvas.getContext('2d', { willReadFrequently: true });
 //
 // let stats = new Stats();
 // document.body.appendChild(stats.dom);
