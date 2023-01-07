@@ -28,6 +28,14 @@ export default class BuildingInn extends AbstractBuilding implements IBuilding {
 
     }
 
+    hasAvailableFood (): boolean {
+        return this.inputStorage.length > 0;
+    }
+
+    eatFood (): ResourceItem|null {
+        return this.inputStorage.pop() || null;
+    }
+
     protected canSpawnResource (): boolean {
         return false;
     }

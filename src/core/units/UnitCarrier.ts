@@ -1,13 +1,16 @@
 import Container = Phaser.GameObjects.Container;
 import TextStyle = Phaser.GameObjects.TextStyle;
+import BuildingInn from 'core/building/BuildingInn';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import { UnitState } from 'core/units/UnitState';
+import delay from 'delay';
 import TransformHelpers from 'helpers/TransformHelpers';
 import GameScene from 'scenes/GameScene';
 
 export default class UnitCarrier extends Container {
 
+    private static readonly EATING_TIME = 5000;
     private static readonly VELOCITY = 5;
     private stateText!: Phaser.GameObjects.Text;
     private unitState: UnitState = UnitState.WAITING;
@@ -41,18 +44,25 @@ export default class UnitCarrier extends Container {
     secondTick (): void {
         this.hunger -= 1;
 
-        if (this.hunger < 25) {
-            // show hunger
-            console.log('Carrier is hungry');
-        }
-
         if (this.hunger <= 0) {
             this.die();
         }
     }
 
-    tick (): void {
+    async tick (): Promise<void> {
         if (this.unitState === UnitState.WAITING) {
+            if (this.hunger < 25) {
+                // show hunger
+                console.log('Carrier is hungry');
+                console.log('Looking for inn');
+
+                let inn = this.scene.buildingHandler.findInnWithFood();
+                if (inn) {
+                    this.targetBuilding = inn;
+                    this.setUnitState(UnitState.MOVING_TO_INN);
+                }
+            }
+
             let building = this.scene.buildingHandler.findPickUpBuilding();
 
             if (building) {
@@ -62,17 +72,9 @@ export default class UnitCarrier extends Container {
         }
 
         if (this.unitState === UnitState.PICKUP && this.targetBuilding) {
-            let moveTo = TransformHelpers.moveTo(
-                this.x,
-                this.y,
-                this.targetBuilding.x,
-                this.targetBuilding.y,
-                UnitCarrier.VELOCITY
-            );
-            this.setPosition(moveTo.x, moveTo.y);
+            let reached = this.moveToPlace(this.targetBuilding.x, this.targetBuilding.y, UnitCarrier.VELOCITY);
 
-            if (TransformHelpers.getDistanceBetween(this.x, this.y, this.targetBuilding.x, this.targetBuilding.y) < 10) {
-                // on pos
+            if (reached) {
                 this.carringCargo = this.targetBuilding.pickupResource();
                 console.log(this.carringCargo);
                 if (this.carringCargo) {
@@ -94,17 +96,9 @@ export default class UnitCarrier extends Container {
         }
 
         if (this.unitState === UnitState.DELIVERY && this.targetBuilding && this.carringCargo) {
-            let moveTo = TransformHelpers.moveTo(
-                this.x,
-                this.y,
-                this.targetBuilding.x,
-                this.targetBuilding.y,
-                UnitCarrier.VELOCITY
-            );
-            this.setPosition(moveTo.x, moveTo.y);
+            let reached = this.moveToPlace(this.targetBuilding.x, this.targetBuilding.y, UnitCarrier.VELOCITY);
 
-            if (TransformHelpers.getDistanceBetween(this.x, this.y, this.targetBuilding.x, this.targetBuilding.y) < 10) {
-                // on pos
+            if (reached) {
                 let result = this.targetBuilding.tryDelivery(this.carringCargo);
                 if (result) {
                     console.log('Cargo ' + this.carringCargo + ' delivered');
@@ -113,6 +107,25 @@ export default class UnitCarrier extends Container {
                     this.setUnitState(UnitState.WAITING);
                 } else {
                     console.error('Cargo ' + this.carringCargo + ' failed to delivery. TODO: Warehouse -> delivery there');
+                }
+            }
+        }
+
+        if (this.unitState === UnitState.MOVING_TO_INN && this.targetBuilding) {
+            let reached = this.moveToPlace(this.targetBuilding.x, this.targetBuilding.y, UnitCarrier.VELOCITY);
+
+            if (reached) {
+                let inn = this.targetBuilding as BuildingInn;
+                if (inn.hasAvailableFood()) {
+                    if (inn.eatFood()) {
+                        this.setUnitState(UnitState.EATING);
+                        await delay(UnitCarrier.EATING_TIME);
+                        this.resetHunger();
+                        this.setUnitState(UnitState.WAITING);
+                    }
+                } else {
+                    console.info('Unit reached INN but not food left');
+                    this.setUnitState(UnitState.WAITING);
                 }
             }
         }
@@ -138,5 +151,22 @@ export default class UnitCarrier extends Container {
         this.targetBuilding = null;
         this.scene.effectManager.launchFlyText(this.x, this.y, 'DIED');
         this.destroy(true);
+    }
+
+    private moveToPlace (x: number, y: number, velocity: number): boolean {
+        let moveTo = TransformHelpers.moveTo(
+            this.x,
+            this.y,
+            x,
+            y,
+            velocity
+        );
+        this.setPosition(moveTo.x, moveTo.y);
+
+        return TransformHelpers.getDistanceBetween(this.x, this.y, x, y) < 10;
+    }
+
+    private resetHunger (): void {
+        this.hunger = 100;
     }
 }

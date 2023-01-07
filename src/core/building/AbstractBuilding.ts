@@ -44,6 +44,10 @@ export default abstract class AbstractBuilding extends Container {
         this.redraw();
     }
 
+    getType (): BuildingsEnum {
+        return this.buildingType;
+    }
+
     public async cycle (): Promise<void> {
         this.setBuildingState(BuildingStateEnum.WAITING);
         if (this.outputItemType && this.canSpawnResource()) {

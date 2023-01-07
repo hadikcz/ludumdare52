@@ -59,6 +59,25 @@ export default class BuildingHandler {
         return null;
     }
 
+    findInnWithFood (): BuildingInn|null {
+        let inn = this.findAnyInn();
+
+        if (inn && inn.hasAvailableFood()) {
+            return inn;
+        }
+
+        return null;
+    }
+
+    private findAnyInn (): BuildingInn|null {
+        for (const building of this.buildings) {
+            if (building.getType() === BuildingsEnum.INN) {
+                return building as unknown as BuildingInn;
+            }
+        }
+        return null;
+    }
+
     private init (): void {
         this.spawnBuilding(450, 450, BuildingsEnum.FARM);
         this.spawnBuilding(800, 300, BuildingsEnum.MILL);
