@@ -35,6 +35,8 @@ export default class BuildingMill extends AbstractBuilding implements IBuilding 
     }
 
     async cycle (): Promise<void> {
+        if (this.isPaused()) return;
+
         if (this.inputItemType && this.outputItemType && this.canSpawnResource()) {
             this.refreshLastSpawn();
 
@@ -51,6 +53,8 @@ export default class BuildingMill extends AbstractBuilding implements IBuilding 
     }
 
     protected canSpawnResource (): boolean {
+        if (this.isPaused()) return false;
+
         return super.canSpawnResource()
             && this.inputStorage.length > 0;
     }

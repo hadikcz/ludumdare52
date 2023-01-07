@@ -8,6 +8,7 @@
 
     export let scene: GameScene;
 
+    let lastBuilding: IBuilding|null = null;
     let visible = false;
     let buildingName = ''
     let storageSize = 0;
@@ -16,8 +17,9 @@
     let inputStorageItemCount = 0;
     let outputStorageItemCount = 0;
     let inputItemName = ''
-    let outputItemName = ''
-
+    let outputItemName = '';
+    let paused = false;
+    let pausedSubscriber: Subscription;
     let inputStorageSubscriber: Subscription;
     let outputStorageSubscriber: Subscription;
 
@@ -26,12 +28,19 @@
     });
     scene.events.on(Events.UI_BUILDING_OPEN, (building: IBuilding) => {
         scene.events.emit(Events.CLOSE_ALL_MODALS);
+        lastBuilding = building;
         buildingName = building.getName();
+        paused = building.isPaused();
 
         storageSize = building.getStorageSize();
 
         hasInputStorage = !!building.getInputItemType();
         hasOutputStorage = !!building.getOutputItemType();
+
+        pausedSubscriber = building.paused$.subscribe((isPaused: boolean) => {
+            paused = isPaused;
+        });
+        paused = building.isPaused();
 
         inputStorageSubscriber = building.inputStorage$.subscribe(() => {
             inputStorageItemCount = building.getSizeInputStorage()
@@ -58,6 +67,22 @@
             outputStorageSubscriber.unsubscribe();
         }
         visible = false;
+    }
+
+    function destroy(): void {
+        if (!lastBuilding) {
+            return;
+        }
+        lastBuilding.tryDestroy();
+        close();
+    }
+
+    function pauseToggle(): void {
+        if (!lastBuilding) {
+            return;
+        }
+
+        lastBuilding.pauseToggle();
     }
 
 </script>
@@ -167,6 +192,12 @@
                 {buildingName}
             </div>
 
+            {#if paused}
+                <div class="info">
+                    PAUSED
+                </div>
+            {/if}
+
 
             {#if hasInputStorage}
                 <div class="info">
@@ -185,7 +216,7 @@
 
             <div class="button-wrapper tooltip">
                 <div class="button sprite modals-feeder-destroy_button"></div>
-                <button type="button">
+                <button type="button" on:click|stopPropagation={destroy}>
                     Destroy
                     <span class="tooltiptext">
                         Destroy
@@ -195,10 +226,10 @@
 
             <div class="button-wrapper tooltip">
                 <div class="button sprite modals-feeder-destroy_button"></div>
-                <button type="button">
-                    Pause building
+                <button type="button"  on:click|stopPropagation={pauseToggle}>
+                    {#if paused}Resume{:else}Pause{/if} building
                     <span class="tooltiptext">
-                        Pause building
+                        {#if paused}Resume{:else}Pause{/if} building
                     </span>
                 </button>
             </div>

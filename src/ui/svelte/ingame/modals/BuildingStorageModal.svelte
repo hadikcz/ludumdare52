@@ -11,6 +11,8 @@
     export let scene: GameScene;
 
     let muliplier10Enable = false;
+    let paused = false;
+    let pausedSubscriber: Subscription;
     let lastWarehouse: BuildingWarehouse|null = null;
     let visible = false;
     let storageSize = 0;
@@ -33,6 +35,10 @@
             inputStorageItemCount = building.getSizeInputStorage()
             agregatedResources = building.getAgregatedResources();
         });
+        pausedSubscriber = building.paused$.subscribe((isPaused: boolean) => {
+            paused = isPaused;
+        });
+        paused = building.isPaused();
 
 
         inputStorageItemCount = building.getSizeInputStorage()
@@ -58,6 +64,22 @@
         } else {
             lastWarehouse.sell(resource);
         }
+    }
+
+    function destroy(): void {
+        if (!lastWarehouse) {
+            return;
+        }
+        lastWarehouse.tryDestroy();
+        close();
+    }
+
+    function pauseToggle(): void {
+        if (!lastWarehouse) {
+            return;
+        }
+
+        lastWarehouse.pauseToggle();
     }
 
 
@@ -168,6 +190,12 @@
                 Storage
             </div>
 
+            {#if paused}
+                <div class="info">
+                    PAUSED
+                </div>
+            {/if}
+
             <div class="info">
                 {inputStorageItemCount}/{storageSize}
             </div>
@@ -180,7 +208,7 @@
 
             <div class="button-wrapper tooltip">
                 <div class="button sprite modals-feeder-destroy_button"></div>
-                <button type="button">
+                <button type="button" on:click|stopPropagation={destroy}>
                     Destroy
                     <span class="tooltiptext">
                         Destroy
@@ -190,10 +218,10 @@
 
             <div class="button-wrapper tooltip">
                 <div class="button sprite modals-feeder-destroy_button"></div>
-                <button type="button">
-                    Pause building
+                <button type="button"  on:click|stopPropagation={pauseToggle}>
+                    {#if paused}Resume{:else}Pause{/if} building
                     <span class="tooltiptext">
-                        Pause building
+                        {#if paused}Resume{:else}Pause{/if} building
                     </span>
                 </button>
             </div>

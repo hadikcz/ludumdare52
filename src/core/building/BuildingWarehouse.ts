@@ -40,6 +40,7 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
     async cycle (): Promise<void> {}
 
     hasPickupItem (resource?: ResourceItem): boolean {
+        if (this.isPaused()) return false;
         return this.inputStorage.length !== 0 && this.getOutputItemType() !== null;
     }
 
@@ -74,6 +75,7 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
     }
 
     public pickupResource (): ResourceItem|null {
+        if (this.isPaused()) return null;
         // that resource which some building need right now
         let outputItemType = this.getOutputItemType();
 
@@ -92,6 +94,7 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
     }
 
     public canDelivery (): boolean {
+        if (this.isPaused()) return false;
         return this.inputStorage.length < this.storageSize;
     }
 
@@ -106,6 +109,7 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
     }
 
     public getOutputItemType (): ResourceItem|null {
+        if (this.isPaused()) return null;
         // that items which some building need right now
         for (let resource of this.inputStorage) {
             if (this.scene.buildingHandler.findDeliveryBuilding(resource, true)) {

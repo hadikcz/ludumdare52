@@ -10,8 +10,9 @@ import GameScene from 'scenes/GameScene';
 import { Vec2 } from 'types/Vec2';
 import Container = Phaser.GameObjects.Container;
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
+import { IBuilding } from 'core/building/IBuilding';
 
-export default abstract class AbstractBuilding extends Container {
+export default abstract class AbstractBuilding extends Container implements IBuilding {
 
     public inputStorage$: Subject<ResourceItem|null>;
     public outputStorage$: Subject<ResourceItem|null>;
@@ -24,6 +25,9 @@ export default abstract class AbstractBuilding extends Container {
     private inputStorageText!: Phaser.GameObjects.Text;
     private stateText!: Phaser.GameObjects.Text;
     private image: Phaser.GameObjects.Image;
+    private paused: boolean = false;
+    public paused$: Subject<boolean>;
+    private pausedText!: Phaser.GameObjects.Text;
 
     constructor (
         public scene: GameScene,
@@ -39,6 +43,7 @@ export default abstract class AbstractBuilding extends Container {
 
         this.scene.add.existing(this);
 
+        this.paused$ = new Subject<boolean>();
         this.inputStorage$ = new Subject<ResourceItem|null>();
         this.outputStorage$ = new Subject<ResourceItem|null>();
 
@@ -72,6 +77,7 @@ export default abstract class AbstractBuilding extends Container {
     }
 
     public async cycle (): Promise<void> {
+        if (this.paused) return;
         this.setBuildingState(BuildingStateEnum.WAITING);
         if (this.outputItemType && this.canSpawnResource()) {
             this.lastSpawn = Date.now();
@@ -107,6 +113,7 @@ export default abstract class AbstractBuilding extends Container {
     }
 
     public getInputItemType (): ResourceItem|null {
+        if (this.paused) return null;
         return this.inputItemType;
     }
 
@@ -119,6 +126,7 @@ export default abstract class AbstractBuilding extends Container {
     }
 
     public canDelivery (resource: ResourceItem): boolean {
+        if (this.paused) return false;
         return this.inputItemType === resource &&this.inputStorage.length < this.storageSize;
     }
 
@@ -144,6 +152,34 @@ export default abstract class AbstractBuilding extends Container {
         };
     }
 
+    tryDestroy (): void {
+        this.destroy(true);
+    }
+
+    isPaused (): boolean {
+        return this.paused;
+    }
+
+    pause (): void {
+        this.paused = true;
+        this.paused$.next(this.isPaused());
+
+        this.pausedText.setVisible(true);
+    }
+
+    resume (): void {
+        this.paused = true;
+        this.paused$.next(this.isPaused());
+        this.pausedText.setVisible(false);
+    }
+
+    pauseToggle (): void {
+        this.paused = !this.paused;
+        this.paused$.next(this.isPaused());
+
+        this.pausedText.setVisible(this.paused);
+    }
+
     protected canSpawnResource (): boolean {
         return Date.now() - this.lastSpawn > this.delayBetweenSpawn
             && this.outputStorage.length < this.storageSize;
@@ -162,6 +198,10 @@ export default abstract class AbstractBuilding extends Container {
 
         this.stateText = this.scene.add.text(0, 60, 'STATE: N/A', { ...style, color: '#000000', fontSize: '12px' }).setOrigin(0.5, 0);
         this.add(this.stateText);
+
+
+        this.pausedText = this.scene.add.text(0, 20, 'PAUSED', { ...style, color: '#000000', fontSize: '12px' }).setOrigin(0.5, 0).setVisible(false);
+        this.add(this.pausedText);
 
         if (this.outputItemType) {
             this.outputStorageText = this.scene.add.text(50, -50, 'OUT: 0/' + this.storageSize, { ...style,color: '#00FF00' });

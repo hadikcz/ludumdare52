@@ -1,4 +1,3 @@
-import AbstractBuilding from 'core/building/AbstractBuilding';
 import BuildingBakery from 'core/building/BuildingBakery';
 import BuildingFarm from 'core/building/BuildingFarm';
 import BuildingInn from 'core/building/BuildingInn';
@@ -15,7 +14,7 @@ import GameScene from 'scenes/GameScene';
 export default class BuildingHandler {
 
     public static readonly DEFAULT_STORAGE = 5;
-    public buildings: AbstractBuilding[] = [];
+    public buildings: IBuilding[] = [];
 
     public findBuilding;
     public findBuildingTo;
@@ -177,6 +176,13 @@ export default class BuildingHandler {
         if (!building) {
             return null;
         }
+
+        building.on('destroy', () => {
+            let i = this.buildings.indexOf(building);
+            if (i !== -1) {
+                this.buildings.splice(i, 1);
+            }
+        });
 
         this.buildings.push(building);
 
