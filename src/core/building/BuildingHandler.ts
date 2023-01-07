@@ -4,6 +4,7 @@ import BuildingFarm from 'core/building/BuildingFarm';
 import BuildingInn from 'core/building/BuildingInn';
 import BuildingMill from 'core/building/BuildingMill';
 import { BuildingsEnum } from 'core/building/BuildingsEnum';
+import BuildingWarehouse from 'core/building/BuildingWarehouse';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import GameScene from 'scenes/GameScene';
@@ -38,8 +39,8 @@ export default class BuildingHandler {
 
     findPickUpBuilding (): IBuilding|null {
         for (const building of this.buildings) {
+            let deliveryItemType = building.getOutputItemType();
             if (building.hasPickupItem()) {
-                let deliveryItemType = building.getOutputItemType();
                 if (deliveryItemType && this.findDeliveryBuilding(deliveryItemType)) {
                     return building;
                 }
@@ -49,8 +50,12 @@ export default class BuildingHandler {
         return null;
     }
 
-    findDeliveryBuilding (resource: ResourceItem): IBuilding|null {
+    findDeliveryBuilding (resource: ResourceItem, skipWarehouse: boolean = false): IBuilding|null {
         for (const building of this.buildings) {
+            if (skipWarehouse && building.getType() === BuildingsEnum.WAREHOUSE) {
+                continue;
+            }
+
             if (building.canDelivery(resource)) {
                 return building;
             }
@@ -79,10 +84,12 @@ export default class BuildingHandler {
     }
 
     private init (): void {
-        this.spawnBuilding(450, 450, BuildingsEnum.FARM);
+        // this.spawnBuilding(450, 450, BuildingsEnum.FARM);
+        // this.spawnBuilding(350, 650, BuildingsEnum.FARM);
         this.spawnBuilding(800, 300, BuildingsEnum.MILL);
-        this.spawnBuilding(800, 550, BuildingsEnum.BAKERY);
-        this.spawnBuilding(550, 200, BuildingsEnum.INN);
+        // this.spawnBuilding(800, 550, BuildingsEnum.BAKERY);
+        // this.spawnBuilding(550, 200, BuildingsEnum.INN);
+        this.spawnBuilding(850, 100, BuildingsEnum.WAREHOUSE);
     }
 
     private spawnBuilding (
@@ -104,6 +111,9 @@ export default class BuildingHandler {
                 break;
             case BuildingsEnum.INN:
                 building = new BuildingInn(this.scene, x, y);
+                break;
+            case BuildingsEnum.WAREHOUSE:
+                building = new BuildingWarehouse(this.scene, x, y);
                 break;
         }
 

@@ -1,6 +1,7 @@
 import Container = Phaser.GameObjects.Container;
 import TextStyle = Phaser.GameObjects.TextStyle;
 import BuildingInn from 'core/building/BuildingInn';
+import { BuildingsEnum } from 'core/building/BuildingsEnum';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import { UnitState } from 'core/units/UnitState';
@@ -78,16 +79,24 @@ export default class UnitCarrier extends Container {
                 this.carringCargo = this.targetBuilding.pickupResource();
                 console.log(this.carringCargo);
                 if (this.carringCargo) {
-                    this.setUnitState(UnitState.LOOKING_FOR_DELIVERY_TARGET);
+                    if (this.targetBuilding.getType() ===BuildingsEnum.WAREHOUSE) {
+                        this.setUnitState(UnitState.LOOKING_FOR_DELIVERY_TARGET_EXCEPT_WAREHOUSE);
+                    } else {
+                        this.setUnitState(UnitState.LOOKING_FOR_DELIVERY_TARGET);
+                    }
                     this.targetBuilding = null;
                 } else {
                     this.setUnitState(UnitState.WAITING);
+
+                    return;
                 }
             }
         }
 
-        if (this.unitState === UnitState.LOOKING_FOR_DELIVERY_TARGET && this.carringCargo) {
-            this.targetBuilding = this.scene.buildingHandler.findDeliveryBuilding(this.carringCargo);
+        if ((this.unitState === UnitState.LOOKING_FOR_DELIVERY_TARGET || this.unitState === UnitState.LOOKING_FOR_DELIVERY_TARGET_EXCEPT_WAREHOUSE) && this.carringCargo) {
+            let skipWarehouse = this.unitState === UnitState.LOOKING_FOR_DELIVERY_TARGET_EXCEPT_WAREHOUSE;
+
+            this.targetBuilding = this.scene.buildingHandler.findDeliveryBuilding(this.carringCargo, skipWarehouse);
             if (this.targetBuilding) {
                 this.setUnitState(UnitState.DELIVERY);
             } else {
@@ -105,6 +114,8 @@ export default class UnitCarrier extends Container {
                     this.carringCargo = null;
                     this.targetBuilding = null;
                     this.setUnitState(UnitState.WAITING);
+
+                    return;
                 } else {
                     console.error('Cargo ' + this.carringCargo + ' failed to delivery. TODO: Warehouse -> delivery there');
                 }
@@ -122,10 +133,14 @@ export default class UnitCarrier extends Container {
                         await delay(UnitCarrier.EATING_TIME);
                         this.resetHunger();
                         this.setUnitState(UnitState.WAITING);
+
+                        return;
                     }
                 } else {
                     console.info('Unit reached INN but not food left');
                     this.setUnitState(UnitState.WAITING);
+
+                    return;
                 }
             }
         }
@@ -143,6 +158,7 @@ export default class UnitCarrier extends Container {
     }
 
     private setUnitState (state: UnitState): void {
+        console.info('UNIT set state: ' + state);
         this.unitState = state;
     }
 
