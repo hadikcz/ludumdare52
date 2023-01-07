@@ -43,6 +43,31 @@ export default class BuildingHandler {
         });
     }
 
+    getTotalAgregatedResources (): number[] {
+        let resources: number[] = [];
+
+        for (let building of this.buildings) {
+            if (building.getType() !== BuildingsEnum.WAREHOUSE) {
+                continue;
+            }
+
+            let warehouse = building as BuildingWarehouse;
+            let res = warehouse.getAgregatedResources();
+
+            for (let resource in res) {
+                let amount = res[resource];
+
+                if (resources[resource] === undefined) {
+                    resources[resource] = 0;
+                }
+                resources[resource] += amount;
+            }
+        }
+
+        console.log(resources);
+        return resources;
+    }
+
     private init (): void {
         this.spawnBuilding(450, 450, BuildingsEnum.FARM);
         // this.spawnBuilding(350, 650, BuildingsEnum.FARM);

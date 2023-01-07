@@ -8,6 +8,8 @@
 	import BuildingRegularModal from "ui/svelte/ingame/modals/BuildingRegularModal.svelte";
 	import BuildingStorageModal from "ui/svelte/ingame/modals/BuildingStorageModal.svelte";
 	import UnitModal from "ui/svelte/ingame/modals/UnitModal.svelte";
+	import UnitBar from "ui/svelte/ingame/UnitBar.svelte";
+	import ResourceBar from "ui/svelte/ingame/ResourceBar.svelte";
 
     export let scene: GameScene;
 
@@ -31,8 +33,9 @@
 
 <main style="pointer-events: all">
 	<div class="top-bar">
-		<div style="width: 100px; height: 50px; background: red; color: white">
+		<div style="width: 400px; height: 50px; color: white">
 			<CoinBar scene="{scene}"></CoinBar>
+			<UnitBar scene="{scene}"></UnitBar>
 		</div>
 	</div>
 	<BuildingRegularModal scene="{scene}"></BuildingRegularModal>
@@ -40,4 +43,5 @@
 	<Shop scene="{scene}"></Shop>
 	<BuildingInfo scene="{scene}"></BuildingInfo>
 	<UnitModal scene="{scene}"></UnitModal>
+	<ResourceBar scene="{scene}"></ResourceBar>
 </main>
