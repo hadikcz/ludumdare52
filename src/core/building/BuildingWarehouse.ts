@@ -3,6 +3,7 @@ import { BuildingsEnum } from 'core/building/BuildingsEnum';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import GameScene from 'scenes/GameScene';
+import { Vec2 } from 'types/Vec2';
 
 export default class BuildingWarehouse extends AbstractBuilding implements IBuilding {
 
@@ -26,6 +27,13 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
         this.inputStorage.push(ResourceItem.WHEAT);
         this.inputStorage.push(ResourceItem.WHEAT);
         this.inputStorage.push(ResourceItem.WHEAT);
+    }
+
+    getDoorSpot (): Vec2 {
+        return {
+            x: this.x + 0,
+            y: this.y + 60
+        };
     }
 
     async cycle (): Promise<void> {}

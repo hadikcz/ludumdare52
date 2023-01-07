@@ -21,6 +21,7 @@ export default class UnitCarrier extends Container {
 
     private targetBuilding: IBuilding|null = null;
     private carryItemImage: Phaser.GameObjects.Image;
+    protected path: Vector2[] = [];
 
     constructor (
         public scene: GameScene,
@@ -30,6 +31,9 @@ export default class UnitCarrier extends Container {
         super(scene, x, y, []);
 
         this.scene.add.existing(this);
+        this.scene.physics.world.enable(this);
+        // let body = this.body as Phaser.Physics.Arcade.Body;
+        // body.setFriction(100, 100);
 
         this.scene = scene;
 
@@ -44,6 +48,10 @@ export default class UnitCarrier extends Container {
     }
 
     preUpdate (): void {
+        // if (this.body === undefined || this.body.velocity === undefined) {
+        //     return;
+        // }
+
         this.tick();
         this.redraw();
     }
@@ -56,7 +64,51 @@ export default class UnitCarrier extends Container {
         }
     }
 
+    private async move (): Promise<void> {
+        // let body = this.body as Phaser.Physics.Arcade.Body;
+
+        if (this.path.length > 0) {
+            // console.log('move ' + this.path.length);
+            let currentTarget = this.path[0];
+            // if (Phaser.Math.Distance.Between(currentTarget.x, currentTarget.y, this.x, this.y) <= 10) {
+            //     this.path.shift();
+            // }
+            // let move = this.scene.physics.moveTo(this, currentTarget.x, currentTarget.y, 70);
+            let reached = this.moveToPlace(currentTarget.x, currentTarget.y, UnitCarrier.VELOCITY);
+            if (reached) {
+                console.log('reached');
+                console.log(this.path);
+                this.path.shift();
+            }
+
+        } else {
+            console.log('not move');
+            // body.setVelocity(0, 0);
+
+            // console.log('reach target');
+            // this.stateAiEnds();
+            // this.reachTarget();
+        }
+    }
+
+    private async findPath (x: number, y: number): Promise<Vector2[]|null> {
+        let result = await this.scene.matrixWorld.findPathAsync(this.x, this.y, x, y);
+        if (result.success) {
+            result.path.splice(0, 2); // first point is me, skip it
+            return result.path;
+        }
+        return null;
+    }
+
     async tick (): Promise<void> {
+        if (
+            this.unitState === UnitState.DELIVERY
+            || this.unitState === UnitState.PICKUP
+            || this.unitState === UnitState.MOVING_TO_INN
+        ) {
+            this.move();
+        }
+
         if (this.unitState === UnitState.WAITING) {
             if (this.hunger < 25) {
                 // show hunger
@@ -83,7 +135,13 @@ export default class UnitCarrier extends Container {
         }
 
         if (this.unitState === UnitState.PICKUP && this.targetBuilding) {
-            let reached = this.moveToPlace(this.targetBuilding.x, this.targetBuilding.y, UnitCarrier.VELOCITY);
+            let target = this.targetBuilding.getDoorSpot();
+            let path = await this.findPath(target.x, target.y);
+            if (!path) {
+                throw new Error('path not found');
+            }
+            this.path = path;
+            let reached = this.didReachedTarget(target.x, target.y);
 
             if (reached) {
                 let cargo = this.targetBuilding.pickupResource();
@@ -139,9 +197,16 @@ export default class UnitCarrier extends Container {
         }
 
         if (this.unitState === UnitState.DELIVERY && this.targetBuilding && this.carringCargo) {
-            let reached = this.moveToPlace(this.targetBuilding.x, this.targetBuilding.y, UnitCarrier.VELOCITY);
+            let target = this.targetBuilding.getDoorSpot();
+            let path = await this.findPath(target.x, target.y);
+            if (!path) {
+                throw new Error('path not found');
+            }
+            this.path = path;
+            let reached = this.didReachedTarget(target.x, target.y);
 
             if (reached) {
+                console.log('reached delivery');
                 let result = this.targetBuilding.tryDelivery(this.carringCargo);
                 console.log(result);
                 if (result) {
@@ -160,7 +225,13 @@ export default class UnitCarrier extends Container {
         }
 
         if (this.unitState === UnitState.MOVING_TO_INN && this.targetBuilding) {
-            let reached = this.moveToPlace(this.targetBuilding.x, this.targetBuilding.y, UnitCarrier.VELOCITY);
+            let target = this.targetBuilding.getDoorSpot();
+            let path = await this.findPath(target.x, target.y);
+            if (!path) {
+                throw new Error('path not found');
+            }
+            this.path = path;
+            let reached = this.didReachedTarget(target.x, target.y);
 
             if (reached) {
                 console.log('reached inn');
@@ -219,7 +290,20 @@ export default class UnitCarrier extends Container {
         );
         this.setPosition(moveTo.x, moveTo.y);
 
-        return TransformHelpers.getDistanceBetween(this.x, this.y, x, y) < 10;
+        console.log(TransformHelpers.getDistanceBetween(this.x, this.y, x, y));
+
+        return TransformHelpers.getDistanceBetween(this.x, this.y, x, y) < 5;
+    }
+
+    private didReachedTarget (x: number, y: number): boolean {
+        // console.log([
+        //     this.path.length === 0,
+        //     this.path.length
+        // ]);
+        if (this.path.length <= 1) {
+            return true;
+        }
+        return TransformHelpers.getDistanceBetween(this.x, this.y, x, y) < 5;
     }
 
     private resetHunger (): void {

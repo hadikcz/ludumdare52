@@ -4,7 +4,11 @@ import MatrixWorld from 'core/pathfinding/MatrixWorld';
 
 export default class EasyStarAdapter {
 
-    private static readonly ACCEPTABLE_TILES: number[] = [1];
+
+    public static readonly BLOCK_TILE = 0;
+    public static readonly WALKABLE_TILE = 1;
+    public static readonly PATH_TILE = 2;
+    private static readonly ACCEPTABLE_TILES: number[] = [0, 1, 2];
     private easyStar;
 
     constructor () {
@@ -13,6 +17,10 @@ export default class EasyStarAdapter {
         this.easyStar.enableSync();
         this.easyStar.enableDiagonals();
         this.easyStar.enableCornerCutting();
+
+        this.easyStar.setTileCost(EasyStarAdapter.BLOCK_TILE, 5000);
+        this.easyStar.setTileCost(EasyStarAdapter.WALKABLE_TILE, 50);
+        this.easyStar.setTileCost(EasyStarAdapter.PATH_TILE, 0);
     }
 
     setGrid (data: integer[][]): void {

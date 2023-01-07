@@ -4,6 +4,7 @@ import { BuildingsEnum } from 'core/building/BuildingsEnum';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import GameScene from 'scenes/GameScene';
+import { Vec2 } from 'types/Vec2';
 
 export default class BuildingFarm extends AbstractBuilding implements IBuilding {
 
@@ -21,5 +22,12 @@ export default class BuildingFarm extends AbstractBuilding implements IBuilding 
             BuildingsEnum.FARM,
             ResourceItem.WHEAT
         );
+    }
+
+    getDoorSpot (): Vec2 {
+        return {
+            x: this.x -25,
+            y: this.y + 60
+        };
     }
 }

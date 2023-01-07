@@ -25,7 +25,7 @@ export default class GameScene extends Phaser.Scene {
     public unitHandler!: UnitHandler;
     public shop!: Shop;
     public builder!: Builder;
-    private matrixWorld!: MatrixWorld;
+    public matrixWorld!: MatrixWorld;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -54,6 +54,8 @@ export default class GameScene extends Phaser.Scene {
         this.shop = new Shop(this);
 
         this.ui = new UI(this);
+
+        this.matrixWorld.updateGrid();
     }
 
     update (time, delta): void {

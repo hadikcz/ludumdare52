@@ -6,6 +6,7 @@ import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import delay from 'delay';
 import GameScene from 'scenes/GameScene';
+import { Vec2 } from 'types/Vec2';
 
 export default class BuildingBakery extends AbstractBuilding implements IBuilding {
 
@@ -24,6 +25,13 @@ export default class BuildingBakery extends AbstractBuilding implements IBuildin
             ResourceItem.BREAD,
             ResourceItem.FLOUR,
         );
+    }
+
+    getDoorSpot (): Vec2 {
+        return {
+            x: this.x + 30,
+            y: this.y + 60
+        };
     }
 
     async cycle (): Promise<void> {

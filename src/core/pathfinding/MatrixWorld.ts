@@ -52,6 +52,10 @@ export default class MatrixWorld {
         window.clearTilesAndSave = this.clearTilesAndSave.bind(this);
     }
 
+    applyTilemapToEasyStar(): void {
+        this.EasyStarAdapter.setGrid(this.tileMapToArray());
+    }
+
     findPath (x1: number, y1: number, x2: number, y2: number, callback: FindPathCallback, nearestFallback: boolean = false, callbackContext: any): void {
         this.EasyStarAdapter.findPath(x1, y1, x2, y2, (success, points) => {
             if(!success && nearestFallback) {
@@ -96,6 +100,37 @@ export default class MatrixWorld {
         }
     }
 
+    updateGrid(): void {
+        this.fillGrid();
+
+        for (let building of this.scene.buildingHandler.buildings) {
+            let bounds = building.getBounds();
+            let points = bounds.getPoints(64);
+            for (let point of points) {
+                this.debugGridLayer.putTileAtWorldXY(EasyStarAdapter.BLOCK_TILE, point.x, point.y);
+            }
+
+            let door = building.getDoorSpot();
+            this.debugGridLayer.putTileAtWorldXY(
+                EasyStarAdapter.PATH_TILE,
+                door.x,
+                door.y
+            );
+            this.debugGridLayer.putTileAtWorldXY(
+                EasyStarAdapter.PATH_TILE,
+                door.x,
+                door.y + 16
+            );
+            this.debugGridLayer.putTileAtWorldXY(
+                EasyStarAdapter.PATH_TILE,
+                door.x,
+                door.y + 32
+            );
+        }
+
+        this.EasyStarAdapter.setGrid(this.tileMapToArray());
+    }
+
     public isDebug(): boolean {
         return this.showTilemap;
     }
@@ -111,14 +146,13 @@ export default class MatrixWorld {
         // this.debugGridLayer.forEachTile()
         // this.debugGridLayer.putTilesAt(MatrixWorld.getRawTiles(), 0, 0);
         // this.loadTileMapFromSession();
-        this.fillAllWalkable();
-    }
+        // this.fillAllWalkable();
 
-    private fillAllWalkable(): void {
         this.debugGridLayer.forEachTile((tile) => {
-           tile.index = 1;
+            tile.index = 1;
         });
     }
+
 
     public saveTileMapIntoSession (): void {
         let tiles = this.tileMapToArray();
@@ -175,6 +209,7 @@ export default class MatrixWorld {
         collisionMask.add(this, 'loadTileMapFromSession');
         collisionMask.add(this, 'clearTilesAndSave');
         collisionMask.add(this, 'toogleShowMinimap');
+        collisionMask.add(this, 'applyTilemapToEasyStar');
         collisionMask.add(this, 'debugFillIndex', [0, 1, 2]);
         collisionMask.open();
     }

@@ -6,6 +6,7 @@ import GameScene from 'scenes/GameScene';
 import Container = Phaser.GameObjects.Container;
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
 import { Depths } from 'enums/Depths';
+import { Vec2 } from 'types/Vec2';
 
 export default abstract class AbstractBuilding extends Container {
 
@@ -88,6 +89,14 @@ export default abstract class AbstractBuilding extends Container {
 
     getImageBounds (): Phaser.Geom.Rectangle {
         return this.getBounds();
+    }
+
+    getDoorSpot (): Vec2 {
+        const bounds = this.getBounds();
+        return {
+            x: bounds.centerX,
+            y: bounds.bottom - 16
+        };
     }
 
     protected canSpawnResource (): boolean {
