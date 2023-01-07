@@ -95,7 +95,6 @@ export default class Builder {
     }
 
     private canPlaceIntersectionCheck (): boolean {
-        return true;
         // let bounds = this.previewImage.getBounds();
         //
         // if (!this.scene.matrixWorld.isTileAvailable(bounds.left, bounds.top)) {
@@ -111,17 +110,17 @@ export default class Builder {
         //     return false;
         // }
         //
-        // // @ts-ignore
-        // for (let object: IBuildingBounds of this.scene.feederManager.feeders.getChildren()) {
-        //     if (Phaser.Geom.Intersects.RectangleToRectangle(
-        //         this.previewImage.getBounds(),
-        //         // @ts-ignore
-        //         object.getImageBounds()
-        //     )) {
-        //         return false;
-        //     }
-        // }
-        // return true; // @TODO
+        // @ts-ignore
+        for (let object: IBuildingBounds of this.scene.buildingHandler.buildings) {
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.previewImage.getBounds(),
+                // @ts-ignore
+                object.getImageBounds()
+            )) {
+                return false;
+            }
+        }
+        return true; // @TODO
     }
 
     private getFrameFromBuilding (building: BuildingsEnum): string|null {

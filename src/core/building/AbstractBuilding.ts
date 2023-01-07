@@ -86,6 +86,10 @@ export default abstract class AbstractBuilding extends Container {
         return true;
     }
 
+    getImageBounds (): Phaser.Geom.Rectangle {
+        return this.getBounds();
+    }
+
     protected canSpawnResource (): boolean {
         return Date.now() - this.lastSpawn > this.delayBetweenSpawn
             && this.outputStorage.length < this.storageSize;
