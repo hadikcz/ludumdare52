@@ -38,13 +38,6 @@ export default class Shop {
         this.names[BuyableEnum.WAREHOUSE] = 'Warehouse';
         this.names[BuyableEnum.PATHWAY] = 'Pathway';
         this.names[BuyableEnum.PATHWAY_DESTROY] = 'Pathway destroy';
-
-        this.resources[ResourceItem.WHEAT] = 'Wheat';
-        this.resources[ResourceItem.FLOUR] = 'Flour';
-        this.resources[ResourceItem.BREAD] = 'Bread';
-        this.resources[ResourceItem.PIG] = 'Pig';
-        this.resources[ResourceItem.MEAT] = 'Meat';
-        this.resources[ResourceItem.SAUSAGE] = 'Sausage';
     }
 
     addCoins (coins: number): void {
@@ -87,4 +80,35 @@ export default class Shop {
         // @TODO: CHECK if can pruchase it (coins);
         this.scene.builder.startBuild(building);
     }
+}
+
+
+export function GetResourceName (resource: ResourceItem|null) {
+    if (!resource) return null;
+    let resources: string[] = [];
+    resources[ResourceItem.WHEAT] = 'Wheat';
+    resources[ResourceItem.FLOUR] = 'Flour';
+    resources[ResourceItem.BREAD] = 'Bread';
+    resources[ResourceItem.PIG] = 'Pig';
+    resources[ResourceItem.MEAT] = 'Meat';
+    resources[ResourceItem.SAUSAGE] = 'Sausage';
+
+    return resources[resource];
+}
+
+export function GetResourceSellPrice (resource: ResourceItem|null, muliplier10Enable = false) {
+    if (!resource) return null;
+    let resources: number[] = [];
+    resources[ResourceItem.WHEAT] = 1;
+    resources[ResourceItem.FLOUR] = 2;
+    resources[ResourceItem.BREAD] = 5;
+    resources[ResourceItem.PIG] = 'Pig';
+    resources[ResourceItem.MEAT] = 'Meat';
+    resources[ResourceItem.SAUSAGE] = 'Sausage';
+
+    let price = resources[resource];
+    if (muliplier10Enable) {
+        return price * 10;
+    }
+    return price;
 }

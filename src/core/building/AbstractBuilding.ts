@@ -1,15 +1,15 @@
 import BuildingHandler from 'core/building/BuildingHandler';
 import { BuildingsEnum } from 'core/building/BuildingsEnum';
+import BuildingShopBuilder from 'core/building/BuildingShopBuilder';
 import { BuildingStateEnum } from 'core/building/BuildingStateEnum';
 import { ResourceItem } from 'core/resources/ResourceItem';
-import GameScene from 'scenes/GameScene';
-import Container = Phaser.GameObjects.Container;
-import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
-import BuildingShopBuilder from 'core/building/BuildingShopBuilder';
 import { Depths } from 'enums/Depths';
 import { Events } from 'enums/Events';
 import { Subject } from 'rxjs';
+import GameScene from 'scenes/GameScene';
 import { Vec2 } from 'types/Vec2';
+import Container = Phaser.GameObjects.Container;
+import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
 
 export default abstract class AbstractBuilding extends Container {
 
@@ -54,7 +54,12 @@ export default abstract class AbstractBuilding extends Container {
             if (this.scene.input.activePointer.downElement.localName !== 'canvas') {
                 return;
             }
-            this.scene.events.emit(Events.UI_BUILDING_OPEN, this);
+
+            if (this.getType() === BuildingsEnum.WAREHOUSE) {
+                this.scene.events.emit(Events.UI_WAREHOUSE_OPEN, this);
+            } else {
+                this.scene.events.emit(Events.UI_BUILDING_OPEN, this);
+            }
         });
     }
 

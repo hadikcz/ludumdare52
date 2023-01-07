@@ -4,48 +4,38 @@
     import {Events} from "enums/Events";
     import {IBuilding} from "core/building/IBuilding";
     import {Subscription} from "rxjs";
-    import {GetResourceName} from "core/shop/Shop";
+    import BuildingWarehouse from "core/building/BuildingWarehouse";
+    import {GetResourceName, GetResourceSellPrice} from "core/shop/Shop";
+    import {ResourceItem} from "core/resources/ResourceItem";
 
     export let scene: GameScene;
 
+    let muliplier10Enable = false;
+    let lastWarehouse: BuildingWarehouse|null = null;
     let visible = false;
-    let buildingName = ''
     let storageSize = 0;
-    let hasInputStorage = false;
-    let hasOutputStorage = false;
     let inputStorageItemCount = 0;
-    let outputStorageItemCount = 0;
-    let inputItemName = ''
-    let outputItemName = ''
+    let agregatedResources: number[] = [];
 
     let inputStorageSubscriber: Subscription;
-    let outputStorageSubscriber: Subscription;
 
     scene.events.on(Events.CLOSE_ALL_MODALS, () => {
         close();
     });
-    scene.events.on(Events.UI_BUILDING_OPEN, (building: IBuilding) => {
+    scene.events.on(Events.UI_WAREHOUSE_OPEN, (building: BuildingWarehouse) => {
         scene.events.emit(Events.CLOSE_ALL_MODALS);
-        buildingName = building.getName();
+        lastWarehouse = building
 
         storageSize = building.getStorageSize();
 
-        hasInputStorage = !!building.getInputItemType();
-        hasOutputStorage = !!building.getOutputItemType();
-
+        agregatedResources = building.getAgregatedResources();
         inputStorageSubscriber = building.inputStorage$.subscribe(() => {
             inputStorageItemCount = building.getSizeInputStorage()
+            agregatedResources = building.getAgregatedResources();
         });
 
-        outputStorageSubscriber = building.outputStorage$.subscribe(() => {
-            outputStorageItemCount = building.getSizeOutputStorage()
-        });
 
         inputStorageItemCount = building.getSizeInputStorage()
-        outputStorageItemCount = building.getSizeOutputStorage()
-
-        inputItemName = GetResourceName(building.getInputItemType());
-        outputItemName = GetResourceName(building.getOutputItemType());
         visible = true;
 
     });
@@ -54,11 +44,22 @@
         if (inputStorageSubscriber) {
             inputStorageSubscriber.unsubscribe();
         }
-        if (outputStorageSubscriber) {
-            outputStorageSubscriber.unsubscribe();
-        }
+        lastWarehouse = null;
         visible = false;
     }
+
+    function sell(resource: ResourceItem): void {
+        if (!lastWarehouse) return;
+
+        if (muliplier10Enable) {
+            for (let i = 0; i < 10; i++) {
+                lastWarehouse.sell(resource);
+            }
+        } else {
+            lastWarehouse.sell(resource);
+        }
+    }
+
 
 </script>
 
@@ -164,24 +165,18 @@
         <div class="sprite modals-well-bg bg"></div>
         <div class="inside">
             <div class="title">
-                {buildingName}
+                Storage
             </div>
 
-
-            {#if hasInputStorage}
-                <div class="info">
-                    Import ({inputItemName})
-                </div>
+            <div class="info">
                 {inputStorageItemCount}/{storageSize}
-            {/if}
-            {#if hasOutputStorage}
-                <div class="info">
-                    Export ({outputItemName}
-                </div>
-                {outputStorageItemCount}/{storageSize}
-            {/if}
+            </div>
 
+            {#each Object.entries(agregatedResources) as [resourceType, amount]}
+                {GetResourceName(resourceType)} - {amount} <button type="button"  on:click|stopPropagation={sell(resourceType)}>SELL {GetResourceSellPrice(resourceType, muliplier10Enable)} coins</button>
+            {/each}
 
+            <button type="button" on:click={() => muliplier10Enable = !muliplier10Enable}>x10</button>
 
             <div class="button-wrapper tooltip">
                 <div class="button sprite modals-feeder-destroy_button"></div>
