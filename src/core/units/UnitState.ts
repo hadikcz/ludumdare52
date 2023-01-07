@@ -4,6 +4,6 @@ export enum UnitState {
     LOOKING_FOR_DELIVERY_TARGET = 'look for delivery',
     LOOKING_FOR_DELIVERY_TARGET_EXCEPT_WAREHOUSE = 'look for delivery ex warhouse',
     DELIVERY = 'delivery',
-    MOVING_TO_INN = 'to inn',
+    MOVING_TO_INN = 'moving to inn',
     EATING = 'eating'
 }

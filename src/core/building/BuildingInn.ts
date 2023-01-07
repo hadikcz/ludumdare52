@@ -21,6 +21,11 @@ export default class BuildingInn extends AbstractBuilding implements IBuilding {
             null,
             ResourceItem.BREAD,
         );
+
+        this.inputStorage = [
+            ResourceItem.BREAD,
+            ResourceItem.BREAD,
+        ];
     }
 
     async cycle (): Promise<void> {

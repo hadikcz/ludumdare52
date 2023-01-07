@@ -16,9 +16,10 @@ export default class UnitCarrier extends Container {
     private stateText!: Phaser.GameObjects.Text;
     private unitState: UnitState = UnitState.WAITING;
     private carringCargo: ResourceItem|null = null;
-    private hunger: number = 100;
+    private hunger: number = 28;
 
     private targetBuilding: IBuilding|null = null;
+    private carryItemImage: Phaser.GameObjects.Image;
 
     constructor (
         public scene: GameScene,
@@ -33,6 +34,9 @@ export default class UnitCarrier extends Container {
 
         let unitImage = this.scene.add.image(0, 0, 'carrier');
         this.add(unitImage);
+
+        this.carryItemImage = this.scene.add.image(0, 0, 'flour');
+        this.add(this.carryItemImage);
 
         this.draw();
     }
@@ -61,14 +65,18 @@ export default class UnitCarrier extends Container {
                 if (inn) {
                     this.targetBuilding = inn;
                     this.setUnitState(UnitState.MOVING_TO_INN);
+
+                    return;
                 }
             }
 
-            let building = this.scene.buildingHandler.findPickUpBuilding();
+            let building = this.scene.buildingHandler.findPickupBuildingNearest(this.x, this.y);
 
             if (building) {
                 this.targetBuilding = building;
                 this.setUnitState(UnitState.PICKUP);
+
+                return;
             }
         }
 
@@ -76,8 +84,9 @@ export default class UnitCarrier extends Container {
             let reached = this.moveToPlace(this.targetBuilding.x, this.targetBuilding.y, UnitCarrier.VELOCITY);
 
             if (reached) {
-                this.carringCargo = this.targetBuilding.pickupResource();
-                console.log(this.carringCargo);
+                let cargo = this.targetBuilding.pickupResource();
+                this.updateCarryItem(cargo);
+
                 if (this.carringCargo) {
                     if (this.targetBuilding.getType() ===BuildingsEnum.WAREHOUSE) {
                         this.setUnitState(UnitState.LOOKING_FOR_DELIVERY_TARGET_EXCEPT_WAREHOUSE);
@@ -103,7 +112,7 @@ export default class UnitCarrier extends Container {
             } else {
                 console.error('NO free delivery spot FOUND!! Destroing item');
 
-                this.carringCargo = null;
+                this.updateCarryItem(null);
                 this.targetBuilding = null;
                 this.setUnitState(UnitState.WAITING);
 
@@ -117,6 +126,7 @@ export default class UnitCarrier extends Container {
             this.targetBuilding = this.scene.buildingHandler.findDeliveryBuilding(this.carringCargo, skipWarehouse);
             if (this.targetBuilding) {
                 this.setUnitState(UnitState.DELIVERY);
+                return;
             } else {
                 // console.error('Cargo ' + this.carringCargo + ' failed to find building to delivery. TODO: Warehouse -> delivery there');
                 console.info('ERROR A: Cargo ' + this.carringCargo + ' failed to delivery. Rerouting to warehouse');
@@ -134,9 +144,10 @@ export default class UnitCarrier extends Container {
                 console.log(result);
                 if (result) {
                     console.log('Cargo ' + this.carringCargo + ' delivered');
-                    this.carringCargo = null;
+                    this.updateCarryItem(null);
                     this.targetBuilding = null;
                     this.setUnitState(UnitState.WAITING);
+                    return;
 
                     return;
                 } else {
@@ -151,9 +162,12 @@ export default class UnitCarrier extends Container {
             let reached = this.moveToPlace(this.targetBuilding.x, this.targetBuilding.y, UnitCarrier.VELOCITY);
 
             if (reached) {
+                console.log('reached inn');
                 let inn = this.targetBuilding as BuildingInn;
                 if (inn.hasAvailableFood()) {
+                    console.log('has availiable food');
                     if (inn.eatFood()) {
+                        console.log('eating');
                         this.setUnitState(UnitState.EATING);
                         await delay(UnitCarrier.EATING_TIME);
                         this.resetHunger();
@@ -209,5 +223,28 @@ export default class UnitCarrier extends Container {
 
     private resetHunger (): void {
         this.hunger = 100;
+    }
+
+    private updateCarryItem (resource: ResourceItem|null = null): void {
+        this.carringCargo = resource;
+
+        if (!resource) {
+            this.carryItemImage.setVisible(false);
+            return;
+        }
+
+        switch (resource) {
+            case ResourceItem.WHEAT:
+                this.carryItemImage.setTexture('wheat');
+                break;
+            case ResourceItem.FLOUR:
+                this.carryItemImage.setTexture('flour');
+                break;
+            case ResourceItem.BREAD:
+                this.carryItemImage.setTexture('bread');
+                break;
+        }
+
+        this.carryItemImage.setVisible(true);
     }
 }

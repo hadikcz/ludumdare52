@@ -31,6 +31,9 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('mill', 'mill.png');
         this.load.image('storehouse', 'storehouse.png');
         this.load.image('carrier', 'carrier.png');
+        this.load.image('wheat', 'wheat.png');
+        this.load.image('flour', 'flour.png');
+        this.load.image('bread', 'bread.png');
 
         const settings = { frameWidth: 16, frameHeight: 16 };
         // this.load.spritesheet('xxx', 'xxx.png', settings);
