@@ -77,7 +77,7 @@ export default abstract class AbstractBuilding extends Container {
 
     public tryDelivery (resource: ResourceItem): boolean {
         if (!this.canDelivery(resource)) {
-            false;
+            return false;
         }
 
         this.inputStorage.push(resource);

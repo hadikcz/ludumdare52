@@ -22,10 +22,10 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
             ResourceItem.ANY
         );
 
-        // this.inputStorage.push(ResourceItem.WHEAT);
-        // this.inputStorage.push(ResourceItem.WHEAT);
-        // this.inputStorage.push(ResourceItem.WHEAT);
-        // this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
     }
 
     async cycle (): Promise<void> {}

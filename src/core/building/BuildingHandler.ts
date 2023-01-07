@@ -64,6 +64,20 @@ export default class BuildingHandler {
         return null;
     }
 
+    findWarehouseWithFreeSpace (): IBuilding|null {
+        for (const building of this.buildings) {
+            if (building.getType() !== BuildingsEnum.WAREHOUSE) {
+                continue;
+            }
+
+            if (building.canDelivery(ResourceItem.ANY)) {
+                return building;
+            }
+        }
+
+        return null;
+    }
+
     findInnWithFood (): BuildingInn|null {
         let inn = this.findAnyInn();
 
@@ -89,7 +103,7 @@ export default class BuildingHandler {
         this.spawnBuilding(800, 300, BuildingsEnum.MILL);
         // this.spawnBuilding(800, 550, BuildingsEnum.BAKERY);
         // this.spawnBuilding(550, 200, BuildingsEnum.INN);
-        this.spawnBuilding(850, 100, BuildingsEnum.WAREHOUSE);
+        this.spawnBuilding(50, 100, BuildingsEnum.WAREHOUSE);
     }
 
     private spawnBuilding (

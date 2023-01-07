@@ -93,6 +93,24 @@ export default class UnitCarrier extends Container {
             }
         }
 
+        const rerouteDeliveryToWarehouse = (): void => {
+            let warehouse = this.scene.buildingHandler.findWarehouseWithFreeSpace();
+            if (warehouse) {
+                console.log('Rerouting cargo to warehouse');
+                this.targetBuilding = warehouse;
+
+                return;
+            } else {
+                console.error('NO free delivery spot FOUND!! Destroing item');
+
+                this.carringCargo = null;
+                this.targetBuilding = null;
+                this.setUnitState(UnitState.WAITING);
+
+                return;
+            }
+        };
+
         if ((this.unitState === UnitState.LOOKING_FOR_DELIVERY_TARGET || this.unitState === UnitState.LOOKING_FOR_DELIVERY_TARGET_EXCEPT_WAREHOUSE) && this.carringCargo) {
             let skipWarehouse = this.unitState === UnitState.LOOKING_FOR_DELIVERY_TARGET_EXCEPT_WAREHOUSE;
 
@@ -100,7 +118,11 @@ export default class UnitCarrier extends Container {
             if (this.targetBuilding) {
                 this.setUnitState(UnitState.DELIVERY);
             } else {
-                console.error('Cargo ' + this.carringCargo + ' failed to find building to delivery. TODO: Warehouse -> delivery there');
+                // console.error('Cargo ' + this.carringCargo + ' failed to find building to delivery. TODO: Warehouse -> delivery there');
+                console.info('ERROR A: Cargo ' + this.carringCargo + ' failed to delivery. Rerouting to warehouse');
+                rerouteDeliveryToWarehouse();
+
+                return;
             }
         }
 
@@ -109,6 +131,7 @@ export default class UnitCarrier extends Container {
 
             if (reached) {
                 let result = this.targetBuilding.tryDelivery(this.carringCargo);
+                console.log(result);
                 if (result) {
                     console.log('Cargo ' + this.carringCargo + ' delivered');
                     this.carringCargo = null;
@@ -117,7 +140,9 @@ export default class UnitCarrier extends Container {
 
                     return;
                 } else {
-                    console.error('Cargo ' + this.carringCargo + ' failed to delivery. TODO: Warehouse -> delivery there');
+                    console.info('ERROR B: Cargo ' + this.carringCargo + ' failed to delivery. Rerouting to warehouse');
+                    rerouteDeliveryToWarehouse();
+                    return;
                 }
             }
         }
