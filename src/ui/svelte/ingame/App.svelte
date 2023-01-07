@@ -5,6 +5,7 @@
 	import CoinBar from "ui/svelte/ingame/CoinBar.svelte";
 	import Shop from "ui/svelte/ingame/shop/Shop.svelte";
 	import BuildingInfo from "ui/svelte/ingame/shop/BuildingInfo.svelte";
+	import BuildingRegularModal from "ui/svelte/ingame/modals/BuildingRegularModal.svelte";
 
     export let scene: GameScene;
 
@@ -32,6 +33,7 @@
 			<CoinBar scene="{scene}"></CoinBar>
 		</div>
 	</div>
+	<BuildingRegularModal scene="{scene}"></BuildingRegularModal>
 	<Shop scene="{scene}"></Shop>
 	<BuildingInfo scene="{scene}"></BuildingInfo>
 </main>

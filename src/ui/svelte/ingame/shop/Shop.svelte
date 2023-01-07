@@ -92,7 +92,7 @@
                 price="{scene.shop.prices[BuyableEnum.CARRIER]}"
                 icon="shop_icon_carrier"
                 type="{BuyableEnum.CARRIER}"
-                tooltip="{scene.shop.names[BuyableEnum.BAKERY]} - carry goods"
+                tooltip="{scene.shop.names[BuyableEnum.CARRIER]} - carry goods"
         ></ShopPurchaseButton>
         <ShopPurchaseButton
                 events="{scene.events}"

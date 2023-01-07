@@ -23,7 +23,7 @@ export default class MatrixWorld {
     private showTilemap: boolean = sessionStorage.getItem('showTilemap') && JSON.parse(sessionStorage.getItem('showTilemap') as string) ? true : false;
 
     constructor (scene: GameScene, debugGui: any|undefined = undefined) {
-        this.showTilemap = true;
+        this.showTilemap = false;
         this.scene = scene;
         this.debugGui = debugGui;
         this.EasyStarAdapter = new EasyStarAdapter();

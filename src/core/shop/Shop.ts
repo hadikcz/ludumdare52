@@ -1,4 +1,5 @@
 import BuildingShopBuilder from 'core/building/BuildingShopBuilder';
+import { ResourceItem } from 'core/resources/ResourceItem';
 import { BuyableEnum } from 'core/shop/BuyableEnum';
 import { Events } from 'enums/Events';
 import { Subject } from 'rxjs';
@@ -10,7 +11,8 @@ export default class Shop {
     public readonly coins$: Subject<number>;
     public coins: number = 30;
     public readonly prices: number[] = [];
-    public readonly names: number[] = [];
+    public readonly names: string[] = [];
+    public readonly resources: string[] = [];
 
 
     constructor (
@@ -36,6 +38,13 @@ export default class Shop {
         this.names[BuyableEnum.WAREHOUSE] = 'Warehouse';
         this.names[BuyableEnum.PATHWAY] = 'Pathway';
         this.names[BuyableEnum.PATHWAY_DESTROY] = 'Pathway destroy';
+
+        this.resources[ResourceItem.WHEAT] = 'Wheat';
+        this.resources[ResourceItem.FLOUR] = 'Flour';
+        this.resources[ResourceItem.BREAD] = 'Bread';
+        this.resources[ResourceItem.PIG] = 'Pig';
+        this.resources[ResourceItem.MEAT] = 'Meat';
+        this.resources[ResourceItem.SAUSAGE] = 'Sausage';
     }
 
     addCoins (coins: number): void {

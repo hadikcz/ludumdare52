@@ -39,11 +39,13 @@ export default class BuildingBakery extends AbstractBuilding implements IBuildin
             this.refreshLastSpawn();
 
             this.inputStorage.pop();
+            this.inputStorage$.next(null);
 
             this.setBuildingState(BuildingStateEnum.PROCESSING);
             // processing
             await delay(5000);
             this.outputStorage.push(this.outputItemType);
+            this.outputStorage$.next(this.outputItemType);
             this.setBuildingState(BuildingStateEnum.WAITING);
         }
     }

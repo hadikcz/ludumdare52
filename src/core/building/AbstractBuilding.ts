@@ -5,11 +5,16 @@ import { ResourceItem } from 'core/resources/ResourceItem';
 import GameScene from 'scenes/GameScene';
 import Container = Phaser.GameObjects.Container;
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
+import BuildingShopBuilder from 'core/building/BuildingShopBuilder';
 import { Depths } from 'enums/Depths';
+import { Events } from 'enums/Events';
+import { Subject } from 'rxjs';
 import { Vec2 } from 'types/Vec2';
 
 export default abstract class AbstractBuilding extends Container {
 
+    public inputStorage$: Subject<ResourceItem|null>;
+    public outputStorage$: Subject<ResourceItem|null>;
     protected inputStorage: ResourceItem[] = [];
     protected outputStorage: ResourceItem[] = [];
     protected buildingState: BuildingStateEnum = BuildingStateEnum.WAITING;
@@ -34,12 +39,23 @@ export default abstract class AbstractBuilding extends Container {
 
         this.scene.add.existing(this);
 
+        this.inputStorage$ = new Subject<ResourceItem|null>();
+        this.outputStorage$ = new Subject<ResourceItem|null>();
+
         this.image = this.scene.add.image(0, 0, imageTexture);
         this.add(this.image);
 
         this.draw();
 
         this.setDepth(Depths.BUILDINGS);
+
+        this.image.setInteractive({ useHandCursor: true });
+        this.image.on('pointerdown', () => {
+            if (this.scene.input.activePointer.downElement.localName !== 'canvas') {
+                return;
+            }
+            this.scene.events.emit(Events.UI_BUILDING_OPEN, this);
+        });
     }
 
     preUpdate (): void {
@@ -56,7 +72,25 @@ export default abstract class AbstractBuilding extends Container {
             this.lastSpawn = Date.now();
             this.setBuildingState(BuildingStateEnum.PROCESSING);
             this.outputStorage.push(this.outputItemType);
+            this.outputStorage$.next(this.outputItemType);
         }
+    }
+
+    getName (): string {
+        let buyable = BuildingShopBuilder.translateBuildingToBuyable(this.getType());
+        return this.scene.shop.names[buyable];
+    }
+
+    getStorageSize (): number {
+        return this.storageSize;
+    }
+
+    getSizeInputStorage (): number {
+        return this.inputStorage.length;
+    }
+
+    getSizeOutputStorage (): number {
+        return this.outputStorage.length;
     }
 
     public hasPickupItem (): boolean {
@@ -67,10 +101,16 @@ export default abstract class AbstractBuilding extends Container {
         return this.outputItemType;
     }
 
+    public getInputItemType (): ResourceItem|null {
+        return this.inputItemType;
+    }
+
     public pickupResource (): ResourceItem|null {
         if (!this.hasPickupItem()) return null;
 
-        return this.outputStorage.pop() || null;
+        let item = this.outputStorage.pop() || null;
+        this.outputStorage$.next(item);
+        return item;
     }
 
     public canDelivery (resource: ResourceItem): boolean {
@@ -81,8 +121,8 @@ export default abstract class AbstractBuilding extends Container {
         if (!this.canDelivery(resource)) {
             return false;
         }
-
         this.inputStorage.push(resource);
+        this.inputStorage$.next(resource);
 
         return true;
     }

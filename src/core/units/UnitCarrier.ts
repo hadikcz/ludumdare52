@@ -204,10 +204,8 @@ export default class UnitCarrier extends Container {
             let reached = this.didReachedTarget(target.x, target.y);
 
             if (reached) {
-                console.log('reached delivery');
                 let result = this.targetBuilding.tryDelivery(this.carringCargo);
                 if (result) {
-                    console.log('Cargo ' + this.carringCargo + ' delivered');
                     this.updateCarryItem(null);
                     this.targetBuilding = null;
                     this.setUnitState(UnitState.WAITING);
@@ -266,7 +264,6 @@ export default class UnitCarrier extends Container {
     }
 
     private setUnitState (state: UnitState): void {
-        console.info('UNIT set state: ' + state);
         this.unitState = state;
     }
 
