@@ -1,5 +1,6 @@
 import Builder from 'core/building/builder/Builder';
 import BuildingHandler from 'core/building/BuildingHandler';
+import PathwayTilemap from 'core/building/pathway/PathwayTilemap';
 import MatrixWorld from 'core/pathfinding/MatrixWorld';
 import Shop from 'core/shop/Shop';
 import UnitHandler from 'core/units/UnitHandler';
@@ -26,6 +27,7 @@ export default class GameScene extends Phaser.Scene {
     public shop!: Shop;
     public builder!: Builder;
     public matrixWorld!: MatrixWorld;
+    public pathwayTilemap!: PathwayTilemap;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -37,6 +39,7 @@ export default class GameScene extends Phaser.Scene {
         this.initDebugUI();
         this.input.setTopOnly(true);
 
+        this.pathwayTilemap = new PathwayTilemap(this);
         this.worldEnv = new WorldEnv(this);
 
         this.matrixWorld = new MatrixWorld(this, this.debugGui);
@@ -61,6 +64,7 @@ export default class GameScene extends Phaser.Scene {
     update (time, delta): void {
         this.builder.update();
         this.matrixWorld.update();
+        this.pathwayTilemap.update();
     }
 
     private initDebugUI (): void {

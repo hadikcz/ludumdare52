@@ -11,7 +11,7 @@ export default class MatrixWorld {
 
     public static readonly ORIGIN_POINT: Vector2 = new Vector2(70, 100);
     public static readonly TILE_SIZE: number = 16;
-    private static readonly TILES_COUNT: number = 200;
+    public static readonly TILES_COUNT: number = 200;
     private static readonly SESSION_STORAGE_KEY_MAP_DATA = 'SESSION_STORAGE_KEY_MAP_DATA';
 
     public EasyStarAdapter: EasyStarAdapter;
@@ -102,6 +102,17 @@ export default class MatrixWorld {
 
     updateGrid(): void {
         this.fillGrid();
+
+        this.scene.pathwayTilemap.layer.forEachTile((tile) => {
+            if (tile.index === 0) {
+                let center = this.scene.pathwayTilemap.layer.tileToWorldXY(tile.x, tile.y);
+                this.debugGridLayer.putTileAtWorldXY(
+                    EasyStarAdapter.PATH_TILE,
+                    center.x,
+                    center.y
+                );
+            }
+        });
 
         for (let building of this.scene.buildingHandler.buildings) {
             let bounds = building.getBounds();

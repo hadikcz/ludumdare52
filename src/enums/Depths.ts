@@ -1,6 +1,7 @@
 export enum Depths {
     POND_WATER,
     BG_TEXTURE,
+    PATHWAY,
     BUILDINGS,
     CARRIER,
     FLY_TEXT,

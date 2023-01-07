@@ -37,7 +37,7 @@ export default class UnitCarrier extends Container {
 
         this.scene = scene;
 
-        let unitImage = this.scene.add.image(0, 0, 'carrier');
+        let unitImage = this.scene.add.image(0, 0, 'carrier').setOrigin(0.5, 1);
         this.add(unitImage);
 
         this.carryItemImage = this.scene.add.image(0, 0, 'flour').setVisible(false);
@@ -76,8 +76,6 @@ export default class UnitCarrier extends Container {
             // let move = this.scene.physics.moveTo(this, currentTarget.x, currentTarget.y, 70);
             let reached = this.moveToPlace(currentTarget.x, currentTarget.y, UnitCarrier.VELOCITY);
             if (reached) {
-                console.log('reached');
-                console.log(this.path);
                 this.path.shift();
             }
 
@@ -208,7 +206,6 @@ export default class UnitCarrier extends Container {
             if (reached) {
                 console.log('reached delivery');
                 let result = this.targetBuilding.tryDelivery(this.carringCargo);
-                console.log(result);
                 if (result) {
                     console.log('Cargo ' + this.carringCargo + ' delivered');
                     this.updateCarryItem(null);
@@ -289,8 +286,6 @@ export default class UnitCarrier extends Container {
             velocity
         );
         this.setPosition(moveTo.x, moveTo.y);
-
-        console.log(TransformHelpers.getDistanceBetween(this.x, this.y, x, y));
 
         return TransformHelpers.getDistanceBetween(this.x, this.y, x, y) < 5;
     }

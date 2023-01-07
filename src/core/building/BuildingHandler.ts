@@ -180,6 +180,12 @@ export default class BuildingHandler {
 
         this.buildings.push(building);
 
+        try {
+            this.scene.matrixWorld.updateGrid();
+        } catch (e) {
+
+        }
+
         return building;
     }
 }

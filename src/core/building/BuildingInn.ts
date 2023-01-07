@@ -17,7 +17,7 @@ export default class BuildingInn extends AbstractBuilding implements IBuilding {
             x,
             y,
             'inn',
-            20,
+            8,
             BuildingsEnum.INN,
             null,
             ResourceItem.BREAD,
