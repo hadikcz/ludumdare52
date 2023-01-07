@@ -10,8 +10,8 @@ declare let window: any;
 export default class MatrixWorld {
 
     public static readonly ORIGIN_POINT: Vector2 = new Vector2(70, 100);
-    public static readonly TILE_SIZE: number = 8;
-    private static readonly TILES_COUNT: number = 80;
+    public static readonly TILE_SIZE: number = 16;
+    private static readonly TILES_COUNT: number = 200;
     private static readonly SESSION_STORAGE_KEY_MAP_DATA = 'SESSION_STORAGE_KEY_MAP_DATA';
 
     public EasyStarAdapter: EasyStarAdapter;
@@ -23,7 +23,7 @@ export default class MatrixWorld {
     private showTilemap: boolean = sessionStorage.getItem('showTilemap') && JSON.parse(sessionStorage.getItem('showTilemap') as string) ? true : false;
 
     constructor (scene: GameScene, debugGui: any|undefined = undefined) {
-        this.showTilemap = false;
+        this.showTilemap = true;
         this.scene = scene;
         this.debugGui = debugGui;
         this.EasyStarAdapter = new EasyStarAdapter();
@@ -108,8 +108,16 @@ export default class MatrixWorld {
     }
 
     private fillGrid (): void {
-        this.debugGridLayer.putTilesAt(MatrixWorld.getRawTiles(), 0, 0);
+        // this.debugGridLayer.forEachTile()
+        // this.debugGridLayer.putTilesAt(MatrixWorld.getRawTiles(), 0, 0);
         // this.loadTileMapFromSession();
+        this.fillAllWalkable();
+    }
+
+    private fillAllWalkable(): void {
+        this.debugGridLayer.forEachTile((tile) => {
+           tile.index = 1;
+        });
     }
 
     public saveTileMapIntoSession (): void {
@@ -167,7 +175,7 @@ export default class MatrixWorld {
         collisionMask.add(this, 'loadTileMapFromSession');
         collisionMask.add(this, 'clearTilesAndSave');
         collisionMask.add(this, 'toogleShowMinimap');
-        collisionMask.add(this, 'debugFillIndex', [0, 1]);
+        collisionMask.add(this, 'debugFillIndex', [0, 1, 2]);
         collisionMask.open();
     }
 

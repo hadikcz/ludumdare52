@@ -35,8 +35,11 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('flour', 'flour.png');
         this.load.image('bread', 'bread.png');
 
+
+        this.load.setPath('assets/images');
         const settings = { frameWidth: 16, frameHeight: 16 };
-        // this.load.spritesheet('xxx', 'xxx.png', settings);
+        this.load.spritesheet('tiles8', 'tiles8.png', settings);
+        this.load.spritesheet('tiles16', 'tiles16.png', settings);
     }
 
     private startGame (): void {

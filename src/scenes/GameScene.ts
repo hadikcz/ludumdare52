@@ -1,5 +1,6 @@
 import Builder from 'core/building/builder/Builder';
 import BuildingHandler from 'core/building/BuildingHandler';
+import MatrixWorld from 'core/pathfinding/MatrixWorld';
 import Shop from 'core/shop/Shop';
 import UnitHandler from 'core/units/UnitHandler';
 import WorldEnv from 'core/WorldEnv';
@@ -24,6 +25,7 @@ export default class GameScene extends Phaser.Scene {
     public unitHandler!: UnitHandler;
     public shop!: Shop;
     public builder!: Builder;
+    private matrixWorld!: MatrixWorld;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -36,6 +38,8 @@ export default class GameScene extends Phaser.Scene {
         this.input.setTopOnly(true);
 
         this.worldEnv = new WorldEnv(this);
+
+        this.matrixWorld = new MatrixWorld(this, this.debugGui);
 
         this.cameras.main.setZoom(1);
         this.cameras.main.setBackgroundColor('#3F7B30');
@@ -54,6 +58,7 @@ export default class GameScene extends Phaser.Scene {
 
     update (time, delta): void {
         this.builder.update();
+        this.matrixWorld.update();
     }
 
     private initDebugUI (): void {
