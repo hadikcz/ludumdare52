@@ -4,6 +4,7 @@ import ArrayHelpers from "helpers/ArrayHelpers";
 import {Depths} from "enums/Depths";
 import Vector2 = Phaser.Math.Vector2;
 import Tile = Phaser.Tilemaps.Tile;
+import PathwayTilemap from "core/building/pathway/PathwayTilemap";
 
 declare let window: any;
 
@@ -106,18 +107,46 @@ export default class MatrixWorld {
         this.scene.pathwayTilemap.layer.forEachTile((tile) => {
             if (tile.index === 0) {
                 let center = this.scene.pathwayTilemap.layer.tileToWorldXY(tile.x, tile.y);
+
+                let x = center.x + PathwayTilemap.TILE_SIZE / 2;
+                let y = center.y + PathwayTilemap.TILE_SIZE / 2;
+
+                // top left
+                this.debugGridLayer.putTileAtWorldXY(
+                    EasyStarAdapter.PATH_TILE,
+                    x - MatrixWorld.TILE_SIZE,
+                    y  - MatrixWorld.TILE_SIZE
+                );
+                // top right
+                this.debugGridLayer.putTileAtWorldXY(
+                    EasyStarAdapter.PATH_TILE,
+                    x + MatrixWorld.TILE_SIZE / 2,
+                    y  - MatrixWorld.TILE_SIZE
+                );
+                // bottom right
+                this.debugGridLayer.putTileAtWorldXY(
+                    EasyStarAdapter.PATH_TILE,
+                    x + MatrixWorld.TILE_SIZE / 2,
+                    y + MatrixWorld.TILE_SIZE / 2
+                );
+                // bottom left
                 this.debugGridLayer.putTileAtWorldXY(
                     EasyStarAdapter.PATH_TILE,
                     center.x,
-                    center.y
+                    center.y  + MatrixWorld.TILE_SIZE
                 );
             }
         });
 
         for (let building of this.scene.buildingHandler.buildings) {
-            let bounds = building.getBounds();
+            let bounds = building.getImageBounds()
             let points = bounds.getPoints(64);
             for (let point of points) {
+                this.debugGridLayer.putTileAtWorldXY(EasyStarAdapter.BLOCK_TILE, point.x, point.y);
+            }
+
+            for (let i = 0; i < 200; i++) {
+                let point = bounds.getRandomPoint();
                 this.debugGridLayer.putTileAtWorldXY(EasyStarAdapter.BLOCK_TILE, point.x, point.y);
             }
 

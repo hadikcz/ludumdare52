@@ -3,6 +3,7 @@ import { ResourceItem } from 'core/resources/ResourceItem';
 import { Subject } from 'rxjs';
 import { Vec2 } from 'types/Vec2';
 import EventEmitter = Phaser.Events.EventEmitter;
+import Rectangle = Phaser.Geom.Rectangle;
 
 export interface IBuilding {
     cycle(): void;
@@ -23,6 +24,7 @@ export interface IBuilding {
     pause(): void;
     resume(): void;
     pauseToggle(): void;
+    getImageBounds(): Rectangle;
     inputStorage$: Subject<ResourceItem|null>
     paused$: Subject<boolean>
     outputStorage$: Subject<ResourceItem|null>

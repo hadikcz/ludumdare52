@@ -19,7 +19,8 @@ import GameScene from 'scenes/GameScene';
 export default class UnitCarrier extends Container {
 
     private static readonly EATING_TIME = 5000;
-    private static readonly VELOCITY = 5;
+    private static readonly VELOCITY = 1;
+    private static readonly VELOCITY_PATHWAY = 3;
     private stateText!: Phaser.GameObjects.Text;
     private unitState: UnitState = UnitState.WAITING;
     private carringCargo: ResourceItem|null = null;
@@ -97,6 +98,42 @@ export default class UnitCarrier extends Container {
         }
     }
 
+    isOnPathway (): boolean {
+        let offset = 15;
+        let tile = this.scene.pathwayTilemap.layer.getTileAtWorldXY(this.x, this.y);
+        if (tile && tile.index === 0) {
+            return true;
+        }
+
+        tile = this.scene.pathwayTilemap.layer.getTileAtWorldXY(this.x, this.y + offset);
+        if (tile && tile.index === 0) {
+            return true;
+        }
+
+        tile = this.scene.pathwayTilemap.layer.getTileAtWorldXY(this.x + offset, this.y + offset);
+        if (tile && tile.index === 0) {
+            return true;
+        }
+        tile = this.scene.pathwayTilemap.layer.getTileAtWorldXY(this.x - offset, this.y - offset);
+        if (tile && tile.index === 0) {
+            return true;
+        }
+        tile = this.scene.pathwayTilemap.layer.getTileAtWorldXY(this.x, this.y - offset);
+        if (tile && tile.index === 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    getVelocity (): number {
+        if (this.isOnPathway()) {
+            return UnitCarrier.VELOCITY_PATHWAY;
+        }
+
+        return UnitCarrier.VELOCITY;
+    }
+
     private async move (): Promise<void> {
         // let body = this.body as Phaser.Physics.Arcade.Body;
 
@@ -107,7 +144,8 @@ export default class UnitCarrier extends Container {
             //     this.path.shift();
             // }
             // let move = this.scene.physics.moveTo(this, currentTarget.x, currentTarget.y, 70);
-            let reached = this.moveToPlace(currentTarget.x, currentTarget.y, UnitCarrier.VELOCITY);
+            const velocity = this.getVelocity();
+            let reached = this.moveToPlace(currentTarget.x, currentTarget.y, velocity);
             if (reached) {
                 this.path.shift();
             }

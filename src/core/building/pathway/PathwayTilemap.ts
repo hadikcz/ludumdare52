@@ -6,13 +6,15 @@ import { Events } from 'enums/Events';
 import GameScene from 'scenes/GameScene';
 
 export default class PathwayTilemap {
+
+    public static readonly TILE_SIZE = 32;
     public layer: Phaser.Tilemaps.TilemapLayer;
 
     constructor (
         private scene: GameScene
     ) {
 
-        const tileSize = 32;
+        const tileSize = PathwayTilemap.TILE_SIZE;
         const count = Math.round((MatrixWorld.TILES_COUNT * MatrixWorld.TILE_SIZE) / tileSize);
         let tileMap = this.scene.make.tilemap({
             tileWidth: tileSize,
@@ -55,8 +57,11 @@ export default class PathwayTilemap {
             }
 
             if (this.scene.builder.buildMode === BuildingsEnum.PATHWAY_DESTROY) {
-                this.layer.removeTileAtWorldXY(worldPoint.x, worldPoint.y);
-                this.scene.matrixWorld.updateGrid();
+                let tile = this.layer.getTileAtWorldXY(worldPoint.x, worldPoint.y);
+                if (tile) {
+                    tile.index = -1;
+                    this.scene.matrixWorld.updateGrid();
+                }
             }
         }
     }
