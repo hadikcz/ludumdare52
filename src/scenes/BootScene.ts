@@ -24,17 +24,8 @@ export default class BootScene extends Phaser.Scene {
         }, this);
 
         // LOAD assets HERE
-        this.load.setPath('assets/images/develop');
-        this.load.image('bakery', 'bakery.png');
-        this.load.image('farm', 'farm.png');
-        this.load.image('inn', 'inn.png');
-        this.load.image('mill', 'mill.png');
-        this.load.image('warehouse', 'storehouse.png');
-        this.load.image('carrier', 'carrier.png');
-        this.load.image('wheat', 'wheat.png');
-        this.load.image('flour', 'flour.png');
-        this.load.image('bread', 'bread.png');
-        this.load.image('pathway', 'pathway.png');
+        this.load.setPath('assets/images');
+        this.load.image('pathway', 'pathwayTileset.png');
 
 
         this.load.setPath('assets/images');
@@ -51,7 +42,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.spritesheet('character1', 'character1.png', settings);
         this.load.spritesheet('character2', 'character2.png', settings);
 
-        this.load.setPath('assets/images/develop');
+        this.load.setPath('assets/images');
         const settings2 = { frameWidth: 32, frameHeight: 32 };
         this.load.spritesheet('pathwayTileset', 'pathwayTileset.png', settings2);
 

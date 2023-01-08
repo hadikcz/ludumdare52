@@ -1,9 +1,9 @@
 export enum Depths {
     POND_WATER,
     BG_TEXTURE,
-    PATHWAY,
     DECOR_GREEN_DOTS,
     DECOR_GRASS,
+    PATHWAY,
     DECOR_STONKY,
     DECOR_PONDS,
     DECOR_SMALLBUSH,
