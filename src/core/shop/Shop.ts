@@ -21,7 +21,7 @@ export default class Shop {
         this.coins$ = new Subject<number>();
         this.scene.events.on(Events.UI_SHOP_TRY_PURCHASE, this.uiTryPurchase.bind(this));
 
-        this.prices[BuyableEnum.CARRIER] = 2;
+        this.prices[BuyableEnum.CARRIER] = 20;
         this.prices[BuyableEnum.FARM] = 10;
         this.prices[BuyableEnum.MILL] = 10;
         this.prices[BuyableEnum.BAKERY] = 30;

@@ -34,6 +34,8 @@ export default class UnitCarrier extends Container {
     public hunger$: Subject<number>;
     public unitState$: ReactiveVariable<UnitState>;
 
+    private lastWandering: number = 0;
+
 
 
     private targetBuilding: IBuilding|null = null;
@@ -294,7 +296,7 @@ export default class UnitCarrier extends Container {
             }
 
             // nothing to do - wander
-            if (ChanceHelpers.percentage(50)) {
+            if (ChanceHelpers.percentage(50) && Date.now() - this.lastWandering > 20000) {
 
                 let wandereingPoint = this.scene.matrixWorld.getWanderingPoint(this.x, this.y, 200);
                 if (wandereingPoint) {
@@ -309,6 +311,7 @@ export default class UnitCarrier extends Container {
                     this.wanderingPoint = wandereingPoint;
 
                     this.setUnitState(UnitState.WANDERING);
+                    this.lastWandering = Date.now();
                 }
 
             }

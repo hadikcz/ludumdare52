@@ -166,17 +166,28 @@ export default class BuildingHandler {
     }
 
     findDeliveryBuilding (resource: ResourceItem, skipWarehouse: boolean = false): IBuilding|null {
+        let warehouses: IBuilding[] = [];
+
         for (const building of this.buildings) {
             if (skipWarehouse && building.getType() === BuildingsEnum.WAREHOUSE) {
                 continue;
             }
 
             if (building.canDelivery(resource)) {
+                if (building.getType() === BuildingsEnum.WAREHOUSE) {
+                    warehouses.push(building);
+                    continue;
+                }
+
                 return building;
             }
         }
 
-        return null;
+        if (warehouses.length === 0) {
+            return null;
+        }
+
+        return ArrayHelpers.shuffle<IBuilding>(warehouses)[0];
     }
 
     findWarehouseWithFreeSpace (): IBuilding|null {
