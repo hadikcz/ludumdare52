@@ -2,6 +2,7 @@ import Builder from 'core/building/builder/Builder';
 import BuildingHandler from 'core/building/BuildingHandler';
 import PathwayTilemap from 'core/building/pathway/PathwayTilemap';
 import MatrixWorld from 'core/pathfinding/MatrixWorld';
+import ScrollCamera from 'core/ScrollCamera';
 import Shop from 'core/shop/Shop';
 import UnitHandler from 'core/units/UnitHandler';
 import WorldEnv from 'core/WorldEnv';
@@ -13,6 +14,7 @@ import UI from 'ui/UI';
 
 declare let window: any;
 declare let __DEV__: any;
+
 
 export default class GameScene extends Phaser.Scene {
 
@@ -29,6 +31,7 @@ export default class GameScene extends Phaser.Scene {
     public builder!: Builder;
     public matrixWorld!: MatrixWorld;
     public pathwayTilemap!: PathwayTilemap;
+    private scrollCamera!: ScrollCamera;
 
     constructor () {
         super({ key: 'GameScene' });
@@ -47,6 +50,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.cameras.main.setZoom(1);
         this.cameras.main.setBackgroundColor('#c0d470');
+
         // this.cameras.main.centerOn(GameConfig.PhaserBasicSettings.gameSize.width / 4, GameConfig.PhaserBasicSettings.gameSize.height / 4);
 
 
@@ -57,6 +61,12 @@ export default class GameScene extends Phaser.Scene {
         this.unitHandler = new UnitHandler(this);
         this.shop = new Shop(this);
 
+
+        this.scrollCamera = new ScrollCamera(this, 0, 0);
+        this.scrollCamera.setBackgroundColor('#c0d470');
+
+        this.scrollCamera.startFollow({ x: this.unitHandler.carriers[0].x, y: this.unitHandler.carriers[0].y });
+        this.scrollCamera.stopFollow();
         this.ui = new UI(this);
 
         this.matrixWorld.updateGrid();

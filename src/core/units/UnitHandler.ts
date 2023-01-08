@@ -5,7 +5,7 @@ import GameScene from 'scenes/GameScene';
 
 export default class UnitHandler {
 
-    private carriers: UnitCarrier[] = [];
+    public carriers: UnitCarrier[] = [];
     public units$: Subject<number>;
 
     constructor (
