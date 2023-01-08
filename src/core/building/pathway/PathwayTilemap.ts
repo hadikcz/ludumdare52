@@ -43,6 +43,9 @@ export default class PathwayTilemap {
         let pointerTileY = this.layer.worldToTileY(worldPoint.y);
 
         if (this.scene.input.activePointer.isDown && this.scene.builder.isBuildMode()) {
+            if (this.scene.input.activePointer.downElement.localName !== 'canvas') {
+                return;
+            }
             let tile = this.layer.getTileAtWorldXY(worldPoint.x, worldPoint.y);
             if (this.scene.builder.buildMode === BuildingsEnum.PATHWAY) {
                 if (!tile || tile.index !== 0) {
