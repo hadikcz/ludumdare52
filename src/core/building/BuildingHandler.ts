@@ -19,6 +19,7 @@ export default class BuildingHandler {
     public findBuilding;
     public findBuildingTo;
     public buildingShopBuilder: BuildingShopBuilder;
+    private smokeInterval!: NodeJS.Timer;
 
     constructor (
         private scene: GameScene

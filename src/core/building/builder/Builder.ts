@@ -108,6 +108,10 @@ export default class Builder {
     }
 
     private canPlaceIntersectionCheck (): boolean {
+
+        if (this.buildMode === BuildingsEnum.PATHWAY_DESTROY || this.buildMode === BuildingsEnum.PATHWAY) {
+            return true;
+        }
         // let bounds = this.previewImage.getBounds();
         //
         // if (!this.scene.matrixWorld.isTileAvailable(bounds.left, bounds.top)) {

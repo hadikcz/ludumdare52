@@ -12,6 +12,7 @@ export enum Depths {
     BUILDINGS,
     CARRIER,
     MILL_WHEEL,
+    SMOKE,
     BUBBLE_UNIT,
     FLY_TEXT,
     BUILD_ICON,

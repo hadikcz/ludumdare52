@@ -19,7 +19,7 @@ export default abstract class AbstractBuilding extends Container implements IBui
     public inputStorage: ResourceItem[] = [];
     protected outputStorage: ResourceItem[] = [];
     protected buildingState: BuildingStateEnum = BuildingStateEnum.WAITING;
-    private delayBetweenSpawn: number = 7500;
+    private delayBetweenSpawn: number = 12000;
     private lastSpawn: number = 0;
     private outputStorageText!: Phaser.GameObjects.Text;
     private inputStorageText!: Phaser.GameObjects.Text;
@@ -32,6 +32,7 @@ export default abstract class AbstractBuilding extends Container implements IBui
     private outputResourceVisualise!: Phaser.GameObjects.Image;
     private resInputData!: ResourceVisualisator;
     private waitingQueue = 0;
+    private smokeInterval!: NodeJS.Timer;
 
     constructor (
         public scene: GameScene,
@@ -92,10 +93,13 @@ export default abstract class AbstractBuilding extends Container implements IBui
         this.on('destroy', () => {
             inSub.unsubscribe();
             outSub.unsubscribe();
-            clearTimeout(interval);
+            clearInterval(interval);
+            clearInterval(this.smokeInterval);
         });
 
         this.updateResourceVisualas();
+
+        this.startSmoke();
     }
 
     createResources (data: ResourceVisualisator): void {
@@ -320,6 +324,24 @@ export default abstract class AbstractBuilding extends Container implements IBui
             this.outputResourceVisualise.setFrame('buildings/' + this.resInputData.output?.image + this.outputStorage.length);
         }
 
+    }
+
+
+
+    protected startSmoke (): void {
+        if (this.smokeInterval) {
+            clearInterval(this.smokeInterval);
+        }
+
+        this.smokeInterval = setInterval(() => {
+            if (this.buildingState !== BuildingStateEnum.PROCESSING || this.getType() !== BuildingsEnum.BAKERY) return;
+            this.scene.effectManager.launchSmoke(
+                this.x + 30,
+                this.y -100,
+                false,
+                false
+            );
+        }, 100);
     }
 }
 

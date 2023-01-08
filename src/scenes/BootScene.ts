@@ -26,6 +26,7 @@ export default class BootScene extends Phaser.Scene {
         // LOAD assets HERE
         this.load.setPath('assets/images');
         this.load.image('pathway', 'pathwayTileset.png');
+        this.load.image('smoke', 'smoke.png');
 
 
         this.load.setPath('assets/images');

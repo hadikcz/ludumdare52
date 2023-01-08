@@ -19,7 +19,7 @@ export default class EasyStarAdapter {
         // this.easyStar.enableCornerCutting();
 
         this.easyStar.setTileCost(EasyStarAdapter.BLOCK_TILE, 50000000000000000000000000);
-        this.easyStar.setTileCost(EasyStarAdapter.WALKABLE_TILE, 99999999999);
+        this.easyStar.setTileCost(EasyStarAdapter.WALKABLE_TILE, 999999999999999);
         this.easyStar.setTileCost(EasyStarAdapter.PATH_TILE, 0);
     }
 

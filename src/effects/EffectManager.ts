@@ -1,4 +1,5 @@
 import FlyText from 'effects/FlyText';
+import SmokeEffect from 'effects/SmokeEffect';
 import GameScene from 'scenes/GameScene';
 
 export default class EffectManager {
@@ -9,6 +10,8 @@ export default class EffectManager {
 
     private flyTextGroup: Phaser.GameObjects.Group;
 
+    private smokeEffectGroup: Phaser.GameObjects.Group;
+
     constructor (scene: GameScene) {
         this.scene = scene;
 
@@ -18,7 +21,25 @@ export default class EffectManager {
             runChildUpdate: true
         });
 
+
+        this.smokeEffectGroup = this.scene.add.group({
+            classType: SmokeEffect,
+            maxSize: 20,
+            runChildUpdate: true
+        });
         this.preparePools();
+    }
+
+    launchSmoke (x, y, black = false, randomizePosition = false, randomize = 0) {
+        let group = this.smokeEffectGroup;
+        /** @type {SmokeEffect} */
+        let effect = group.getFirstDead();
+        if (!effect) {
+            effect = new SmokeEffect(this.scene);
+            group.add(effect);
+        }
+        effect.launch(x, y, black, randomizePosition, randomize);
+        return effect;
     }
 
     launchFlyText (x: number, y: number, text: string, style: object | any = null): FlyText {
@@ -40,6 +61,11 @@ export default class EffectManager {
         group = this.flyTextGroup;
         for (let i = 0; i < group.maxSize; i++) {
             let effect = new FlyText(this.scene);
+            group.add(effect);
+        }
+        group = this.smokeEffectGroup;
+        for (let i = 0; i < group.maxSize; i++) {
+            let effect = new SmokeEffect(this.scene);
             group.add(effect);
         }
     }
