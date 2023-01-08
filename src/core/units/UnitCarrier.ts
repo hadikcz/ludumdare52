@@ -11,11 +11,13 @@ import { Depths } from 'enums/Depths';
 import { Events } from 'enums/Events';
 import AnimationHelpers from 'helpers/AnimationHelpers';
 import ArrayHelpers from 'helpers/ArrayHelpers';
+import ChanceHelpers from 'helpers/ChanceHelpers';
 import NumberHelpers from 'helpers/NumberHelpers';
 import ReactiveVariable from 'helpers/ReactiveVariable';
 import TransformHelpers from 'helpers/TransformHelpers';
 import { Subject } from 'rxjs';
 import GameScene from 'scenes/GameScene';
+import { Vec2 } from 'types/Vec2';
 
 export default class UnitCarrier extends Container {
 
@@ -43,6 +45,7 @@ export default class UnitCarrier extends Container {
     private carryXOffest: number;
     private bubbleOffest: { x: number; y: number };
     private bubble: Phaser.GameObjects.Image;
+    private wanderingPoint: Vec2|null = null;
 
     constructor (
         public scene: GameScene,
@@ -228,13 +231,10 @@ export default class UnitCarrier extends Container {
     }
 
     private async findPath (x: number, y: number): Promise<Vector2[]|null> {
-        console.log('findPath');
         let result = await this.scene.matrixWorld.findPathAsync(this.x, this.y, x, y);
         if (result.success) {
             result.path.splice(0, 2); // first point is me, skip it
             return result.path;
-        } else {
-            console.log('not success');
         }
         return null;
     }
@@ -244,13 +244,12 @@ export default class UnitCarrier extends Container {
             this.unitState === UnitState.DELIVERY
             || this.unitState === UnitState.PICKUP
             || this.unitState === UnitState.MOVING_TO_INN
+            || this.unitState === UnitState.WANDERING
         ) {
             this.move();
         }
 
         if (this.unitState === UnitState.WAITING) {
-            await delay(NumberHelpers.randomIntInRange(1500, 3500));
-            console.log('break');
             if (this.hunger < UnitCarrier.HUNGER_LIMIT) {
                 this.bubble.setFrame('ingame_ui/bubble_hunger');
                 // show hunger
@@ -273,12 +272,14 @@ export default class UnitCarrier extends Container {
                 }
             } else {
                 this.bubble.setFrame('ingame_ui/bubble_waiting').setVisible(true);
+
             }
 
 
             let building = this.scene.buildingHandler.findPickupBuildingNearest(this.x, this.y);
 
             if (building) {
+                building.increaseQueue();
                 this.targetBuilding = building;
                 this.setUnitState(UnitState.PICKUP);
 
@@ -292,7 +293,35 @@ export default class UnitCarrier extends Container {
                 return;
             }
 
+            // nothing to do - wander
+            if (ChanceHelpers.percentage(50)) {
 
+                let wandereingPoint = this.scene.matrixWorld.getWanderingPoint(this.x, this.y, 200);
+                if (wandereingPoint) {
+                    let path = await this.findPath(wandereingPoint.x, wandereingPoint.y);
+                    if (!path) {
+                        throw new Error('path not found');
+                    }
+                    this.path = path;
+
+                    console.log(path);
+
+                    this.wanderingPoint = wandereingPoint;
+
+                    this.setUnitState(UnitState.WANDERING);
+                }
+
+            }
+            return;
+        }
+
+        if (this.unitState === UnitState.WANDERING && this.wanderingPoint) {
+            let reached = this.didReachedTarget(this.wanderingPoint.x, this.wanderingPoint.y);
+            if (reached) {
+                this.wanderingPoint = null;
+                this.setUnitState(UnitState.WAITING);
+                return;
+            }
         }
 
         if (this.unitState === UnitState.PICKUP && this.targetBuilding) {
@@ -451,6 +480,7 @@ export default class UnitCarrier extends Container {
                 break;
             case UnitState.PICKUP:
             case UnitState.MOVING_TO_INN:
+            case UnitState.WANDERING:
                 this.unitImage.play(ANIM.WALK, true);
                 break;
             case UnitState.WAITING:

@@ -151,7 +151,7 @@ export default class BuildingHandler {
         let potentialTargets:IBuilding[] = [];
         for (const building of this.buildings) {
             let deliveryItemType = building.getOutputItemType();
-            if (building.hasPickupItem()) {
+            if (building.hasPickupItem() && building.canPickupBecauseQueue()) {
                 if (deliveryItemType && this.findDeliveryBuilding(deliveryItemType)) {
                     potentialTargets.push(building);
                 }

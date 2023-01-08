@@ -26,6 +26,8 @@ export interface IBuilding {
     resume(): void;
     pauseToggle(): void;
     getImageBounds(): Rectangle;
+    canPickupBecauseQueue(): boolean;
+    increaseQueue(): void;
     inputStorage$: Subject<ResourceItem|null>
     paused$: Subject<boolean>
     outputStorage$: Subject<ResourceItem|null>

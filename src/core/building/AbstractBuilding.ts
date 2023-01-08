@@ -31,6 +31,7 @@ export default abstract class AbstractBuilding extends Container implements IBui
     private inputResourceVisualise!: Phaser.GameObjects.Image;
     private outputResourceVisualise!: Phaser.GameObjects.Image;
     private resInputData!: ResourceVisualisator;
+    private waitingQueue = 0;
 
     constructor (
         public scene: GameScene,
@@ -111,6 +112,20 @@ export default abstract class AbstractBuilding extends Container implements IBui
 
     getType (): BuildingsEnum {
         return this.buildingType;
+    }
+
+    increaseQueue (): void {
+        this.waitingQueue++;
+
+        setTimeout(() => {
+            if (this.waitingQueue > 0) {
+                this.waitingQueue--;
+            }
+        }, 8000);
+    }
+
+    canPickupBecauseQueue (): boolean {
+        return this.outputStorage.length > this.waitingQueue;
     }
 
     public async cycle (): Promise<void> {

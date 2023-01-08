@@ -5,6 +5,8 @@ import {Depths} from "enums/Depths";
 import Vector2 = Phaser.Math.Vector2;
 import Tile = Phaser.Tilemaps.Tile;
 import PathwayTilemap from "core/building/pathway/PathwayTilemap";
+import NumberHelpers from "helpers/NumberHelpers";
+import {Vec2} from "types/Vec2";
 
 declare let window: any;
 
@@ -281,6 +283,24 @@ export default class MatrixWorld {
         }
 
         return tile.index === 1;
+    }
+
+    public getWanderingPoint(x: number, y: number, radius: number): Vec2|null {
+        let randomPoint = {
+            x: x + NumberHelpers.randomIntInRange(-radius, radius),
+            y: y + NumberHelpers.randomIntInRange(-radius, radius),
+        }
+
+        let walkablePoint = this.findNearestWalkablePosition(randomPoint.x, randomPoint.y);
+
+        if (walkablePoint) {
+            return {
+                x: walkablePoint.x,
+                y: walkablePoint.y
+            }
+        }
+
+        return null;
     }
 }
 
