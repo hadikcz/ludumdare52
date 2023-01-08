@@ -74,9 +74,9 @@ export default class BuildingHandler {
         // this.spawnBuilding(50, 100, BuildingsEnum.WAREHOUSE);
         // this.spawnBuilding(50, 600, BuildingsEnum.WAREHOUSE);
 
-        this.spawnBuilding(1520, 1200, BuildingsEnum.FARM);
-        this.spawnBuilding(1400, 1600, BuildingsEnum.MILL);
-        this.spawnBuilding(1200, 1600, BuildingsEnum.BAKERY);
+        // this.spawnBuilding(1520, 1200, BuildingsEnum.FARM);
+        // this.spawnBuilding(1400, 1600, BuildingsEnum.MILL);
+        // this.spawnBuilding(1200, 1600, BuildingsEnum.BAKERY);
 
 
 

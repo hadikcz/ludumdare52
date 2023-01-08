@@ -86,6 +86,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     private initDebugUI (): void {
+        return;
         this.debugGui = new dat.GUI({ autoPlace: false });
         $('#datGui').append(this.debugGui.domElement);
         // $('#datGui').hide();
