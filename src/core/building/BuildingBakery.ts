@@ -43,8 +43,8 @@ export default class BuildingBakery extends AbstractBuilding implements IBuildin
 
     getDoorSpot (): Vec2 {
         return {
-            x: this.x + 30,
-            y: this.y + 60
+            x: this.x + 10,
+            y: this.y + 100
         };
     }
 

@@ -76,8 +76,8 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
 
     getDoorSpot (): Vec2 {
         return {
-            x: this.x + 0,
-            y: this.y + 60
+            x: this.x - 35,
+            y: this.y + 90
         };
     }
 

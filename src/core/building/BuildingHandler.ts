@@ -68,14 +68,15 @@ export default class BuildingHandler {
     }
 
     private init (): void {
-        // this.spawnBuilding(450, 450, BuildingsEnum.FARM);
         // this.spawnBuilding(350, 650, BuildingsEnum.FARM);
-        // this.spawnBuilding(800, 300, BuildingsEnum.MILL);
-        // this.spawnBuilding(800, 550, BuildingsEnum.BAKERY);
         // this.spawnBuilding(550, 200, BuildingsEnum.INN);
         // this.spawnBuilding(750, 100, BuildingsEnum.INN);
         // this.spawnBuilding(50, 100, BuildingsEnum.WAREHOUSE);
         // this.spawnBuilding(50, 600, BuildingsEnum.WAREHOUSE);
+
+        this.spawnBuilding(1520, 1200, BuildingsEnum.FARM);
+        this.spawnBuilding(1400, 1600, BuildingsEnum.MILL);
+        this.spawnBuilding(1200, 1600, BuildingsEnum.BAKERY);
 
 
 
@@ -265,6 +266,10 @@ export default class BuildingHandler {
 
         }
 
+
+        // @ts-ignore
+        // let target = building.getDoorSpot();
+        // this.scene.add.circle(target.x, target.y, 6, 0xFF0000).setDepth(Depths.UI);
         return building;
     }
 }

@@ -35,7 +35,7 @@ export default class BuildingFarm extends AbstractBuilding implements IBuilding 
 
     getDoorSpot (): Vec2 {
         return {
-            x: this.x -25,
+            x: this.x -45,
             y: this.y + 60
         };
     }

@@ -5,6 +5,7 @@ import { BuildingStateEnum } from 'core/building/BuildingStateEnum';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import delay from 'delay';
+import { Depths } from 'enums/Depths';
 import GameScene from 'scenes/GameScene';
 import { Vec2 } from 'types/Vec2';
 
@@ -42,8 +43,11 @@ export default class BuildingMill extends AbstractBuilding implements IBuilding 
             }
         });
 
-        this.wheel = this.scene.add.image(0, 0, 'game', 'buildings/mill_wheel');
-        this.add(this.wheel);
+        this.wheel = this.scene.add.image(this.x, this.y, 'game', 'buildings/mill_wheel').setDepth(Depths.MILL_WHEEL);
+
+        this.on('destroy', () => {
+            this.wheel.destroy();
+        });
     }
 
     preUpdate () {
@@ -56,8 +60,8 @@ export default class BuildingMill extends AbstractBuilding implements IBuilding 
 
     getDoorSpot (): Vec2 {
         return {
-            x: this.x + 30,
-            y: this.y + 60
+            x: this.x + 0,
+            y: this.y + 70
         };
     }
 

@@ -228,10 +228,13 @@ export default class UnitCarrier extends Container {
     }
 
     private async findPath (x: number, y: number): Promise<Vector2[]|null> {
+        console.log('findPath');
         let result = await this.scene.matrixWorld.findPathAsync(this.x, this.y, x, y);
         if (result.success) {
             result.path.splice(0, 2); // first point is me, skip it
             return result.path;
+        } else {
+            console.log('not success');
         }
         return null;
     }
@@ -246,6 +249,8 @@ export default class UnitCarrier extends Container {
         }
 
         if (this.unitState === UnitState.WAITING) {
+            await delay(NumberHelpers.randomIntInRange(1500, 3500));
+            console.log('break');
             if (this.hunger < UnitCarrier.HUNGER_LIMIT) {
                 this.bubble.setFrame('ingame_ui/bubble_hunger');
                 // show hunger
@@ -256,6 +261,13 @@ export default class UnitCarrier extends Container {
                 if (inn) {
                     this.targetBuilding = inn;
                     this.setUnitState(UnitState.MOVING_TO_INN);
+                    let target = this.targetBuilding.getDoorSpot();
+
+                    let path = await this.findPath(target.x, target.y);
+                    if (!path) {
+                        throw new Error('path not found');
+                    }
+                    this.path = path;
 
                     return;
                 }
@@ -270,8 +282,17 @@ export default class UnitCarrier extends Container {
                 this.targetBuilding = building;
                 this.setUnitState(UnitState.PICKUP);
 
+                let target = this.targetBuilding.getDoorSpot();
+                let path = await this.findPath(target.x, target.y);
+                if (!path) {
+                    throw new Error('path not found');
+                }
+                this.path = path;
+
                 return;
             }
+
+
         }
 
         if (this.unitState === UnitState.PICKUP && this.targetBuilding) {
@@ -280,11 +301,6 @@ export default class UnitCarrier extends Container {
             }
 
             let target = this.targetBuilding.getDoorSpot();
-            let path = await this.findPath(target.x, target.y);
-            if (!path) {
-                throw new Error('path not found');
-            }
-            this.path = path;
             let reached = this.didReachedTarget(target.x, target.y);
 
             if (reached) {
@@ -330,6 +346,14 @@ export default class UnitCarrier extends Container {
             this.targetBuilding = this.scene.buildingHandler.findDeliveryBuilding(this.carringCargo, skipWarehouse);
             if (this.targetBuilding) {
                 this.setUnitState(UnitState.DELIVERY);
+
+                let target = this.targetBuilding.getDoorSpot();
+                let path = await this.findPath(target.x, target.y);
+                if (!path) {
+                    throw new Error('path not found');
+                }
+                this.path = path;
+
                 return;
             } else {
                 // console.error('Cargo ' + this.carringCargo + ' failed to find building to delivery. TODO: Warehouse -> delivery there');
@@ -345,11 +369,11 @@ export default class UnitCarrier extends Container {
                 this.bubble.setVisible(false);
             }
             let target = this.targetBuilding.getDoorSpot();
-            let path = await this.findPath(target.x, target.y);
-            if (!path) {
-                throw new Error('path not found');
-            }
-            this.path = path;
+            // let path = await this.findPath(target.x, target.y);
+            // if (!path) {
+            //     throw new Error('path not found');
+            // }
+            // this.path = path;
             let reached = this.didReachedTarget(target.x, target.y);
 
             if (reached) {
@@ -370,11 +394,7 @@ export default class UnitCarrier extends Container {
 
         if (this.unitState === UnitState.MOVING_TO_INN && this.targetBuilding) {
             let target = this.targetBuilding.getDoorSpot();
-            let path = await this.findPath(target.x, target.y);
-            if (!path) {
-                throw new Error('path not found');
-            }
-            this.path = path;
+
             let reached = this.didReachedTarget(target.x, target.y);
 
             if (reached) {
@@ -470,7 +490,7 @@ export default class UnitCarrier extends Container {
         if (this.path.length <= 1) {
             return true;
         }
-        return TransformHelpers.getDistanceBetween(this.x, this.y, x, y) < 5;
+        return TransformHelpers.getDistanceBetween(this.x, this.y, x, y) < 3;
     }
 
     private resetHunger (): void {

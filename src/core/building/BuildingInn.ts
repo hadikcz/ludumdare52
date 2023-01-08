@@ -40,8 +40,8 @@ export default class BuildingInn extends AbstractBuilding implements IBuilding {
 
     getDoorSpot (): Vec2 {
         return {
-            x: this.x -35,
-            y: this.y + 60
+            x: this.x - 35,
+            y: this.y + 80
         };
     }
 
