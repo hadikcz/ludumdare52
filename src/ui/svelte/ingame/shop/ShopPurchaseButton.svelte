@@ -26,19 +26,17 @@
     .price {
       font-size: 20px;
       color: #ffd600;
+      //color: #ffd600;
       display: inline-block;
       transform: translate(9px, -4px);
       width: 22px;
       text-align: center;
-      left: -5px;
-      margin-left: -10px;
+      left: 5px;
+      margin-left: 0px;
     }
     .purchase-button {
       cursor: pointer;
       display: block;
-      width: 44px;
-      height: 48px;
-      background: red; // temporary
     }
 
     .purchase-button:hover {
@@ -60,12 +58,12 @@
 </style>
 
 <div class="shop-item  {tooltip ? 'tooltip left' : ''}" style="border-bottom: none;">
-    <div class="sprite shop-purchase_button_{icon} purchase-button {price > coins ? 'notEnoughCoins' : ''}" on:click|stopPropagation={tryPurchase}></div>
+    <div class="sprite shop-buy_{icon} purchase-button {price > coins ? 'notEnoughCoins' : ''}" on:click|stopPropagation={tryPurchase}></div>
     <div class="price-row">
         <div class="price {price > coins ? 'notEnoughCoins' : ''} {smallPriceSize ? 'small' : ''}">
             {price}
         </div>
-        <div class="sprite coin_bar_icon"></div>
+        <div class="sprite icon_coin"></div>
         {#if tooltip}
             <span class="tooltiptext">
                 {tooltip}
