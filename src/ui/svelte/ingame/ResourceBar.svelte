@@ -14,18 +14,35 @@
   .wrapper {
     left: 0px;
     top: 30px;
-    width: 100px;
+    width: 60px;
     position: relative;
     text-align: center;
     font-size: 16px;
     color: #b68962;
-    background: black;
+    background: rgba(232, 207, 166, 0.74);
+
+
+    .icon_flour {
+      transform: translateY(5px);
+    }
   }
 </style>
 
 <div class="wrapper">
-    Resources:<br>
+    <table>
+
     {#each Object.entries(agregatedResources) as [resourceType, amount]}
-        {GetResourceName(resourceType)} {amount}<br>
+        <tr>
+            <td><div style="display: inline-block; margin-left: 5px">{amount}</div></td>
+            <td><div class="sprite icon_{resourceType}"></div><br>
+            </td>
+        </tr>
+<!--        <div style="height: 40px">-->
+
+<!--            <div style="display: inline-block; margin-left: 5px">{amount}</div>-->
+<!--        <div class="sprite icon_{resourceType}"></div><br>-->
+
+<!--        </div>-->
     {/each}
+    </table>
 </div>
