@@ -22,6 +22,8 @@
     let pausedSubscriber: Subscription;
     let inputStorageSubscriber: Subscription;
     let outputStorageSubscriber: Subscription;
+    let progressInput = 100;
+    let progressOutput = 100;
 
     scene.events.on(Events.CLOSE_ALL_MODALS, () => {
         close();
@@ -44,17 +46,22 @@
             paused = isPaused;
         });
         paused = building.isPaused();
+        inputStorageItemCount = building.getSizeInputStorage()
+        outputStorageItemCount = building.getSizeOutputStorage()
+
+        progressInput = Math.round((inputStorageItemCount / storageSize) * 100);
+        progressOutput = Math.round((outputStorageItemCount / storageSize) * 100);
 
         inputStorageSubscriber = building.inputStorage$.subscribe(() => {
             inputStorageItemCount = building.getSizeInputStorage()
+            progressInput = Math.round((inputStorageItemCount / storageSize) * 100);
         });
 
         outputStorageSubscriber = building.outputStorage$.subscribe(() => {
             outputStorageItemCount = building.getSizeOutputStorage()
+            progressOutput = Math.round((outputStorageItemCount / storageSize) * 100);
         });
 
-        inputStorageItemCount = building.getSizeInputStorage()
-        outputStorageItemCount = building.getSizeOutputStorage()
 
         inputItemName = GetResourceName(building.getInputItemType());
         outputItemName = GetResourceName(building.getOutputItemType());
@@ -99,10 +106,8 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 200px;
-      height: 200px;
       transform: translate(-50%, -50%);
-      background: red;
+      color: #b68962;
 
       .bg {
         z-index: 4999;
@@ -136,12 +141,17 @@
           color: #b68962;
         }
 
+
         .progressBar {
           position: relative;
-          margin-top: -2px;
+          margin-top: 10px;
           left: 50%;
           transform: translateX(-50%);
         }
+        .inner {
+          transform: translate(4.5px, -5px);
+        }
+
 
         .progress {
           text-align: center;
@@ -183,16 +193,32 @@
 
       }
 
+      .bottom-part {
+        bottom: 10px;
+        left: 5px;
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        text-align: center;
+      }
+
+      .inline {
+        display: inline-block;
+      }
+
+      .icon_flour {
+        transform: translateY(5px);
+      }
+
+
     }
 </style>
 
 
 {#if visible}
     <div class="modal">
-        <div class="sprite modals-feeder-close_button close" on:click|stopPropagation={close}>
-            <button type="button">X</button>
-        </div>
-        <div class="sprite modals-well-bg bg"></div>
+        <div class="sprite modals-close close" on:click|stopPropagation={close}></div>
+        <div class="sprite modals-storage_bg bg"></div>
         <div class="inside">
             <div class="title">
                 {buildingName}
@@ -207,37 +233,48 @@
 
             {#if hasInputStorage}
                 <div class="info">
-                    Import ({inputItemName})
+                    Import <div class="sprite icon_{lastBuilding.getInputItemType()}"></div>
                 </div>
-                {inputStorageItemCount}/{storageSize}
+                <div class="progressBar sprite modals-progress_outer">
+                    <div class="sprite modals-progress_inner inner" style="width: {progressInput}%;"></div>
+                </div>
+                <div class="info">
+                    {inputStorageItemCount}/{storageSize}
+                </div>
             {/if}
+
             {#if hasOutputStorage}
                 <div class="info">
-                    Export ({outputItemName}
+                    Export <div class="sprite icon_{lastBuilding.getOutputItemType()}"></div>
                 </div>
-                {outputStorageItemCount}/{storageSize}
+                <div class="progressBar sprite modals-progress_outer">
+                    <div class="sprite modals-progress_inner inner" style="width: {progressOutput}%;"></div>
+                </div>
+                <div class="info">
+                    {outputStorageItemCount}/{storageSize}
+                </div>
             {/if}
 
-
-
-            <div class="button-wrapper tooltip">
-                <div class="button sprite modals-feeder-destroy_button"></div>
-                <button type="button" on:click|stopPropagation={destroy}>
-                    Destroy
+            <div class="bottom-part">
+                <div class="button-wrapper tooltip inline">
+                    <div class="button sprite modals-button_b"  on:click|stopPropagation={destroy} style="font-size: 14px;">
+                        <div style="transform: translateY(6px)">Destroy</div>
+                    </div>
                     <span class="tooltiptext">
                         Destroy
                     </span>
-                </button>
-            </div>
+                </div>
 
-            <div class="button-wrapper tooltip">
-                <div class="button sprite modals-feeder-destroy_button"></div>
-                <button type="button"  on:click|stopPropagation={pauseToggle}>
-                    {#if paused}Resume{:else}Pause{/if} building
+                <div class="button-wrapper tooltip inline" on:click|stopPropagation={pauseToggle}>
+                    <div class="button sprite modals-button_b">
+                        <div style="transform: translateY(6px); font-size: 14px">
+                            {#if paused}Resume{:else}Pause{/if}
+                        </div>
+                    </div>
                     <span class="tooltiptext">
                         {#if paused}Resume{:else}Pause{/if} building
                     </span>
-                </button>
+                </div>
             </div>
 
         </div>

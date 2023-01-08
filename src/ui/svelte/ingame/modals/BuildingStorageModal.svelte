@@ -137,7 +137,7 @@
 
         .progressBar {
           position: relative;
-          margin-top: -2px;
+          margin-top: 10px;
           left: 50%;
           transform: translateX(-50%);
         }
@@ -226,11 +226,10 @@
             <div class="title">
                 Warehouse
             </div>
-
-            <div class="info">
-                PAUSED
-            </div>
             {#if paused}
+                <div class="info">
+                    PAUSED
+                </div>
             {/if}
 
             <div class="progressBar sprite modals-progress_outer">
