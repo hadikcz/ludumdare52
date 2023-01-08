@@ -28,6 +28,9 @@
     });
     scene.events.on(Events.UI_BUILDING_OPEN, (building: IBuilding) => {
         scene.events.emit(Events.CLOSE_ALL_MODALS);
+        if (scene.builder.isBuildMode()) {
+            return;
+        }
         lastBuilding = building;
         buildingName = building.getName();
         paused = building.isPaused();

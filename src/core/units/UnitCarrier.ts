@@ -20,7 +20,7 @@ import GameScene from 'scenes/GameScene';
 export default class UnitCarrier extends Container {
 
     private static readonly EATING_TIME = 5000;
-    private static readonly VELOCITY = 5; // 1
+    private static readonly VELOCITY = 1; // 1
     private static readonly VELOCITY_PATHWAY = 3;
     private static readonly SCALE = 2;
     private stateText!: Phaser.GameObjects.Text;

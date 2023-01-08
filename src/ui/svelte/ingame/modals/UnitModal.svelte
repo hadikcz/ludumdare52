@@ -28,6 +28,9 @@
     });
     scene.events.on(Events.UI_UNIT_OPEN, (unit: UnitCarrier) => {
         scene.events.emit(Events.CLOSE_ALL_MODALS);
+        if (scene.builder.isBuildMode()) {
+            return;
+        }
         lastUnit = unit
         visible = true;
 

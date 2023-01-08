@@ -26,6 +26,9 @@
     });
     scene.events.on(Events.UI_WAREHOUSE_OPEN, (building: BuildingWarehouse) => {
         scene.events.emit(Events.CLOSE_ALL_MODALS);
+        if (scene.builder.isBuildMode()) {
+            return;
+        }
         lastWarehouse = building
 
         storageSize = building.getStorageSize();
