@@ -68,11 +68,11 @@ export default class BuildingHandler {
     }
 
     private init (): void {
-        this.spawnBuilding(450, 450, BuildingsEnum.FARM);
+        // this.spawnBuilding(450, 450, BuildingsEnum.FARM);
         // this.spawnBuilding(350, 650, BuildingsEnum.FARM);
-        this.spawnBuilding(800, 300, BuildingsEnum.MILL);
-        this.spawnBuilding(800, 550, BuildingsEnum.BAKERY);
-        this.spawnBuilding(550, 200, BuildingsEnum.INN);
+        // this.spawnBuilding(800, 300, BuildingsEnum.MILL);
+        // this.spawnBuilding(800, 550, BuildingsEnum.BAKERY);
+        // this.spawnBuilding(550, 200, BuildingsEnum.INN);
         // this.spawnBuilding(750, 100, BuildingsEnum.INN);
         // this.spawnBuilding(50, 100, BuildingsEnum.WAREHOUSE);
         // this.spawnBuilding(50, 600, BuildingsEnum.WAREHOUSE);
@@ -80,7 +80,16 @@ export default class BuildingHandler {
 
 
         // real game init
-        this.spawnBuilding(600, 450, BuildingsEnum.WAREHOUSE);
+        let warehouse = this.spawnBuilding(1500, 1500, BuildingsEnum.WAREHOUSE);
+        if (warehouse) {
+            warehouse.inputStorage.push(ResourceItem.BREAD);
+            warehouse.inputStorage.push(ResourceItem.BREAD);
+            warehouse.inputStorage.push(ResourceItem.BREAD);
+            warehouse.inputStorage.push(ResourceItem.BREAD);
+            warehouse.inputStorage.push(ResourceItem.BREAD);
+        }
+
+        this.spawnBuilding(1700, 1530, BuildingsEnum.FARM);
     }
 
 

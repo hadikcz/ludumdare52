@@ -19,6 +19,7 @@ export interface IBuilding {
     getStorageSize(): number;
     getSizeInputStorage(): number;
     getSizeOutputStorage(): number;
+    inputStorage: ResourceItem[];
     tryDestroy(): void;
     isPaused(): boolean;
     pause(): void;

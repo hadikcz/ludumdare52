@@ -16,7 +16,7 @@ export default abstract class AbstractBuilding extends Container implements IBui
 
     public inputStorage$: Subject<ResourceItem|null>;
     public outputStorage$: Subject<ResourceItem|null>;
-    protected inputStorage: ResourceItem[] = [];
+    public inputStorage: ResourceItem[] = [];
     protected outputStorage: ResourceItem[] = [];
     protected buildingState: BuildingStateEnum = BuildingStateEnum.WAITING;
     private delayBetweenSpawn: number = 5000;
