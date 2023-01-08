@@ -84,10 +84,10 @@ export default class BuildingHandler {
         let warehouse = this.spawnBuilding(1520, 1500, BuildingsEnum.WAREHOUSE);
         if (warehouse) {
             warehouse.inputStorage.push(ResourceItem.BREAD);
-            warehouse.inputStorage.push(ResourceItem.BREAD);
-            warehouse.inputStorage.push(ResourceItem.BREAD);
-            warehouse.inputStorage.push(ResourceItem.BREAD);
-            warehouse.inputStorage.push(ResourceItem.BREAD);
+            // warehouse.inputStorage.push(ResourceItem.BREAD);
+            // warehouse.inputStorage.push(ResourceItem.BREAD);
+            // warehouse.inputStorage.push(ResourceItem.BREAD);
+            // warehouse.inputStorage.push(ResourceItem.BREAD);
         }
 
         this.spawnBuilding(1760, 1530, BuildingsEnum.FARM);
