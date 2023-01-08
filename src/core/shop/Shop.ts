@@ -22,11 +22,11 @@ export default class Shop {
         this.scene.events.on(Events.UI_SHOP_TRY_PURCHASE, this.uiTryPurchase.bind(this));
 
         this.prices[BuyableEnum.CARRIER] = 2;
-        this.prices[BuyableEnum.FARM] = 2;
-        this.prices[BuyableEnum.MILL] = 2;
-        this.prices[BuyableEnum.BAKERY] = 2;
-        this.prices[BuyableEnum.INN] = 2;
-        this.prices[BuyableEnum.WAREHOUSE] = 2;
+        this.prices[BuyableEnum.FARM] = 10;
+        this.prices[BuyableEnum.MILL] = 10;
+        this.prices[BuyableEnum.BAKERY] = 30;
+        this.prices[BuyableEnum.INN] = 15;
+        this.prices[BuyableEnum.WAREHOUSE] = 100;
         this.prices[BuyableEnum.PATHWAY] = 1;
         this.prices[BuyableEnum.PATHWAY_DESTROY] = 0;
 
@@ -100,8 +100,8 @@ export function GetResourceSellPrice (resource: ResourceItem|null, muliplier10En
     if (!resource) return null;
     let resources: number[] = [];
     resources[ResourceItem.WHEAT] = 1;
-    resources[ResourceItem.FLOUR] = 2;
-    resources[ResourceItem.BREAD] = 5;
+    resources[ResourceItem.FLOUR] = 4;
+    resources[ResourceItem.BREAD] = 10;
     resources[ResourceItem.PIG] = 'Pig';
     resources[ResourceItem.MEAT] = 'Meat';
     resources[ResourceItem.SAUSAGE] = 'Sausage';

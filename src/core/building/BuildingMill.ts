@@ -72,7 +72,7 @@ export default class BuildingMill extends AbstractBuilding implements IBuilding 
 
             this.setBuildingState(BuildingStateEnum.PROCESSING);
             // processing
-            await delay(5000);
+            await delay(10000);
             this.outputStorage.push(this.outputItemType);
             this.outputStorage$.next(this.outputItemType);
             this.setBuildingState(BuildingStateEnum.WAITING);

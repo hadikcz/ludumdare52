@@ -19,7 +19,7 @@ export default abstract class AbstractBuilding extends Container implements IBui
     public inputStorage: ResourceItem[] = [];
     protected outputStorage: ResourceItem[] = [];
     protected buildingState: BuildingStateEnum = BuildingStateEnum.WAITING;
-    private delayBetweenSpawn: number = 5000;
+    private delayBetweenSpawn: number = 7500;
     private lastSpawn: number = 0;
     private outputStorageText!: Phaser.GameObjects.Text;
     private inputStorageText!: Phaser.GameObjects.Text;
