@@ -9,6 +9,7 @@ import GameScene from 'scenes/GameScene';
 import { Vec2 } from 'types/Vec2';
 
 export default class BuildingMill extends AbstractBuilding implements IBuilding {
+    private wheel: Phaser.GameObjects.Image;
 
     constructor (
         scene: GameScene,
@@ -25,6 +26,17 @@ export default class BuildingMill extends AbstractBuilding implements IBuilding 
             ResourceItem.FLOUR,
             ResourceItem.WHEAT
         );
+
+        this.wheel = this.scene.add.image(0, 0, 'game', 'buildings/mill_wheel');
+        this.add(this.wheel);
+    }
+
+    preUpdate () {
+        super.preUpdate();
+
+        if (this.buildingState === BuildingStateEnum.PROCESSING) {
+            this.wheel.rotation -= 0.05;
+        }
     }
 
     getDoorSpot (): Vec2 {

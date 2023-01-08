@@ -34,6 +34,16 @@ export default class BuildingBakery extends AbstractBuilding implements IBuildin
         };
     }
 
+    preUpdate () {
+        super.preUpdate();
+
+        if (this.buildingState === BuildingStateEnum.PROCESSING) {
+            this.image.setFrame('buildings/bakery_flame');
+        } else {
+            this.image.setFrame('buildings/bakery');
+        }
+    }
+
     async cycle (): Promise<void> {
         if (this.inputItemType && this.outputItemType && this.canSpawnResource()) {
             this.refreshLastSpawn();

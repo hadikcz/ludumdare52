@@ -376,6 +376,7 @@ export default class UnitCarrier extends Container {
     }
 
     draw (): void {
+        if (!GameScene.DEBUG_ENTITY_UI) return;
         let style = { fontFamily: 'arial', fontSize: '20px', backgroundColor: '#FFFFFF' } as TextStyle;
 
         this.stateText = this.scene.add.text(0, 60, 'STATE: N/A', { ...style, color: '#000000', fontSize: '12px' }).setOrigin(0.5, 0);
@@ -383,6 +384,7 @@ export default class UnitCarrier extends Container {
     }
 
     redraw (): void {
+        if (!GameScene.DEBUG_ENTITY_UI) return;
         this.stateText.setText('STATE: ' + this.unitState);
     }
 

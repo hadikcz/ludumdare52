@@ -4,7 +4,7 @@
 			"image": "game_atlas.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 511,
+				"w": 510,
 				"h": 502
 			},
 			"scale": 2,
@@ -115,24 +115,45 @@
 					}
 				},
 				{
-					"filename": "buildings/mill_wheel",
+					"filename": "env/pond1",
 					"rotated": false,
-					"trimmed": false,
+					"trimmed": true,
 					"sourceSize": {
-						"w": 116,
-						"h": 108
+						"w": 108,
+						"h": 68
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 116,
-						"h": 108
+						"w": 107,
+						"h": 68
+					},
+					"frame": {
+						"x": 402,
+						"y": 1,
+						"w": 107,
+						"h": 68
+					}
+				},
+				{
+					"filename": "buildings/mill_wheel",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 114,
+						"h": 114
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 114,
+						"h": 114
 					},
 					"frame": {
 						"x": 166,
 						"y": 382,
-						"w": 116,
-						"h": 108
+						"w": 114,
+						"h": 114
 					}
 				},
 				{
@@ -178,27 +199,6 @@
 					}
 				},
 				{
-					"filename": "env/pond1",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 108,
-						"h": 68
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 107,
-						"h": 68
-					},
-					"frame": {
-						"x": 402,
-						"y": 1,
-						"w": 107,
-						"h": 68
-					}
-				},
-				{
 					"filename": "env/pond2",
 					"rotated": false,
 					"trimmed": false,
@@ -234,7 +234,7 @@
 						"h": 30
 					},
 					"frame": {
-						"x": 284,
+						"x": 282,
 						"y": 438,
 						"w": 82,
 						"h": 30
@@ -255,7 +255,7 @@
 						"h": 31
 					},
 					"frame": {
-						"x": 284,
+						"x": 282,
 						"y": 470,
 						"w": 48,
 						"h": 31
@@ -276,52 +276,10 @@
 						"h": 47
 					},
 					"frame": {
-						"x": 368,
+						"x": 366,
 						"y": 438,
 						"w": 59,
 						"h": 47
-					}
-				},
-				{
-					"filename": "env/bush1",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 22,
-						"h": 28
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 22,
-						"h": 28
-					},
-					"frame": {
-						"x": 488,
-						"y": 71,
-						"w": 22,
-						"h": 28
-					}
-				},
-				{
-					"filename": "ingame_ui/icon_flour",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 22,
-						"h": 26
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 22,
-						"h": 26
-					},
-					"frame": {
-						"x": 488,
-						"y": 101,
-						"w": 22,
-						"h": 26
 					}
 				},
 				{
@@ -339,7 +297,7 @@
 						"h": 24
 					},
 					"frame": {
-						"x": 334,
+						"x": 332,
 						"y": 470,
 						"w": 32,
 						"h": 24
@@ -360,7 +318,7 @@
 						"h": 14
 					},
 					"frame": {
-						"x": 368,
+						"x": 366,
 						"y": 487,
 						"w": 30,
 						"h": 14
@@ -381,7 +339,7 @@
 						"h": 14
 					},
 					"frame": {
-						"x": 400,
+						"x": 398,
 						"y": 487,
 						"w": 28,
 						"h": 14
@@ -493,6 +451,27 @@
 					}
 				},
 				{
+					"filename": "env/rock3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 44,
+						"h": 34
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 44,
+						"h": 34
+					},
+					"frame": {
+						"x": 465,
+						"y": 280,
+						"w": 44,
+						"h": 34
+					}
+				},
+				{
 					"filename": "ingame_ui/bubble_waiting",
 					"rotated": false,
 					"trimmed": true,
@@ -507,31 +486,31 @@
 						"h": 56
 					},
 					"frame": {
-						"x": 435,
-						"y": 396,
+						"x": 465,
+						"y": 316,
 						"w": 28,
 						"h": 56
 					}
 				},
 				{
-					"filename": "env/stonky1",
+					"filename": "env/stonky2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 26,
-						"h": 26
+						"w": 24,
+						"h": 22
 					},
 					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 26,
-						"h": 25
+						"x": 1,
+						"y": 1,
+						"w": 23,
+						"h": 21
 					},
 					"frame": {
-						"x": 402,
-						"y": 135,
-						"w": 26,
-						"h": 25
+						"x": 282,
+						"y": 382,
+						"w": 23,
+						"h": 21
 					}
 				},
 				{
@@ -549,52 +528,94 @@
 						"h": 38
 					},
 					"frame": {
-						"x": 465,
-						"y": 280,
+						"x": 435,
+						"y": 396,
 						"w": 38,
 						"h": 38
 					}
 				},
 				{
-					"filename": "env/bush2",
+					"filename": "env/stonky1",
 					"rotated": false,
-					"trimmed": false,
+					"trimmed": true,
 					"sourceSize": {
-						"w": 36,
-						"h": 36
+						"w": 26,
+						"h": 26
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 36,
-						"h": 36
+						"w": 26,
+						"h": 25
 					},
 					"frame": {
-						"x": 465,
-						"y": 320,
-						"w": 36,
-						"h": 36
+						"x": 483,
+						"y": 184,
+						"w": 26,
+						"h": 25
 					}
 				},
 				{
-					"filename": "env/rock3",
+					"filename": "env/grassDot3",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 44,
-						"h": 34
+						"w": 26,
+						"h": 24
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 44,
-						"h": 34
+						"w": 26,
+						"h": 24
+					},
+					"frame": {
+						"x": 483,
+						"y": 211,
+						"w": 26,
+						"h": 24
+					}
+				},
+				{
+					"filename": "env/rock2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 24,
+						"h": 18
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 23,
+						"h": 18
+					},
+					"frame": {
+						"x": 282,
+						"y": 405,
+						"w": 23,
+						"h": 18
+					}
+				},
+				{
+					"filename": "env/grassDot6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 28,
+						"h": 20
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 28,
+						"h": 20
 					},
 					"frame": {
 						"x": 465,
-						"y": 358,
-						"w": 44,
-						"h": 34
+						"y": 374,
+						"w": 28,
+						"h": 20
 					}
 				},
 				{
@@ -612,8 +633,8 @@
 						"h": 36
 					},
 					"frame": {
-						"x": 465,
-						"y": 394,
+						"x": 477,
+						"y": 237,
 						"w": 24,
 						"h": 36
 					}
@@ -633,94 +654,94 @@
 						"h": 36
 					},
 					"frame": {
-						"x": 465,
-						"y": 394,
+						"x": 477,
+						"y": 237,
 						"w": 24,
 						"h": 36
 					}
 				},
 				{
-					"filename": "env/grassDot3",
+					"filename": "ingame_ui/icon_coin",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 26,
-						"h": 24
+						"w": 14,
+						"h": 18
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 26,
-						"h": 24
+						"w": 14,
+						"h": 18
 					},
 					"frame": {
-						"x": 429,
-						"y": 454,
-						"w": 26,
-						"h": 24
+						"x": 495,
+						"y": 316,
+						"w": 14,
+						"h": 18
 					}
 				},
 				{
-					"filename": "env/stonky2",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 24,
-						"h": 22
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 1,
-						"w": 23,
-						"h": 21
-					},
-					"frame": {
-						"x": 430,
-						"y": 480,
-						"w": 23,
-						"h": 21
-					}
-				},
-				{
-					"filename": "env/grassDot6",
+					"filename": "env/bush1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 28,
-						"h": 20
+						"w": 22,
+						"h": 28
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 28,
-						"h": 20
+						"w": 22,
+						"h": 28
 					},
 					"frame": {
-						"x": 465,
-						"y": 432,
-						"w": 28,
-						"h": 20
+						"x": 402,
+						"y": 135,
+						"w": 22,
+						"h": 28
 					}
 				},
 				{
-					"filename": "env/grassDot4",
+					"filename": "ingame_ui/icon_flour",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 30,
-						"h": 16
+						"w": 22,
+						"h": 26
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 30,
-						"h": 16
+						"w": 22,
+						"h": 26
 					},
 					"frame": {
-						"x": 457,
-						"y": 454,
-						"w": 30,
-						"h": 16
+						"x": 475,
+						"y": 396,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "env/bush2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 36,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 36,
+						"h": 36
+					},
+					"frame": {
+						"x": 427,
+						"y": 438,
+						"w": 36,
+						"h": 36
 					}
 				},
 				{
@@ -738,8 +759,8 @@
 						"h": 22
 					},
 					"frame": {
-						"x": 284,
-						"y": 382,
+						"x": 488,
+						"y": 71,
 						"w": 20,
 						"h": 22
 					}
@@ -759,51 +780,51 @@
 						"h": 16
 					},
 					"frame": {
-						"x": 284,
-						"y": 406,
+						"x": 488,
+						"y": 95,
 						"w": 20,
 						"h": 16
 					}
 				},
 				{
-					"filename": "env/smallbush1",
+					"filename": "env/rock1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 16,
-						"h": 18
+						"w": 20,
+						"h": 16
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 16,
-						"h": 18
+						"w": 20,
+						"h": 16
 					},
 					"frame": {
-						"x": 491,
-						"y": 394,
-						"w": 16,
-						"h": 18
+						"x": 488,
+						"y": 113,
+						"w": 20,
+						"h": 16
 					}
 				},
 				{
-					"filename": "ingame_ui/icon_wheat",
+					"filename": "env/grassDot4",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 16,
+						"w": 30,
 						"h": 16
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 16,
+						"w": 30,
 						"h": 16
 					},
 					"frame": {
-						"x": 491,
-						"y": 414,
-						"w": 16,
+						"x": 428,
+						"y": 476,
+						"w": 30,
 						"h": 16
 					}
 				},
@@ -822,30 +843,9 @@
 						"h": 18
 					},
 					"frame": {
-						"x": 457,
-						"y": 472,
+						"x": 475,
+						"y": 424,
 						"w": 24,
-						"h": 18
-					}
-				},
-				{
-					"filename": "ingame_ui/icon_coin",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 14,
-						"h": 18
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 14,
-						"h": 18
-					},
-					"frame": {
-						"x": 495,
-						"y": 432,
-						"w": 14,
 						"h": 18
 					}
 				},
@@ -864,56 +864,14 @@
 						"h": 18
 					},
 					"frame": {
-						"x": 483,
-						"y": 184,
+						"x": 465,
+						"y": 444,
 						"w": 24,
 						"h": 18
 					}
 				},
 				{
-					"filename": "env/rock2",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 24,
-						"h": 18
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 23,
-						"h": 18
-					},
-					"frame": {
-						"x": 483,
-						"y": 204,
-						"w": 23,
-						"h": 18
-					}
-				},
-				{
-					"filename": "env/rock1",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 20,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 20,
-						"h": 16
-					},
-					"frame": {
-						"x": 483,
-						"y": 224,
-						"w": 20,
-						"h": 16
-					}
-				},
-				{
-					"filename": "env/smallbush3",
+					"filename": "env/smallbush1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -927,8 +885,8 @@
 						"h": 18
 					},
 					"frame": {
-						"x": 477,
-						"y": 242,
+						"x": 465,
+						"y": 464,
 						"w": 16,
 						"h": 18
 					}
@@ -948,10 +906,52 @@
 						"h": 17
 					},
 					"frame": {
-						"x": 483,
-						"y": 472,
+						"x": 460,
+						"y": 484,
 						"w": 16,
 						"h": 17
+					}
+				},
+				{
+					"filename": "env/smallbush3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 18
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 18
+					},
+					"frame": {
+						"x": 491,
+						"y": 444,
+						"w": 16,
+						"h": 18
+					}
+				},
+				{
+					"filename": "ingame_ui/icon_wheat",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 483,
+						"y": 464,
+						"w": 16,
+						"h": 16
 					}
 				},
 				{
@@ -969,8 +969,8 @@
 						"h": 8
 					},
 					"frame": {
-						"x": 284,
-						"y": 424,
+						"x": 282,
+						"y": 425,
 						"w": 12,
 						"h": 8
 					}
@@ -990,8 +990,8 @@
 						"h": 8
 					},
 					"frame": {
-						"x": 477,
-						"y": 262,
+						"x": 495,
+						"y": 336,
 						"w": 12,
 						"h": 8
 					}
@@ -1002,6 +1002,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:264d717646afb70792529ebfd1108611:b831873ed0980bb505070e8407cdaae5:94741eb2b4e0477148894ee6eeb29053$"
+		"smartupdate": "$TexturePacker:SmartUpdate:0054af7f1801dc51ef1c23787d403d0e:be43d3035167904c82189fae9965ae32:94741eb2b4e0477148894ee6eeb29053$"
 	}
 }

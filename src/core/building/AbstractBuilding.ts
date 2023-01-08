@@ -24,7 +24,7 @@ export default abstract class AbstractBuilding extends Container implements IBui
     private outputStorageText!: Phaser.GameObjects.Text;
     private inputStorageText!: Phaser.GameObjects.Text;
     private stateText!: Phaser.GameObjects.Text;
-    private image: Phaser.GameObjects.Image;
+    protected image: Phaser.GameObjects.Image;
     private paused: boolean = false;
     public paused$: Subject<boolean>;
     private pausedText!: Phaser.GameObjects.Text;
