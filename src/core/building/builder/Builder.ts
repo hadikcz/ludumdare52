@@ -75,7 +75,7 @@ export default class Builder {
                 throw new Error('Building image not found ' + building);
             }
 
-            this.previewImage.setFrame('buildings/' + frame);
+            this.previewImage.setTexture('game', 'buildings/' + frame);
         }
         console.log('start build');
         this.buildMode = building;
