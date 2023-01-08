@@ -9,6 +9,7 @@ import { UnitState } from 'core/units/UnitState';
 import delay from 'delay';
 import { Depths } from 'enums/Depths';
 import { Events } from 'enums/Events';
+import AnimationHelpers from 'helpers/AnimationHelpers';
 import ArrayHelpers from 'helpers/ArrayHelpers';
 import NumberHelpers from 'helpers/NumberHelpers';
 import ReactiveVariable from 'helpers/ReactiveVariable';
@@ -19,8 +20,9 @@ import GameScene from 'scenes/GameScene';
 export default class UnitCarrier extends Container {
 
     private static readonly EATING_TIME = 5000;
-    private static readonly VELOCITY = 1;
+    private static readonly VELOCITY = 5; // 1
     private static readonly VELOCITY_PATHWAY = 3;
+    private static readonly SCALE = 2;
     private stateText!: Phaser.GameObjects.Text;
     private unitState: UnitState = UnitState.WAITING;
     private carringCargo: ResourceItem|null = null;
@@ -29,10 +31,15 @@ export default class UnitCarrier extends Container {
     public hunger$: Subject<number>;
     public unitState$: ReactiveVariable<UnitState>;
 
+
+
     private targetBuilding: IBuilding|null = null;
     private carryItemImage: Phaser.GameObjects.Image;
     protected path: Vector2[] = [];
     public name: string;
+    private unitImage: Phaser.GameObjects.Sprite;
+    private previousX = 0;
+    private carryXOffest: number;
 
     constructor (
         public scene: GameScene,
@@ -48,10 +55,44 @@ export default class UnitCarrier extends Container {
 
         this.scene = scene;
 
-        let unitImage = this.scene.add.image(0, 0, 'carrier').setOrigin(0.5, 1);
-        this.add(unitImage);
+        // let unitImage = this.scene.add.image(0, 0, 'carrier').setOrigin(0.5, 1);
+        // this.add(unitImage);
 
-        this.carryItemImage = this.scene.add.image(0, 0, 'flour').setVisible(false);
+        this.unitImage = this.scene.add.sprite(0, 0, 'character1', 0).setOrigin(0.5, 1).setScale(UnitCarrier.SCALE);
+        this.add(this.unitImage);
+
+        let type = NumberHelpers.randomIntInRange(1, 2);
+
+
+
+        let movementSpeed = 10;
+        this.unitImage.anims.create({
+            key: ANIM.WALK,
+            frames: this.scene.anims.generateFrameNumbers('character' + type, AnimationHelpers.getRangeAnimationObjectByRowAndLength(1, 4) ),
+            frameRate: movementSpeed,
+            repeat: Infinity,
+        });
+
+        this.unitImage.anims.create({
+            key: ANIM.CARRY,
+            frames: this.scene.anims.generateFrameNumbers('character' + type, AnimationHelpers.getRangeAnimationObjectByRowAndLength(2, 4)),
+            frameRate: movementSpeed,
+            repeat: Infinity,
+        });
+
+        this.unitImage.anims.create({
+            key: ANIM.IDLE,
+            frames: this.scene.anims.generateFrameNumbers('character' + type, AnimationHelpers.getRangeAnimationObjectByRowAndLength(3, 4)),
+            frameRate: NumberHelpers.randomFloatInRange(2, 3),
+            repeat: Infinity,
+        });
+
+
+        this.unitImage.play(ANIM.IDLE);
+        // this.unitImage.play(ANIM.IDLE);
+
+        this.carryXOffest = 20;
+        this.carryItemImage = this.scene.add.image(this.carryXOffest, -50, 'game', 'ingame_ui/flour').setVisible(false);
         this.add(this.carryItemImage);
 
         this.draw();
@@ -61,8 +102,8 @@ export default class UnitCarrier extends Container {
         this.hunger$ = new Subject<number>();
         this.unitState$ = new ReactiveVariable<UnitState>(this.unitState);
 
-        unitImage.setInteractive({ useHandCursor: true });
-        unitImage.on('pointerdown', () => {
+        this.unitImage.setInteractive({ useHandCursor: true });
+        this.unitImage.on('pointerdown', () => {
             if (this.scene.input.activePointer.downElement.localName !== 'canvas') {
                 return;
             }
@@ -79,6 +120,17 @@ export default class UnitCarrier extends Container {
 
         this.tick();
         this.redraw();
+
+        if (this.x < this.previousX) {
+            this.setScale(-1, 1);
+            // this.unitImage.setScale(UnitCarrier.SCALE * -1, UnitCarrier.SCALE);
+            // this.carryItemImage.setX(-this.carryXOffest);
+        } else {
+            this.setScale(1, 1);
+            // this.carryItemImage.setX(this.carryXOffest);
+            // this.unitImage.setScale(UnitCarrier.SCALE * 1, UnitCarrier.SCALE);
+        }
+        this.previousX = JSON.parse(JSON.stringify(this.x));
     }
 
     getHunger (): number {
@@ -338,6 +390,26 @@ export default class UnitCarrier extends Container {
         this.unitState = state;
 
         this.unitState$.setValue(state);
+
+        this.updateAnimation(state);
+    }
+
+    private updateAnimation (state: UnitState): void {
+        switch (state) {
+            case UnitState.DELIVERY:
+                this.unitImage.play(ANIM.CARRY, true);
+                break;
+            case UnitState.PICKUP:
+            case UnitState.MOVING_TO_INN:
+                this.unitImage.play(ANIM.WALK, true);
+                break;
+            case UnitState.WAITING:
+            case UnitState.LOOKING_FOR_DELIVERY_TARGET_EXCEPT_WAREHOUSE:
+            case UnitState.EATING:
+            case UnitState.LOOKING_FOR_DELIVERY_TARGET:
+                this.unitImage.play(ANIM.IDLE, true);
+                break;
+        }
     }
 
     private die (): void {
@@ -388,16 +460,23 @@ export default class UnitCarrier extends Container {
 
         switch (resource) {
             case ResourceItem.WHEAT:
-                this.carryItemImage.setTexture('wheat');
+                this.carryItemImage.setFrame('ingame_ui/icon_wheat');
                 break;
             case ResourceItem.FLOUR:
-                this.carryItemImage.setTexture('flour');
+                this.carryItemImage.setFrame('ingame_ui/icon_flour');
                 break;
             case ResourceItem.BREAD:
-                this.carryItemImage.setTexture('bread');
+                this.carryItemImage.setFrame('ingame_ui/icon_bread');
                 break;
         }
 
         this.carryItemImage.setVisible(true);
     }
+}
+
+
+export enum ANIM {
+    WALK= 'walk',
+    IDLE = 'idle',
+    CARRY = 'carry'
 }

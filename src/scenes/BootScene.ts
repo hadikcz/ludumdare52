@@ -43,13 +43,19 @@ export default class BootScene extends Phaser.Scene {
 
 
         this.load.setPath('assets/images');
-        const settings = { frameWidth: 16, frameHeight: 16 };
+        let settings = { frameWidth: 16, frameHeight: 16 };
         this.load.spritesheet('tiles8', 'tiles8.png', settings);
         this.load.spritesheet('tiles16', 'tiles16.png', settings);
+
+        settings = { frameWidth: 36, frameHeight: 36 };
+        this.load.spritesheet('character1', 'character1.png', settings);
+        this.load.spritesheet('character2', 'character2.png', settings);
 
         this.load.setPath('assets/images/develop');
         const settings2 = { frameWidth: 32, frameHeight: 32 };
         this.load.spritesheet('pathwayTileset', 'pathwayTileset.png', settings2);
+
+
     }
 
     private startGame (): void {
