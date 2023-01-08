@@ -16,6 +16,7 @@ declare let __DEV__: any;
 
 export default class GameScene extends Phaser.Scene {
 
+    public static readonly DEBUG_ENTITY_UI = false;
     public effectManager!: EffectManager;
     public ui!: UI;
     private debugGui!: GUI;
@@ -45,7 +46,7 @@ export default class GameScene extends Phaser.Scene {
         this.matrixWorld = new MatrixWorld(this, this.debugGui);
 
         this.cameras.main.setZoom(1);
-        this.cameras.main.setBackgroundColor('#3F7B30');
+        this.cameras.main.setBackgroundColor('#c0d470');
         // this.cameras.main.centerOn(GameConfig.PhaserBasicSettings.gameSize.width / 4, GameConfig.PhaserBasicSettings.gameSize.height / 4);
 
 

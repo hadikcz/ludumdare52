@@ -2,6 +2,7 @@ import BuildingHandler from 'core/building/BuildingHandler';
 import { BuildingsEnum } from 'core/building/BuildingsEnum';
 import BuildingShopBuilder from 'core/building/BuildingShopBuilder';
 import { BuildingStateEnum } from 'core/building/BuildingStateEnum';
+import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import { Depths } from 'enums/Depths';
 import { Events } from 'enums/Events';
@@ -10,7 +11,6 @@ import GameScene from 'scenes/GameScene';
 import { Vec2 } from 'types/Vec2';
 import Container = Phaser.GameObjects.Container;
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
-import { IBuilding } from 'core/building/IBuilding';
 
 export default abstract class AbstractBuilding extends Container implements IBuilding {
 
@@ -47,7 +47,11 @@ export default abstract class AbstractBuilding extends Container implements IBui
         this.inputStorage$ = new Subject<ResourceItem|null>();
         this.outputStorage$ = new Subject<ResourceItem|null>();
 
-        this.image = this.scene.add.image(0, 0, imageTexture);
+        if (this.getType() === BuildingsEnum.MILL) {
+            this.image = this.scene.add.image(0, 0, 'game', 'buildings/mill').setScale(2);
+        } else {
+            this.image = this.scene.add.image(0, 0, imageTexture);
+        }
         this.add(this.image);
 
         this.draw();
@@ -194,6 +198,7 @@ export default abstract class AbstractBuilding extends Container implements IBui
     }
 
     private draw (): void {
+        if (!GameScene.DEBUG_ENTITY_UI) return;
         let style = { fontFamily: 'arial', fontSize: '20px', backgroundColor: '#FFFFFF' } as TextStyle;
 
         this.stateText = this.scene.add.text(0, 60, 'STATE: N/A', { ...style, color: '#000000', fontSize: '12px' }).setOrigin(0.5, 0);
@@ -214,6 +219,8 @@ export default abstract class AbstractBuilding extends Container implements IBui
     }
 
     private redraw (): void {
+        if (!GameScene.DEBUG_ENTITY_UI) return;
+
         if (this.outputStorageText) {
             this.outputStorageText.setText('OUT: ' + this.outputStorage.length + '/' + this.storageSize);
         }

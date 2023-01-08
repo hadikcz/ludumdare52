@@ -1,0 +1,41 @@
+{
+	"textures": [
+		{
+			"image": "game.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 67,
+				"h": 66
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "buildings/mill",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 67,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 65,
+						"h": 64
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 65,
+						"h": 64
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:26a7be503cd2dcaea7d6ee4df49efead:73214142c7b6d9dfe6b87c836f20132c:fc2835210f98bae8e8c1b7f0a84c9321$"
+	}
+}
