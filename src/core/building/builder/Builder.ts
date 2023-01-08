@@ -90,7 +90,10 @@ export default class Builder {
             return;
         }
 
+
+
         this.scene.buildingHandler.buildingShopBuilder.purchaseBuilding(x, y, this.buildMode);
+        this.scene.worldEnv.clearFromNearestBuilding(true);
 
         if (this.buildMode === BuildingsEnum.PATHWAY || this.buildMode === BuildingsEnum.PATHWAY_DESTROY) {
             return;

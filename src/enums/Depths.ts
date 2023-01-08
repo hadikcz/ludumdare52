@@ -11,6 +11,7 @@ export enum Depths {
     DECOR_ROCKS,
     BUILDINGS,
     CARRIER,
+    BUBBLE_UNIT,
     FLY_TEXT,
     BUILD_ICON,
     UI,

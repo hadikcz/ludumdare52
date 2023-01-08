@@ -19,6 +19,7 @@ import GameScene from 'scenes/GameScene';
 
 export default class UnitCarrier extends Container {
 
+    private static readonly HUNGER_LIMIT = 25;
     private static readonly EATING_TIME = 5000;
     private static readonly VELOCITY = 1; // 1
     private static readonly VELOCITY_PATHWAY = 3;
@@ -26,7 +27,7 @@ export default class UnitCarrier extends Container {
     private stateText!: Phaser.GameObjects.Text;
     private unitState: UnitState = UnitState.WAITING;
     private carringCargo: ResourceItem|null = null;
-    private hunger: number = NumberHelpers.randomIntInRange(75, 100);
+    private hunger: number = 100;
     public resource$: Subject<ResourceItem|null>;
     public hunger$: Subject<number>;
     public unitState$: ReactiveVariable<UnitState>;
@@ -40,6 +41,8 @@ export default class UnitCarrier extends Container {
     private unitImage: Phaser.GameObjects.Sprite;
     private previousX = 0;
     private carryXOffest: number;
+    private bubbleOffest: { x: number; y: number };
+    private bubble: Phaser.GameObjects.Image;
 
     constructor (
         public scene: GameScene,
@@ -60,6 +63,12 @@ export default class UnitCarrier extends Container {
 
         this.unitImage = this.scene.add.sprite(0, 0, 'character1', 0).setOrigin(0.5, 0.7).setScale(UnitCarrier.SCALE);
         this.add(this.unitImage);
+
+        this.bubbleOffest = { x: 12, y: -40 };
+        this.bubble = this.scene.add.image(this.x + this.bubbleOffest.x, this.y + this.bubbleOffest.y, 'game', 'ingame_ui/bubble_waiting')
+            .setOrigin(0.5, 1)
+            .setDepth(Depths.BUBBLE_UNIT)
+            .setVisible(false);
 
         let type = NumberHelpers.randomIntInRange(1, 2);
 
@@ -111,9 +120,15 @@ export default class UnitCarrier extends Container {
         });
 
         this.name = ArrayHelpers.getRandomFromArray(Names());
+
+        this.on('destroy', () => {
+            this.bubble.destroy();
+        });
     }
 
     preUpdate (): void {
+
+        this.bubble.setPosition(this.x + this.bubbleOffest.x, this.y + this.bubbleOffest.y);
         // if (this.body === undefined || this.body.velocity === undefined) {
         //     return;
         // }
@@ -142,7 +157,7 @@ export default class UnitCarrier extends Container {
     }
 
     secondTick (): void {
-        this.hunger -= 1;
+        this.hunger -= 0.5;
 
         this.hunger$.next(this.hunger);
         if (this.hunger <= 0) {
@@ -231,7 +246,8 @@ export default class UnitCarrier extends Container {
         }
 
         if (this.unitState === UnitState.WAITING) {
-            if (this.hunger < 25) {
+            if (this.hunger < UnitCarrier.HUNGER_LIMIT) {
+                this.bubble.setFrame('ingame_ui/bubble_hunger');
                 // show hunger
                 console.log('Carrier is hungry');
                 console.log('Looking for inn');
@@ -243,7 +259,10 @@ export default class UnitCarrier extends Container {
 
                     return;
                 }
+            } else {
+                this.bubble.setFrame('ingame_ui/bubble_waiting').setVisible(true);
             }
+
 
             let building = this.scene.buildingHandler.findPickupBuildingNearest(this.x, this.y);
 
@@ -256,6 +275,10 @@ export default class UnitCarrier extends Container {
         }
 
         if (this.unitState === UnitState.PICKUP && this.targetBuilding) {
+            if (this.hunger >= UnitCarrier.HUNGER_LIMIT) {
+                this.bubble.setVisible(false);
+            }
+
             let target = this.targetBuilding.getDoorSpot();
             let path = await this.findPath(target.x, target.y);
             if (!path) {
@@ -318,6 +341,9 @@ export default class UnitCarrier extends Container {
         }
 
         if (this.unitState === UnitState.DELIVERY && this.targetBuilding && this.carringCargo) {
+            if (this.hunger >= UnitCarrier.HUNGER_LIMIT) {
+                this.bubble.setVisible(false);
+            }
             let target = this.targetBuilding.getDoorSpot();
             let path = await this.findPath(target.x, target.y);
             if (!path) {
@@ -362,6 +388,8 @@ export default class UnitCarrier extends Container {
                         await delay(UnitCarrier.EATING_TIME);
                         this.resetHunger();
                         this.setUnitState(UnitState.WAITING);
+
+                        this.bubble.setVisible(false);
 
                         return;
                     }

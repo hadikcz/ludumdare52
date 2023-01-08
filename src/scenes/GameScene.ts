@@ -74,6 +74,9 @@ export default class GameScene extends Phaser.Scene {
         this.matrixWorld.updateGrid();
 
         this.worldEnv.clearFromNearestBuilding();
+        setTimeout(() => {
+            this.worldEnv.clearFromNearestBuilding();
+        }, 100);
     }
 
     update (time, delta): void {

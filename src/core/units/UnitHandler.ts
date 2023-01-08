@@ -5,6 +5,8 @@ import GameScene from 'scenes/GameScene';
 
 export default class UnitHandler {
 
+    private static readonly OFFSETX_SPAWN_WAREHOUSE = -30;
+    private static readonly OFFSETY_SPAWN_WAREHOUSE = 100;
     public carriers: UnitCarrier[] = [];
     public units$: Subject<number>;
 
@@ -18,7 +20,7 @@ export default class UnitHandler {
 
     init (): void {
         let spawn = this.scene.buildingHandler.findAnyWarehouse();
-        this.spawnCarrier(spawn.x, spawn.y);
+        this.spawnCarrier(spawn.x + UnitHandler.OFFSETX_SPAWN_WAREHOUSE, spawn.y + UnitHandler.OFFSETY_SPAWN_WAREHOUSE);
 
         this.scene.time.addEvent({
             delay: 1000,
@@ -50,7 +52,7 @@ export default class UnitHandler {
 
         let spawn = this.scene.buildingHandler.findAnyWarehouse();
 
-        this.spawnCarrier(spawn.x, spawn.y);
+        this.spawnCarrier(spawn.x + UnitHandler.OFFSETX_SPAWN_WAREHOUSE, spawn.y + UnitHandler.OFFSETY_SPAWN_WAREHOUSE);
         this.units$.next(this.carriers.length);
     }
 

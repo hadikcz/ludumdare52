@@ -15,6 +15,7 @@ export default class WorldEnv {
     public bushes: Group;
     public rocks: Group;
     public ponds: Group;
+    private smallRocks: Phaser.GameObjects.Group;
 
     constructor (
         private scene: GameScene
@@ -23,6 +24,7 @@ export default class WorldEnv {
         this.smallBushes = this.scene.add.group();
         this.bushes = this.scene.add.group();
         this.rocks = this.scene.add.group();
+        this.smallRocks = this.scene.add.group();
         this.ponds = this.scene.add.group();
 
         this.generateGreenDots();
@@ -31,6 +33,7 @@ export default class WorldEnv {
         this.generateSmallbush();
         this.generateBush();
         this.generateRocks();
+        this.generateSmallRocks();
         this.generatePonds();
         // let bg = this.scene.add.image(0, 0, 'background')
         //     .setOrigin(0, 0)
@@ -44,9 +47,9 @@ export default class WorldEnv {
         // });
     }
 
-    clearFromNearestBuilding (): void {
+    clearFromNearestBuilding (skipPonds = false): void {
         let cleanUp = (array: any) => {
-            let limitDistance = 400;
+            let limitDistance = 200;
             for (let building of this.scene.buildingHandler.buildings) {
                 // smallbushes
                 let nearest = ArrayHelpers.findLowest<GameObject>(array, (gameObject) => {
@@ -62,10 +65,15 @@ export default class WorldEnv {
             }
         };
 
-        cleanUp(this.smallBushes.getChildren());
-        cleanUp(this.bushes.getChildren());
-        cleanUp(this.rocks.getChildren());
-        cleanUp(this.ponds.getChildren());
+        for (let i = 0; i < 10; i++) {
+            cleanUp(this.smallBushes.getChildren());
+            cleanUp(this.bushes.getChildren());
+            cleanUp(this.rocks.getChildren());
+            cleanUp(this.smallRocks.getChildren());
+            if (!skipPonds) {
+                cleanUp(this.ponds.getChildren());
+            }
+        }
     }
 
     private generateGreenDots (): void {
@@ -114,8 +122,17 @@ export default class WorldEnv {
         for (let i = 0; i < 200; i++) {
             let spawn = this.generateRandomPos();
             if (!spawn) continue;
-            let img = this.scene.add.image(spawn.x, spawn.y, 'game', 'env/rock' + NumberHelpers.randomIntInRange(1, 4)).setDepth(Depths.DECOR_ROCKS);
+            let img = this.scene.add.image(spawn.x, spawn.y, 'game', 'env/rock' + NumberHelpers.randomIntInRange(3, 4)).setDepth(Depths.DECOR_ROCKS);
             this.rocks.add(img);
+        }
+    }
+
+    private generateSmallRocks (): void {
+        for (let i = 0; i < 200; i++) {
+            let spawn = this.generateRandomPos();
+            if (!spawn) continue;
+            let img = this.scene.add.image(spawn.x, spawn.y, 'game', 'env/rock' + NumberHelpers.randomIntInRange(1, 2)).setDepth(Depths.DECOR_ROCKS);
+            this.smallRocks.add(img);
         }
     }
 
@@ -172,6 +189,17 @@ export default class WorldEnv {
             }
             // rocks
             nearest = ArrayHelpers.findLowest<GameObject>(this.rocks.getChildren(), (gameObject) => {
+                return TransformHelpers.getDistanceBetween(spawn.x, spawn.y, gameObject.x, gameObject.y);
+            });
+            if (nearest) {
+                // @ts-ignore
+                let distance = TransformHelpers.getDistanceBetween(nearest.x, nearest.y, spawn.x, spawn.y);
+                if (distance > limitDistance) {
+                    run = false;
+                }
+            }
+            // small rocks
+            nearest = ArrayHelpers.findLowest<GameObject>(this.smallRocks.getChildren(), (gameObject) => {
                 return TransformHelpers.getDistanceBetween(spawn.x, spawn.y, gameObject.x, gameObject.y);
             });
             if (nearest) {
