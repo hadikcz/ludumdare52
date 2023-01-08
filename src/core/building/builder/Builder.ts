@@ -61,11 +61,21 @@ export default class Builder {
         // }
 
         // this.scene.ui.showBuildMode(building.toString());
-        let frame = this.getFrameFromBuilding(building);
-        if (!frame) {
-            throw new Error('Building image not found ' + building);
+        if (building === BuildingsEnum.PATHWAY || building === BuildingsEnum.PATHWAY_DESTROY) {
+            let frame = this.getFrameFromBuilding(building);
+            if (!frame) {
+                throw new Error('Building image not found ' + building);
+            }
+
+            this.previewImage.setTexture(frame);
+        } else {
+            let frame = this.getFrameFromBuilding(building);
+            if (!frame) {
+                throw new Error('Building image not found ' + building);
+            }
+
+            this.previewImage.setFrame('buildings/' + frame);
         }
-        this.previewImage.setFrame('buildings/' + frame);
         console.log('start build');
         this.buildMode = building;
         this.buildModeRunning$.next(this.isBuildMode());
