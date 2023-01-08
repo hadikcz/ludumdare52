@@ -1,0 +1,42 @@
+/* -----------------------------------------------------
+   created with https://www.codeandweb.com/texturepacker 
+   -----------------------------------------------------
+   $TexturePacker:SmartUpdate:8132dc3f57c4cbb918b22ebe811a9507:1397dd84c8a4d2e14a1bf5ad7ddea8b1:4c7ccf045e54e36629c6cbec5cb72956$
+   -----------------------------------------------------
+
+   usage: <span class="{-spritename-} sprite"></span>
+
+   replace {-spritename-} with the sprite you like to use
+
+*/
+
+.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(ui.png);}
+
+.icon_bread {width:28px; height:14px; background-position: -509px -205px}
+.icon_coin {width:14px; height:18px; background-position: -567px -113px}
+.icon_flour {width:22px; height:26px; background-position: -485px -205px}
+.icon_wheat {width:16px; height:16px; background-position: -457px -129px}
+.modals-buildmodemodal {width:362px; height:52px; background-position: -257px -1px}
+.modals-button_a {width:70px; height:32px; background-position: -495px -113px}
+.modals-button_b {width:90px; height:32px; background-position: -257px -127px}
+.modals-close {width:28px; height:26px; background-position: -455px -205px}
+.modals-coin_bar {width:94px; height:34px; background-position: -257px -55px}
+.modals-progress_inner {width:70px; height:4px; background-position: -257px -219px}
+.modals-progress_outer {width:78px; height:14px; background-position: -415px -113px}
+.modals-storage_bg {width:254px; height:230px; background-position: -1px -1px}
+.modals-unit_bar {width:94px; height:34px; background-position: -257px -91px}
+.modals-x10 {width:40px; height:32px; background-position: -349px -127px}
+.shop-bakery {width:46px; height:64px; background-position: -621px -1px}
+.shop-buy_bakery {width:64px; height:56px; background-position: -415px -55px}
+.shop-buy_carrier {width:64px; height:56px; background-position: -257px -161px}
+.shop-buy_farm {width:64px; height:56px; background-position: -481px -55px}
+.shop-buy_inn {width:64px; height:56px; background-position: -547px -55px}
+.shop-buy_mill {width:64px; height:56px; background-position: -323px -161px}
+.shop-buy_path {width:64px; height:56px; background-position: -391px -129px}
+.shop-buy_path_destroy {width:64px; height:56px; background-position: -457px -147px}
+.shop-buy_warehouse {width:64px; height:56px; background-position: -523px -147px}
+.shop-farm {width:64px; height:44px; background-position: -389px -187px}
+.shop-icon_buy {width:46px; height:48px; background-position: -613px -67px}
+.shop-inn {width:64px; height:52px; background-position: -589px -173px}
+.shop-mill_all {width:60px; height:64px; background-position: -353px -55px}
+.shop-warehouse {width:64px; height:54px; background-position: -589px -117px}

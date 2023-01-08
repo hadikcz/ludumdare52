@@ -21,8 +21,8 @@ export default class UnitCarrier extends Container {
 
     private static readonly HUNGER_LIMIT = 25;
     private static readonly EATING_TIME = 5000;
-    private static readonly VELOCITY = 1; // 1
-    private static readonly VELOCITY_PATHWAY = 3;
+    private static readonly VELOCITY = 1 * NumberHelpers.randomFloatInRange(0.8, 1.2); // 1
+    private static readonly VELOCITY_PATHWAY = 3 * NumberHelpers.randomFloatInRange(0.8, 1.2);
     private static readonly SCALE = 2;
     private stateText!: Phaser.GameObjects.Text;
     private unitState: UnitState = UnitState.WAITING;
