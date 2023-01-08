@@ -17,7 +17,8 @@ export default class UnitHandler {
     }
 
     init (): void {
-        this.spawnCarrier(100, 100);
+        let spawn = this.scene.buildingHandler.findAnyWarehouse();
+        this.spawnCarrier(spawn.x, spawn.y);
 
         this.scene.time.addEvent({
             delay: 1000,

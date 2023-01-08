@@ -25,6 +25,20 @@ export default class BuildingBakery extends AbstractBuilding implements IBuildin
             ResourceItem.BREAD,
             ResourceItem.FLOUR,
         );
+
+
+        this.createResources({
+            input: {
+                image: 'bakery_flour',
+                x: 90,
+                y: 60
+            },
+            output: {
+                image: 'bakery_bread',
+                x: 8,
+                y: 78
+            }
+        });
     }
 
     getDoorSpot (): Vec2 {

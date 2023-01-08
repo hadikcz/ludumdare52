@@ -53,8 +53,8 @@ export default class GameScene extends Phaser.Scene {
         this.effectManager = new EffectManager(this);
 
         this.builder = new Builder(this);
-        this.unitHandler = new UnitHandler(this);
         this.buildingHandler = new BuildingHandler(this);
+        this.unitHandler = new UnitHandler(this);
         this.shop = new Shop(this);
 
         this.ui = new UI(this);

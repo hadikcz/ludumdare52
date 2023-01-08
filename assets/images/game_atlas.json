@@ -4,15 +4,57 @@
 			"image": "game_atlas.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 510,
-				"h": 502
+				"w": 1278,
+				"h": 252
 			},
 			"scale": 2,
 			"frames": [
 				{
+					"filename": "buildings/bakery",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 154,
+						"h": 218
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 154,
+						"h": 218
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 154,
+						"h": 218
+					}
+				},
+				{
+					"filename": "buildings/bakery_flame",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 154,
+						"h": 218
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 154,
+						"h": 218
+					},
+					"frame": {
+						"x": 157,
+						"y": 1,
+						"w": 154,
+						"h": 218
+					}
+				},
+				{
 					"filename": "buildings/warehouse",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 198,
 						"h": 168
@@ -20,62 +62,41 @@
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 197,
+						"w": 198,
 						"h": 168
 					},
 					"frame": {
-						"x": 1,
+						"x": 313,
 						"y": 1,
-						"w": 197,
+						"w": 198,
 						"h": 168
 					}
 				},
 				{
 					"filename": "buildings/inn",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 200,
 						"h": 164
 					},
 					"spriteSourceSize": {
 						"x": 0,
-						"y": 1,
+						"y": 0,
 						"w": 200,
-						"h": 163
+						"h": 164
 					},
 					"frame": {
-						"x": 200,
+						"x": 513,
 						"y": 1,
 						"w": 200,
-						"h": 163
-					}
-				},
-				{
-					"filename": "buildings/bakery",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 218
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 9,
-						"w": 151,
-						"h": 209
-					},
-					"frame": {
-						"x": 1,
-						"y": 171,
-						"w": 151,
-						"h": 209
+						"h": 164
 					}
 				},
 				{
 					"filename": "buildings/farm",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 164,
 						"h": 114
@@ -83,76 +104,13 @@
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 163,
+						"w": 164,
 						"h": 114
 					},
 					"frame": {
-						"x": 1,
-						"y": 382,
-						"w": 163,
-						"h": 114
-					}
-				},
-				{
-					"filename": "buildings/bakery_flame",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 218
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 9,
-						"w": 151,
-						"h": 209
-					},
-					"frame": {
-						"x": 154,
-						"y": 171,
-						"w": 151,
-						"h": 209
-					}
-				},
-				{
-					"filename": "env/pond1",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 108,
-						"h": 68
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 107,
-						"h": 68
-					},
-					"frame": {
-						"x": 402,
+						"x": 715,
 						"y": 1,
-						"w": 107,
-						"h": 68
-					}
-				},
-				{
-					"filename": "buildings/mill_wheel",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 114,
-						"h": 114
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 114,
-						"h": 114
-					},
-					"frame": {
-						"x": 166,
-						"y": 382,
-						"w": 114,
+						"w": 164,
 						"h": 114
 					}
 				},
@@ -171,8 +129,8 @@
 						"h": 134
 					},
 					"frame": {
-						"x": 307,
-						"y": 166,
+						"x": 715,
+						"y": 117,
 						"w": 126,
 						"h": 134
 					}
@@ -192,31 +150,31 @@
 						"h": 134
 					},
 					"frame": {
-						"x": 307,
-						"y": 302,
+						"x": 843,
+						"y": 117,
 						"w": 126,
 						"h": 134
 					}
 				},
 				{
-					"filename": "env/pond2",
+					"filename": "buildings/mill_wheel",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 84,
-						"h": 62
+						"w": 114,
+						"h": 114
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 84,
-						"h": 62
+						"w": 114,
+						"h": 114
 					},
 					"frame": {
-						"x": 402,
-						"y": 71,
-						"w": 84,
-						"h": 62
+						"x": 881,
+						"y": 1,
+						"w": 114,
+						"h": 114
 					}
 				},
 				{
@@ -234,157 +192,157 @@
 						"h": 30
 					},
 					"frame": {
-						"x": 282,
-						"y": 438,
+						"x": 1,
+						"y": 221,
 						"w": 82,
 						"h": 30
 					}
 				},
 				{
-					"filename": "buildings/bakery_bread",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 48,
-						"h": 32
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 48,
-						"h": 31
-					},
-					"frame": {
-						"x": 282,
-						"y": 470,
-						"w": 48,
-						"h": 31
-					}
-				},
-				{
-					"filename": "buildings/mill_flour",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 60,
-						"h": 50
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 3,
-						"w": 59,
-						"h": 47
-					},
-					"frame": {
-						"x": 366,
-						"y": 438,
-						"w": 59,
-						"h": 47
-					}
-				},
-				{
-					"filename": "env/rock4",
+					"filename": "buildings/inn_bread1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 32,
-						"h": 24
+						"w": 82,
+						"h": 30
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 32,
-						"h": 24
+						"w": 82,
+						"h": 30
 					},
 					"frame": {
-						"x": 332,
-						"y": 470,
-						"w": 32,
-						"h": 24
+						"x": 85,
+						"y": 221,
+						"w": 82,
+						"h": 30
 					}
 				},
 				{
-					"filename": "env/grassDot2",
+					"filename": "buildings/inn_bread2",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 30,
-						"h": 14
+						"w": 82,
+						"h": 30
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 30,
-						"h": 14
+						"w": 82,
+						"h": 30
 					},
 					"frame": {
-						"x": 366,
-						"y": 487,
-						"w": 30,
-						"h": 14
+						"x": 169,
+						"y": 221,
+						"w": 82,
+						"h": 30
 					}
 				},
 				{
-					"filename": "ingame_ui/icon_bread",
+					"filename": "env/pond1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 28,
-						"h": 14
+						"w": 108,
+						"h": 68
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 28,
-						"h": 14
+						"w": 108,
+						"h": 68
 					},
 					"frame": {
-						"x": 398,
-						"y": 487,
-						"w": 28,
-						"h": 14
+						"x": 997,
+						"y": 1,
+						"w": 108,
+						"h": 68
+					}
+				},
+				{
+					"filename": "buildings/inn_bread3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 82,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 82,
+						"h": 30
+					},
+					"frame": {
+						"x": 253,
+						"y": 221,
+						"w": 82,
+						"h": 30
+					}
+				},
+				{
+					"filename": "env/pond2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 84,
+						"h": 62
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 84,
+						"h": 62
+					},
+					"frame": {
+						"x": 1107,
+						"y": 1,
+						"w": 84,
+						"h": 62
 					}
 				},
 				{
 					"filename": "buildings/bakery_flour",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 58,
 						"h": 48
 					},
 					"spriteSourceSize": {
 						"x": 0,
-						"y": 1,
+						"y": 0,
 						"w": 58,
-						"h": 47
+						"h": 48
 					},
 					"frame": {
-						"x": 435,
-						"y": 135,
+						"x": 313,
+						"y": 171,
 						"w": 58,
-						"h": 47
+						"h": 48
 					}
 				},
 				{
-					"filename": "env/bush4",
+					"filename": "buildings/inn_bread4",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 46,
-						"h": 44
+						"w": 82,
+						"h": 30
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 46,
-						"h": 44
+						"w": 82,
+						"h": 30
 					},
 					"frame": {
-						"x": 435,
-						"y": 184,
-						"w": 46,
-						"h": 44
+						"x": 337,
+						"y": 221,
+						"w": 82,
+						"h": 30
 					}
 				},
 				{
@@ -402,184 +360,226 @@
 						"h": 48
 					},
 					"frame": {
-						"x": 435,
-						"y": 230,
+						"x": 373,
+						"y": 171,
 						"w": 40,
 						"h": 48
 					}
 				},
 				{
+					"filename": "buildings/inn_bread5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 82,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 82,
+						"h": 30
+					},
+					"frame": {
+						"x": 997,
+						"y": 71,
+						"w": 82,
+						"h": 30
+					}
+				},
+				{
+					"filename": "buildings/inn_bread6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 82,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 82,
+						"h": 30
+					},
+					"frame": {
+						"x": 1193,
+						"y": 1,
+						"w": 82,
+						"h": 30
+					}
+				},
+				{
+					"filename": "buildings/inn_bread7",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 82,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 82,
+						"h": 30
+					},
+					"frame": {
+						"x": 415,
+						"y": 171,
+						"w": 82,
+						"h": 30
+					}
+				},
+				{
+					"filename": "buildings/inn_bread8",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 82,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 82,
+						"h": 30
+					},
+					"frame": {
+						"x": 1193,
+						"y": 33,
+						"w": 82,
+						"h": 30
+					}
+				},
+				{
+					"filename": "buildings/bakery_flour1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 46
+					},
+					"frame": {
+						"x": 421,
+						"y": 203,
+						"w": 58,
+						"h": 46
+					}
+				},
+				{
 					"filename": "ingame_ui/bubble_hunger",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 32,
 						"h": 56
 					},
 					"spriteSourceSize": {
-						"x": 3,
+						"x": 0,
 						"y": 0,
-						"w": 28,
+						"w": 32,
 						"h": 56
 					},
 					"frame": {
-						"x": 435,
-						"y": 280,
-						"w": 28,
+						"x": 971,
+						"y": 117,
+						"w": 32,
 						"h": 56
+					}
+				},
+				{
+					"filename": "buildings/mill_flour",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 60,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 60,
+						"h": 50
+					},
+					"frame": {
+						"x": 1005,
+						"y": 103,
+						"w": 60,
+						"h": 50
 					}
 				},
 				{
 					"filename": "ingame_ui/bubble_paused",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 32,
 						"h": 56
 					},
 					"spriteSourceSize": {
-						"x": 3,
-						"y": 0,
-						"w": 28,
-						"h": 56
-					},
-					"frame": {
-						"x": 435,
-						"y": 338,
-						"w": 28,
-						"h": 56
-					}
-				},
-				{
-					"filename": "env/rock3",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 44,
-						"h": 34
-					},
-					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 44,
-						"h": 34
-					},
-					"frame": {
-						"x": 465,
-						"y": 280,
-						"w": 44,
-						"h": 34
-					}
-				},
-				{
-					"filename": "ingame_ui/bubble_waiting",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
 						"w": 32,
 						"h": 56
 					},
-					"spriteSourceSize": {
-						"x": 3,
-						"y": 0,
-						"w": 28,
-						"h": 56
-					},
 					"frame": {
-						"x": 465,
-						"y": 316,
-						"w": 28,
+						"x": 971,
+						"y": 175,
+						"w": 32,
 						"h": 56
 					}
 				},
 				{
-					"filename": "env/stonky2",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 24,
-						"h": 22
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 1,
-						"w": 23,
-						"h": 21
-					},
-					"frame": {
-						"x": 282,
-						"y": 382,
-						"w": 23,
-						"h": 21
-					}
-				},
-				{
-					"filename": "env/bush3",
+					"filename": "buildings/bakery_flour2",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 38,
-						"h": 38
+						"w": 58,
+						"h": 46
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 38,
-						"h": 38
+						"w": 58,
+						"h": 46
 					},
 					"frame": {
-						"x": 435,
-						"y": 396,
-						"w": 38,
-						"h": 38
+						"x": 1005,
+						"y": 155,
+						"w": 58,
+						"h": 46
 					}
 				},
 				{
-					"filename": "env/stonky1",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 26,
-						"h": 26
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 26,
-						"h": 25
-					},
-					"frame": {
-						"x": 483,
-						"y": 184,
-						"w": 26,
-						"h": 25
-					}
-				},
-				{
-					"filename": "env/grassDot3",
+					"filename": "buildings/bakery_flour3",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 26,
-						"h": 24
+						"w": 58,
+						"h": 46
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 26,
-						"h": 24
+						"w": 58,
+						"h": 46
 					},
 					"frame": {
-						"x": 483,
-						"y": 211,
-						"w": 26,
-						"h": 24
+						"x": 1005,
+						"y": 203,
+						"w": 58,
+						"h": 46
 					}
 				},
 				{
-					"filename": "env/rock2",
+					"filename": "env/grassDot1",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 24,
 						"h": 18
@@ -587,35 +587,56 @@
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 23,
+						"w": 24,
 						"h": 18
 					},
 					"frame": {
-						"x": 282,
-						"y": 405,
-						"w": 23,
+						"x": 971,
+						"y": 233,
+						"w": 24,
 						"h": 18
 					}
 				},
 				{
-					"filename": "env/grassDot6",
+					"filename": "buildings/bakery_flour4",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 28,
-						"h": 20
+						"w": 58,
+						"h": 46
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 28,
-						"h": 20
+						"w": 58,
+						"h": 46
 					},
 					"frame": {
-						"x": 465,
-						"y": 374,
-						"w": 28,
-						"h": 20
+						"x": 1107,
+						"y": 65,
+						"w": 58,
+						"h": 46
+					}
+				},
+				{
+					"filename": "buildings/bakery_flour5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 46
+					},
+					"frame": {
+						"x": 1167,
+						"y": 65,
+						"w": 58,
+						"h": 46
 					}
 				},
 				{
@@ -633,8 +654,8 @@
 						"h": 36
 					},
 					"frame": {
-						"x": 477,
-						"y": 237,
+						"x": 1081,
+						"y": 71,
 						"w": 24,
 						"h": 36
 					}
@@ -654,73 +675,220 @@
 						"h": 36
 					},
 					"frame": {
-						"x": 477,
-						"y": 237,
+						"x": 1081,
+						"y": 71,
 						"w": 24,
 						"h": 36
 					}
 				},
 				{
-					"filename": "ingame_ui/icon_coin",
+					"filename": "env/bush4",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 14,
-						"h": 18
+						"w": 46,
+						"h": 44
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 14,
-						"h": 18
+						"w": 46,
+						"h": 44
 					},
 					"frame": {
-						"x": 495,
-						"y": 316,
-						"w": 14,
-						"h": 18
+						"x": 1227,
+						"y": 65,
+						"w": 46,
+						"h": 44
 					}
 				},
 				{
-					"filename": "env/bush1",
+					"filename": "env/bush3",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 22,
-						"h": 28
+						"w": 38,
+						"h": 38
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 22,
-						"h": 28
+						"w": 38,
+						"h": 38
 					},
 					"frame": {
-						"x": 402,
-						"y": 135,
-						"w": 22,
-						"h": 28
+						"x": 1067,
+						"y": 109,
+						"w": 38,
+						"h": 38
 					}
 				},
 				{
-					"filename": "ingame_ui/icon_flour",
+					"filename": "buildings/mill_flour1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 22,
-						"h": 26
+						"w": 58,
+						"h": 46
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 22,
-						"h": 26
+						"w": 58,
+						"h": 46
 					},
 					"frame": {
-						"x": 475,
-						"y": 396,
-						"w": 22,
-						"h": 26
+						"x": 1107,
+						"y": 113,
+						"w": 58,
+						"h": 46
+					}
+				},
+				{
+					"filename": "buildings/mill_flour2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 46
+					},
+					"frame": {
+						"x": 1167,
+						"y": 113,
+						"w": 58,
+						"h": 46
+					}
+				},
+				{
+					"filename": "ingame_ui/bubble_waiting",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 56
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 56
+					},
+					"frame": {
+						"x": 1227,
+						"y": 111,
+						"w": 32,
+						"h": 56
+					}
+				},
+				{
+					"filename": "buildings/mill_flour3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 46
+					},
+					"frame": {
+						"x": 481,
+						"y": 203,
+						"w": 58,
+						"h": 46
+					}
+				},
+				{
+					"filename": "buildings/bakery_bread1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 30
+					},
+					"frame": {
+						"x": 499,
+						"y": 171,
+						"w": 48,
+						"h": 30
+					}
+				},
+				{
+					"filename": "buildings/mill_flour4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 46
+					},
+					"frame": {
+						"x": 549,
+						"y": 167,
+						"w": 58,
+						"h": 46
+					}
+				},
+				{
+					"filename": "buildings/mill_flour5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 46
+					},
+					"frame": {
+						"x": 609,
+						"y": 167,
+						"w": 58,
+						"h": 46
+					}
+				},
+				{
+					"filename": "env/rock3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 44,
+						"h": 34
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 44,
+						"h": 34
+					},
+					"frame": {
+						"x": 669,
+						"y": 167,
+						"w": 44,
+						"h": 34
 					}
 				},
 				{
@@ -738,10 +906,556 @@
 						"h": 36
 					},
 					"frame": {
-						"x": 427,
-						"y": 438,
+						"x": 541,
+						"y": 215,
 						"w": 36,
 						"h": 36
+					}
+				},
+				{
+					"filename": "buildings/farm_wheat1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 579,
+						"y": 215,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "buildings/farm_wheat2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 605,
+						"y": 215,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "buildings/mill_wheat2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 605,
+						"y": 215,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "buildings/farm_wheat3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 631,
+						"y": 215,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "buildings/mill_wheat3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 631,
+						"y": 215,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "buildings/farm_wheat4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 657,
+						"y": 215,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "buildings/mill_wheat4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 657,
+						"y": 215,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "env/grassDot4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 30,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 16
+					},
+					"frame": {
+						"x": 683,
+						"y": 203,
+						"w": 30,
+						"h": 16
+					}
+				},
+				{
+					"filename": "env/grassDot2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 30,
+						"h": 14
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 30,
+						"h": 14
+					},
+					"frame": {
+						"x": 683,
+						"y": 221,
+						"w": 30,
+						"h": 14
+					}
+				},
+				{
+					"filename": "ingame_ui/icon_bread",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 28,
+						"h": 14
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 28,
+						"h": 14
+					},
+					"frame": {
+						"x": 683,
+						"y": 237,
+						"w": 28,
+						"h": 14
+					}
+				},
+				{
+					"filename": "buildings/bakery_bread",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 32
+					},
+					"frame": {
+						"x": 1065,
+						"y": 161,
+						"w": 48,
+						"h": 32
+					}
+				},
+				{
+					"filename": "buildings/bakery_bread2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 30
+					},
+					"frame": {
+						"x": 1065,
+						"y": 195,
+						"w": 48,
+						"h": 30
+					}
+				},
+				{
+					"filename": "env/rock4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 24
+					},
+					"frame": {
+						"x": 1065,
+						"y": 227,
+						"w": 32,
+						"h": 24
+					}
+				},
+				{
+					"filename": "buildings/bakery_bread3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 30
+					},
+					"frame": {
+						"x": 1115,
+						"y": 161,
+						"w": 48,
+						"h": 30
+					}
+				},
+				{
+					"filename": "buildings/bakery_bread4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 30
+					},
+					"frame": {
+						"x": 1115,
+						"y": 193,
+						"w": 48,
+						"h": 30
+					}
+				},
+				{
+					"filename": "buildings/bakery_bread5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 30
+					},
+					"frame": {
+						"x": 1165,
+						"y": 161,
+						"w": 48,
+						"h": 30
+					}
+				},
+				{
+					"filename": "env/grassDot3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 26,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 26,
+						"h": 24
+					},
+					"frame": {
+						"x": 1099,
+						"y": 227,
+						"w": 26,
+						"h": 24
+					}
+				},
+				{
+					"filename": "env/stonky1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 26,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 26,
+						"h": 26
+					},
+					"frame": {
+						"x": 1127,
+						"y": 225,
+						"w": 26,
+						"h": 26
+					}
+				},
+				{
+					"filename": "ingame_ui/icon_flour",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 22,
+						"h": 26
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 1155,
+						"y": 225,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "env/bush1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 22,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 22,
+						"h": 28
+					},
+					"frame": {
+						"x": 1165,
+						"y": 193,
+						"w": 22,
+						"h": 28
+					}
+				},
+				{
+					"filename": "buildings/farm_wheat5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 1189,
+						"y": 193,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "buildings/mill_wheat5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 1189,
+						"y": 193,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "env/grassDot6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 28,
+						"h": 20
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 28,
+						"h": 20
+					},
+					"frame": {
+						"x": 1179,
+						"y": 231,
+						"w": 28,
+						"h": 20
+					}
+				},
+				{
+					"filename": "buildings/mill_wheat1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 36
+					},
+					"frame": {
+						"x": 1215,
+						"y": 169,
+						"w": 24,
+						"h": 36
+					}
+				},
+				{
+					"filename": "env/stonky2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 22
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 22
+					},
+					"frame": {
+						"x": 1215,
+						"y": 207,
+						"w": 24,
+						"h": 22
+					}
+				},
+				{
+					"filename": "env/grassDot5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 18
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 18
+					},
+					"frame": {
+						"x": 1209,
+						"y": 231,
+						"w": 24,
+						"h": 18
 					}
 				},
 				{
@@ -759,10 +1473,31 @@
 						"h": 22
 					},
 					"frame": {
-						"x": 488,
-						"y": 71,
+						"x": 1241,
+						"y": 169,
 						"w": 20,
 						"h": 22
+					}
+				},
+				{
+					"filename": "env/rock2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 24,
+						"h": 18
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 24,
+						"h": 18
+					},
+					"frame": {
+						"x": 1241,
+						"y": 193,
+						"w": 24,
+						"h": 18
 					}
 				},
 				{
@@ -780,8 +1515,8 @@
 						"h": 16
 					},
 					"frame": {
-						"x": 488,
-						"y": 95,
+						"x": 1241,
+						"y": 213,
 						"w": 20,
 						"h": 16
 					}
@@ -801,73 +1536,31 @@
 						"h": 16
 					},
 					"frame": {
-						"x": 488,
-						"y": 113,
+						"x": 1235,
+						"y": 231,
 						"w": 20,
 						"h": 16
 					}
 				},
 				{
-					"filename": "env/grassDot4",
+					"filename": "env/grass1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 30,
-						"h": 16
+						"w": 12,
+						"h": 8
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 30,
-						"h": 16
+						"w": 12,
+						"h": 8
 					},
 					"frame": {
-						"x": 428,
-						"y": 476,
-						"w": 30,
-						"h": 16
-					}
-				},
-				{
-					"filename": "env/grassDot1",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 24,
-						"h": 18
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 24,
-						"h": 18
-					},
-					"frame": {
-						"x": 475,
-						"y": 424,
-						"w": 24,
-						"h": 18
-					}
-				},
-				{
-					"filename": "env/grassDot5",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 24,
-						"h": 18
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 24,
-						"h": 18
-					},
-					"frame": {
-						"x": 465,
-						"y": 444,
-						"w": 24,
-						"h": 18
+						"x": 669,
+						"y": 203,
+						"w": 12,
+						"h": 8
 					}
 				},
 				{
@@ -885,35 +1578,14 @@
 						"h": 18
 					},
 					"frame": {
-						"x": 465,
-						"y": 464,
+						"x": 1261,
+						"y": 111,
 						"w": 16,
 						"h": 18
 					}
 				},
 				{
 					"filename": "env/smallbush2",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 16,
-						"h": 18
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 1,
-						"w": 16,
-						"h": 17
-					},
-					"frame": {
-						"x": 460,
-						"y": 484,
-						"w": 16,
-						"h": 17
-					}
-				},
-				{
-					"filename": "env/smallbush3",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -927,8 +1599,8 @@
 						"h": 18
 					},
 					"frame": {
-						"x": 491,
-						"y": 444,
+						"x": 1261,
+						"y": 131,
 						"w": 16,
 						"h": 18
 					}
@@ -948,31 +1620,52 @@
 						"h": 16
 					},
 					"frame": {
-						"x": 483,
-						"y": 464,
+						"x": 1261,
+						"y": 151,
 						"w": 16,
 						"h": 16
 					}
 				},
 				{
-					"filename": "env/grass1",
+					"filename": "ingame_ui/icon_coin",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 12,
-						"h": 8
+						"w": 14,
+						"h": 18
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 12,
-						"h": 8
+						"w": 14,
+						"h": 18
 					},
 					"frame": {
-						"x": 282,
-						"y": 425,
-						"w": 12,
-						"h": 8
+						"x": 1263,
+						"y": 169,
+						"w": 14,
+						"h": 18
+					}
+				},
+				{
+					"filename": "env/smallbush3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 18
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 18
+					},
+					"frame": {
+						"x": 1257,
+						"y": 231,
+						"w": 16,
+						"h": 18
 					}
 				},
 				{
@@ -990,8 +1683,8 @@
 						"h": 8
 					},
 					"frame": {
-						"x": 495,
-						"y": 336,
+						"x": 1067,
+						"y": 149,
 						"w": 12,
 						"h": 8
 					}
@@ -1002,6 +1695,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:0054af7f1801dc51ef1c23787d403d0e:be43d3035167904c82189fae9965ae32:94741eb2b4e0477148894ee6eeb29053$"
+		"smartupdate": "$TexturePacker:SmartUpdate:c0ec9bd4f2612a7476c7f7a6a6859f12:6ba108d971aa117faaf47c63bc32b888:94741eb2b4e0477148894ee6eeb29053$"
 	}
 }

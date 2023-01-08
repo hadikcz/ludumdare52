@@ -28,6 +28,9 @@ export default abstract class AbstractBuilding extends Container implements IBui
     private paused: boolean = false;
     public paused$: Subject<boolean>;
     private pausedText!: Phaser.GameObjects.Text;
+    private inputResourceVisualise!: Phaser.GameObjects.Image;
+    private outputResourceVisualise!: Phaser.GameObjects.Image;
+    private resInputData!: ResourceVisualisator;
 
     constructor (
         public scene: GameScene,
@@ -70,6 +73,36 @@ export default abstract class AbstractBuilding extends Container implements IBui
                 this.scene.events.emit(Events.UI_BUILDING_OPEN, this);
             }
         });
+
+        this.updateResourceVisualas();
+
+        let inSub = this.inputStorage$.subscribe(() => {
+            this.updateResourceVisualas();
+        });
+
+        let outSub = this.outputStorage$.subscribe(() => {
+            this.updateResourceVisualas();
+        });
+
+        this.on('destroy', () => {
+            inSub.unsubscribe();
+            outSub.unsubscribe();
+        });
+
+        this.updateResourceVisualas();
+    }
+
+    createResources (data: ResourceVisualisator): void {
+        this.resInputData = data;
+        if (data.input) {
+            this.inputResourceVisualise = this.scene.add.image(data.input.x, data.input.y, 'game', 'buildings/' + data.input.image + '1').setVisible(false);
+            this.add(this.inputResourceVisualise);
+        }
+
+        if (data.output) {
+            this.outputResourceVisualise = this.scene.add.image(data.output.x, data.output.y, 'game', 'buildings/' + data.output.image + '1').setVisible(false);
+            this.add(this.outputResourceVisualise);
+        }
     }
 
     preUpdate (): void {
@@ -229,5 +262,54 @@ export default abstract class AbstractBuilding extends Container implements IBui
         }
 
         this.stateText.setText('STATE: ' + this.buildingState);
+    }
+
+    private updateResourceVisualas (): void {
+        if (this.inputResourceVisualise) {
+            if (this.inputStorage.length === 0) {
+                this.inputResourceVisualise.setVisible(false);
+            } else {
+                this.inputResourceVisualise.setVisible(true);
+            }
+            // let percent = this.inputStorage.length === 0 ? 0 : this.inputStorage.length / this.storageSize;
+            // console.log([
+            //     'percent in',
+            //     percent
+            // ]);
+            // this.inputResourceVisualise.setCrop(0, 0, this.inputResourceVisualise.width, this.inputResourceVisualise.height * percent);
+
+            // @ts-ignore
+            this.inputResourceVisualise.setFrame('buildings/' + this.resInputData.input?.image + this.inputStorage.length);
+        }
+        if (this.outputResourceVisualise) {
+            // let percent = this.outputStorage.length === 0 ? 0 : this.outputStorage.length / this.storageSize;
+            // console.log([
+            //     'percent out',
+            //     percent
+            // ]);
+            // this.outputResourceVisualise.setCrop(0, 0, this.outputResourceVisualise.width, this.outputResourceVisualise.height * percent);
+
+            if (this.outputStorage.length === 0) {
+                this.outputResourceVisualise.setVisible(false);
+            } else {
+                this.outputResourceVisualise.setVisible(true);
+            }
+            // @ts-ignore
+            this.outputResourceVisualise.setFrame('buildings/' + this.resInputData.output?.image + this.outputStorage.length);
+        }
+
+    }
+}
+
+export interface ResourceVisualisator {
+    input?: {
+        image: string,
+        x: number,
+        y: number
+    },
+    output?: {
+        image: string,
+        x: number,
+        y: number
     }
 }

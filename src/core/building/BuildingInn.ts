@@ -27,6 +27,15 @@ export default class BuildingInn extends AbstractBuilding implements IBuilding {
             ResourceItem.BREAD,
             ResourceItem.BREAD,
         ];
+
+
+        this.createResources({
+            input: {
+                image: 'inn_bread',
+                x: 60,
+                y: 15
+            },
+        });
     }
 
     getDoorSpot (): Vec2 {

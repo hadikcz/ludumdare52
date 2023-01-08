@@ -56,8 +56,6 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
             resources[resource]++;
         }
 
-        console.log(resources);
-
         return resources;
     }
 

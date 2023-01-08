@@ -64,7 +64,6 @@ export default class BuildingHandler {
             }
         }
 
-        console.log(resources);
         return resources;
     }
 
@@ -76,7 +75,7 @@ export default class BuildingHandler {
         this.spawnBuilding(550, 200, BuildingsEnum.INN);
         // this.spawnBuilding(750, 100, BuildingsEnum.INN);
         // this.spawnBuilding(50, 100, BuildingsEnum.WAREHOUSE);
-        this.spawnBuilding(50, 600, BuildingsEnum.WAREHOUSE);
+        // this.spawnBuilding(50, 600, BuildingsEnum.WAREHOUSE);
 
 
 

@@ -27,6 +27,21 @@ export default class BuildingMill extends AbstractBuilding implements IBuilding 
             ResourceItem.WHEAT
         );
 
+
+        let yOf = 40;
+        this.createResources({
+            input: {
+                image: 'mill_wheat',
+                x: 45,
+                y: yOf
+            },
+            output: {
+                image: 'mill_flour',
+                x: -45,
+                y: yOf
+            }
+        });
+
         this.wheel = this.scene.add.image(0, 0, 'game', 'buildings/mill_wheel');
         this.add(this.wheel);
     }

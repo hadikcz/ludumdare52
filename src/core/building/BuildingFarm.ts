@@ -22,6 +22,15 @@ export default class BuildingFarm extends AbstractBuilding implements IBuilding 
             BuildingsEnum.FARM,
             ResourceItem.WHEAT
         );
+
+
+        this.createResources({
+            output: {
+                image: 'farm_wheat',
+                x: -85,
+                y: 20
+            }
+        });
     }
 
     getDoorSpot (): Vec2 {
