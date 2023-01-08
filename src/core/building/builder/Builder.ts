@@ -146,15 +146,15 @@ export default class Builder {
         }
 
         // @ts-ignore
-        for (let object: GameObject of this.scene.worldEnv.rocks.getChildren()) {
-            if (Phaser.Geom.Intersects.RectangleToRectangle(
-                this.previewImage.getBounds(),
-                // @ts-ignore
-                object.getBounds()
-            )) {
-                return false;
-            }
-        }
+        // for (let object: GameObject of this.scene.worldEnv.rocks.getChildren()) {
+        //     if (Phaser.Geom.Intersects.RectangleToRectangle(
+        //         this.previewImage.getBounds(),
+        //         // @ts-ignore
+        //         object.getBounds()
+        //     )) {
+        //         return false;
+        //     }
+        // }
         return true; // @TODO
     }
 
