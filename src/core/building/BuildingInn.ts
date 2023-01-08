@@ -24,8 +24,6 @@ export default class BuildingInn extends AbstractBuilding implements IBuilding {
         );
 
         this.inputStorage = [
-            ResourceItem.BREAD,
-            ResourceItem.BREAD,
         ];
 
 

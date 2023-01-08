@@ -85,9 +85,14 @@ export default abstract class AbstractBuilding extends Container implements IBui
             this.updateResourceVisualas();
         });
 
+        const interval = setInterval(() => {
+            this.updateResourceVisualas();
+        }, 500);
+
         this.on('destroy', () => {
             inSub.unsubscribe();
             outSub.unsubscribe();
+            clearTimeout(interval);
         });
 
         this.updateResourceVisualas();
@@ -174,6 +179,7 @@ export default abstract class AbstractBuilding extends Container implements IBui
 
         let item = this.outputStorage.pop() || null;
         this.outputStorage$.next(item);
+        this.updateResourceVisualas();
         return item;
     }
 
@@ -188,6 +194,7 @@ export default abstract class AbstractBuilding extends Container implements IBui
         }
         this.inputStorage.push(resource);
         this.inputStorage$.next(resource);
+        this.updateResourceVisualas();
 
         return true;
     }

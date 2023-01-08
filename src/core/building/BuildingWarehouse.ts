@@ -18,7 +18,7 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
             x,
             y,
             'warehouse',
-            100,
+            50,
             BuildingsEnum.WAREHOUSE,
             null,
             ResourceItem.ANY
@@ -72,6 +72,10 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
         // this.inputStorage.push(ResourceItem.BREAD);
         // this.inputStorage.push(ResourceItem.BREAD);
         // this.scene.events.emit(Events.UI_WAREHOUSE_OPEN, this);
+    }
+
+    canPickupBecauseQueue (): boolean {
+        return true;
     }
 
     getDoorSpot (): Vec2 {

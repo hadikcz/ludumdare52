@@ -23,8 +23,8 @@ export default class UnitCarrier extends Container {
 
     private static readonly HUNGER_LIMIT = 25;
     private static readonly EATING_TIME = 5000;
-    private static readonly VELOCITY = 1 * NumberHelpers.randomFloatInRange(0.8, 1.2); // 1
-    private static readonly VELOCITY_PATHWAY = 3 * NumberHelpers.randomFloatInRange(0.8, 1.2);
+    private static readonly VELOCITY = 0.8 * NumberHelpers.randomFloatInRange(0.8, 1.2); // 1
+    private static readonly VELOCITY_PATHWAY = 2.4 * NumberHelpers.randomFloatInRange(0.8, 1.2);
     private static readonly SCALE = 2;
     private stateText!: Phaser.GameObjects.Text;
     private unitState: UnitState = UnitState.WAITING;
@@ -162,7 +162,7 @@ export default class UnitCarrier extends Container {
     }
 
     secondTick (): void {
-        this.hunger -= 0.5;
+        this.hunger -= 0.25;
 
         this.hunger$.next(this.hunger);
         if (this.hunger <= 0) {
@@ -251,9 +251,13 @@ export default class UnitCarrier extends Container {
             this.move();
         }
 
+        if (this.hunger < UnitCarrier.HUNGER_LIMIT) {
+            this.bubble.setFrame('ingame_ui/bubble_hunger').setVisible(true);
+        }
+
         if (this.unitState === UnitState.WAITING) {
             if (this.hunger < UnitCarrier.HUNGER_LIMIT) {
-                this.bubble.setFrame('ingame_ui/bubble_hunger');
+                this.bubble.setFrame('ingame_ui/bubble_hunger').setVisible(true);
                 // show hunger
                 console.log('Carrier is hungry');
                 console.log('Looking for inn');

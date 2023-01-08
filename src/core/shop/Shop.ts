@@ -100,8 +100,8 @@ export function GetResourceSellPrice (resource: ResourceItem|null, muliplier10En
     if (!resource) return null;
     let resources: number[] = [];
     resources[ResourceItem.WHEAT] = 1;
-    resources[ResourceItem.FLOUR] = 4;
-    resources[ResourceItem.BREAD] = 10;
+    resources[ResourceItem.FLOUR] = 2;
+    resources[ResourceItem.BREAD] = 5;
     resources[ResourceItem.PIG] = 'Pig';
     resources[ResourceItem.MEAT] = 'Meat';
     resources[ResourceItem.SAUSAGE] = 'Sausage';
