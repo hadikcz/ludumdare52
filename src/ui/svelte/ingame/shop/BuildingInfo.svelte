@@ -71,12 +71,15 @@
 {#if visible}
 <div class="actionMenu">
     <div class="actionInfo">
-        <div class="sprite modals-building_mode_bg">
+        <div class="sprite modals-buildmodemodal">
             <div class="buildingInfo">
                 Place building <span id="buildingName"></span>
-                <div class="sprite modals-feeder-destroy_button cancelIcon">
-                    <button type="button"  on:click|stopPropagation={handleCancel}>CANCEL</button>
+                <div class="button sprite modals-button_b"  on:click|stopPropagation={handleCancel} style="font-size: 14px; transform: translate(25px, 5px);">
+                    <div style="transform: translate(23px, 8px)">CANCEL</div>
                 </div>
+<!--                <div class="sprite modals-feeder-destroy_button cancelIcon">-->
+<!--                    <button type="button"  on:click|stopPropagation={handleCancel}>CANCEL</button>-->
+<!--                </div>-->
             </div>
 
         </div>
