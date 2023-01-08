@@ -3,6 +3,7 @@ import { Depths } from 'enums/Depths';
 import { Events } from 'enums/Events';
 import { Subject } from 'rxjs';
 import GameScene from 'scenes/GameScene';
+import GameObject = Phaser.GameObjects.GameObject;
 
 export default class Builder {
 
@@ -125,6 +126,28 @@ export default class Builder {
                 this.previewImage.getBounds(),
                 // @ts-ignore
                 object.getImageBounds()
+            )) {
+                return false;
+            }
+        }
+
+        // @ts-ignore
+        for (let object: GameObject of this.scene.worldEnv.ponds.getChildren()) {
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.previewImage.getBounds(),
+                // @ts-ignore
+                object.getBounds()
+            )) {
+                return false;
+            }
+        }
+
+        // @ts-ignore
+        for (let object: GameObject of this.scene.worldEnv.rocks.getChildren()) {
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                this.previewImage.getBounds(),
+                // @ts-ignore
+                object.getBounds()
             )) {
                 return false;
             }

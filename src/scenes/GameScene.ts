@@ -1,3 +1,4 @@
+import GameConfig from 'config/GameConfig';
 import Builder from 'core/building/builder/Builder';
 import BuildingHandler from 'core/building/BuildingHandler';
 import PathwayTilemap from 'core/building/pathway/PathwayTilemap';
@@ -22,7 +23,7 @@ export default class GameScene extends Phaser.Scene {
     public effectManager!: EffectManager;
     public ui!: UI;
     private debugGui!: GUI;
-    private worldEnv!: WorldEnv;
+    public worldEnv!: WorldEnv;
     private testObject!: Phaser.GameObjects.Image;
     private controls!: Phaser.Cameras.Controls.SmoothedKeyControl;
     public buildingHandler!: BuildingHandler;
@@ -65,6 +66,7 @@ export default class GameScene extends Phaser.Scene {
         this.scrollCamera = new ScrollCamera(this, 0, 0);
         this.scrollCamera.setBackgroundColor('#c0d470');
 
+        this.scrollCamera.setBounds(0, 0, GameConfig.World.size.width, GameConfig.World.size.height);
         this.scrollCamera.startFollow({ x: this.unitHandler.carriers[0].x, y: this.unitHandler.carriers[0].y });
         this.scrollCamera.stopFollow();
         this.ui = new UI(this);
