@@ -18,6 +18,7 @@
     let storageSize = 0;
     let inputStorageItemCount = 0;
     let agregatedResources: number[] = [];
+    let progress = 100;
 
     let inputStorageSubscriber: Subscription;
 
@@ -37,14 +38,15 @@
         inputStorageSubscriber = building.inputStorage$.subscribe(() => {
             inputStorageItemCount = building.getSizeInputStorage()
             agregatedResources = building.getAgregatedResources();
+            progress = Math.round((inputStorageItemCount / storageSize) * 100);
         });
         pausedSubscriber = building.paused$.subscribe((isPaused: boolean) => {
             paused = isPaused;
         });
-        paused = building.isPaused();
-
-
         inputStorageItemCount = building.getSizeInputStorage()
+        paused = building.isPaused();
+        progress = Math.round((inputStorageItemCount / storageSize) * 100);
+
         visible = true;
 
     });
@@ -97,10 +99,9 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 200px;
-      height: 200px;
+      color: #b68962;
+
       transform: translate(-50%, -50%);
-      background: red;
 
       .bg {
         z-index: 4999;
@@ -145,10 +146,10 @@
           text-align: center;
           font-size: 20px;
           color: #b68962;
-        }
 
-        .modals-feeder-progress_bar_fill.water {
-          filter: hue-rotate(113deg);
+        }
+        .inner {
+          transform: translate(4.5px, -5px);
         }
 
         .info {
@@ -162,6 +163,7 @@
           cursor: pointer;
           display: inline-block;
           transform: translateY(4px);
+          font-size: 18px;
         }
 
         .button:hover {
@@ -178,7 +180,38 @@
           text-align: center;
           transform: translateY(-4px);
         }
+        .button_coins {
+          .icon_coin {
+            transform: translateY(5px);
+          }
+        }
 
+      }
+
+      .item-wrapper {
+        text-align: center;
+        margin-left: 5px;
+
+        .res-icon {
+          transform: translateY(4px);
+        }
+      }
+
+      .modals-x10 {
+        .inner {
+          transform: translate(4px, 5px);
+        }
+      }
+
+      .bottom-part {
+        bottom: 5px;
+        left: 5px;
+        position: absolute;
+        text-align: center;
+      }
+
+      .inline {
+        display: inline-block;
       }
 
     }
@@ -187,49 +220,61 @@
 
 {#if visible}
     <div class="modal">
-        <div class="sprite modals-feeder-close_button close" on:click|stopPropagation={close}>
-            <button type="button">X</button>
-        </div>
-        <div class="sprite modals-well-bg bg"></div>
+        <div class="sprite modals-close close" on:click|stopPropagation={close}></div>
+        <div class="sprite modals-storage_bg bg"></div>
         <div class="inside">
             <div class="title">
-                Storage
+                Warehouse
             </div>
 
+            <div class="info">
+                PAUSED
+            </div>
             {#if paused}
-                <div class="info">
-                    PAUSED
-                </div>
             {/if}
 
+            <div class="progressBar sprite modals-progress_outer">
+                <div class="sprite modals-progress_inner inner" style="width: {progress}%;"></div>
+            </div>
             <div class="info">
                 {inputStorageItemCount}/{storageSize}
             </div>
 
-            {#each Object.entries(agregatedResources) as [resourceType, amount]}
-                {GetResourceName(resourceType)} - {amount} <button type="button"  on:click|stopPropagation={sell(resourceType)}>SELL {GetResourceSellPrice(resourceType, muliplier10Enable)} coins</button>
-            {/each}
+            <div class="item-wrapper">
 
-            <button type="button" on:click={() => muliplier10Enable = !muliplier10Enable}>x10</button>
+                {#each Object.entries(agregatedResources) as [resourceType, amount]}
+                    <div>
+                        <div class="sprite icon_{resourceType} res-icon"></div> {amount} {GetResourceName(resourceType)} <div class="sprite modals-button_a button button_coins" on:click|stopPropagation={sell(resourceType)}>{GetResourceSellPrice(resourceType, muliplier10Enable)} <div class="sprite icon_coin"></div></div>
+                    </div>
 
-            <div class="button-wrapper tooltip">
-                <div class="button sprite modals-feeder-destroy_button"></div>
-                <button type="button" on:click|stopPropagation={destroy}>
-                    Destroy
+    <!--                <button type="button"  on:click|stopPropagation={sell(resourceType)}>SELL {GetResourceSellPrice(resourceType, muliplier10Enable)} coins</button>-->
+                {/each}
+            </div>
+
+            <div class="bottom-part">
+                <div class="sprite modals-x10 button inline" on:click={() => muliplier10Enable = !muliplier10Enable}>
+                    <div class="inner">x10</div>
+                </div>
+
+                <div class="button-wrapper tooltip inline">
+                    <div class="button sprite modals-button_b"  on:click|stopPropagation={destroy} style="font-size: 14px;">
+                        <div style="transform: translateY(6px)">Destroy</div>
+                    </div>
                     <span class="tooltiptext">
                         Destroy
                     </span>
-                </button>
-            </div>
+                </div>
 
-            <div class="button-wrapper tooltip">
-                <div class="button sprite modals-feeder-destroy_button"></div>
-                <button type="button"  on:click|stopPropagation={pauseToggle}>
-                    {#if paused}Resume{:else}Pause{/if} building
+                <div class="button-wrapper tooltip inline" on:click|stopPropagation={pauseToggle}>
+                    <div class="button sprite modals-button_b">
+                        <div style="transform: translateY(6px); font-size: 14px">
+                            {#if paused}Resume{:else}Pause{/if}
+                        </div>
+                    </div>
                     <span class="tooltiptext">
                         {#if paused}Resume{:else}Pause{/if} building
                     </span>
-                </button>
+                </div>
             </div>
 
         </div>

@@ -3,6 +3,7 @@ import { BuildingsEnum } from 'core/building/BuildingsEnum';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
 import { GetResourceSellPrice } from 'core/shop/Shop';
+import { Events } from 'enums/Events';
 import GameScene from 'scenes/GameScene';
 import { Vec2 } from 'types/Vec2';
 
@@ -18,7 +19,7 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
             x,
             y,
             'warehouse',
-            200,
+            100,
             BuildingsEnum.WAREHOUSE,
             null,
             ResourceItem.ANY
@@ -28,6 +29,47 @@ export default class BuildingWarehouse extends AbstractBuilding implements IBuil
         this.inputStorage.push(ResourceItem.WHEAT);
         this.inputStorage.push(ResourceItem.WHEAT);
         this.inputStorage.push(ResourceItem.WHEAT);
+
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.WHEAT);
+        this.inputStorage.push(ResourceItem.FLOUR);
+        this.inputStorage.push(ResourceItem.BREAD);
+        this.scene.events.emit(Events.UI_WAREHOUSE_OPEN, this);
     }
 
     getDoorSpot (): Vec2 {

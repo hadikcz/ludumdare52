@@ -1,7 +1,7 @@
 /* -----------------------------------------------------
    created with https://www.codeandweb.com/texturepacker 
    -----------------------------------------------------
-   $TexturePacker:SmartUpdate:1bfdff5cd671a2a6c2327e5285c1ae0a:55e3615a2ef082a4a9ceb8baf3517187:4c7ccf045e54e36629c6cbec5cb72956$
+   $TexturePacker:SmartUpdate:31d1c69172ee21cd29b2de2e245044ce:fcabc053cba2fe491989ec00774ad4d6:4c7ccf045e54e36629c6cbec5cb72956$
    -----------------------------------------------------
 
    usage: <span class="{-spritename-} sprite"></span>
@@ -12,4 +12,16 @@
 
 .sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(ui.png);}
 
-.coin {width:22px; height:22px; background-position: -1px -1px}
+.icon_bread {width:28px; height:14px; background-position: -177px -301px}
+.icon_coin {width:14px; height:18px; background-position: -229px -261px}
+.icon_flour {width:22px; height:26px; background-position: -219px -233px}
+.icon_wheat {width:16px; height:16px; background-position: -211px -261px}
+.modals-button_a {width:70px; height:32px; background-position: -97px -267px}
+.modals-button_b {width:90px; height:32px; background-position: -97px -233px}
+.modals-close {width:28px; height:26px; background-position: -189px -233px}
+.modals-coin_bar {width:94px; height:34px; background-position: -1px -233px}
+.modals-progress_inner {width:70px; height:4px; background-position: -1px -305px}
+.modals-progress_outer {width:78px; height:14px; background-position: -97px -301px}
+.modals-storage_bg {width:254px; height:230px; background-position: -1px -1px}
+.modals-unit_bar {width:94px; height:34px; background-position: -1px -269px}
+.modals-x10 {width:40px; height:32px; background-position: -169px -267px}
