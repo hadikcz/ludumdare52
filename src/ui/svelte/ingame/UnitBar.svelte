@@ -14,7 +14,7 @@
 
 <style lang="scss">
   .coin-wrapper {
-    left: 27px;
+    left: 1px;
     top: 3px;
     width: 100px;
     position: relative;
@@ -22,35 +22,13 @@
     font-size: 23px;
     color: #b68962;
   }
-  .icon {
-    position: absolute !important;
-    left: 9px !important;
-    top: 6px;
-  }
-  .icon-pulse {
-    animation-name: pulse;
-    animation-duration: 0.4s;
-    animation-timing-function: ease-out;
-    animation-direction: alternate;
-    //animation-iteration-count: infinite;
-    animation-play-state: running;
-  }
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.5);
-    }
-    100% {
-      transform: scale(1.0);
-    }
-  }
 </style>
 
-<div class="sprite empty_bar">
-    Units:
-    <div class="coin-wrapper">
-        {units}
+
+<div style="display: block; width: 120px;;     transform: translate(103px, -39px);">
+    <div class="sprite modals-unit_bar">
+        <div class="coin-wrapper">
+            {units}
+        </div>
     </div>
 </div>

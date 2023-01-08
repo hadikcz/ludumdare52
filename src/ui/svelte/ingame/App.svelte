@@ -28,15 +28,16 @@
 		color: white;
 		font-size: 25px;
 		position: absolute;
+		width: auto;
+		text-align: center;
+		width: 300px;
 	}
 </style>
 
 <main style="pointer-events: all">
 	<div class="top-bar">
-		<div style="width: 400px; height: 50px; color: white">
-			<CoinBar scene="{scene}"></CoinBar>
-			<UnitBar scene="{scene}"></UnitBar>
-		</div>
+		<CoinBar scene="{scene}"></CoinBar>
+		<UnitBar scene="{scene}"></UnitBar>
 	</div>
 	<BuildingRegularModal scene="{scene}"></BuildingRegularModal>
 	<BuildingStorageModal scene="{scene}"></BuildingStorageModal>
