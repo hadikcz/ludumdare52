@@ -17,7 +17,7 @@ export default class Builder {
         this.buildModeRunning$ = new Subject<boolean>();
         this.buildModeRunning$.next(this.isBuildMode());
 
-        this.previewImage = this.scene.add.image(-1000, -1000, 'warehouse')
+        this.previewImage = this.scene.add.image(-1000, -1000, 'game', 'buildings/warehouse')
             .setDepth(Depths.BUILD_ICON).setVisible(false);
 
         this.scene.input.on('pointerdown', (pointer, obj) => {
@@ -65,7 +65,7 @@ export default class Builder {
         if (!frame) {
             throw new Error('Building image not found ' + building);
         }
-        this.previewImage.setTexture(frame);
+        this.previewImage.setFrame('buildings/' + frame);
         console.log('start build');
         this.buildMode = building;
         this.buildModeRunning$.next(this.isBuildMode());
@@ -127,7 +127,7 @@ export default class Builder {
             case BuildingsEnum.FARM:
                 return 'farm';
             case BuildingsEnum.MILL:
-                return 'mill';
+                return 'mill_all';
             case BuildingsEnum.BAKERY:
                 return 'bakery';
             case BuildingsEnum.INN:

@@ -9,8 +9,8 @@ export default {
             // 1280 x 720
             // width: 1360,
             // height: 768,
-            width: 1280,
-            height: 720
+            width: 3000,
+            height: 3000
         }
     }
 };

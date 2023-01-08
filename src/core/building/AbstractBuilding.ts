@@ -47,11 +47,11 @@ export default abstract class AbstractBuilding extends Container implements IBui
         this.inputStorage$ = new Subject<ResourceItem|null>();
         this.outputStorage$ = new Subject<ResourceItem|null>();
 
-        if (this.getType() === BuildingsEnum.MILL) {
-            this.image = this.scene.add.image(0, 0, 'game', 'buildings/mill').setScale(2);
-        } else {
-            this.image = this.scene.add.image(0, 0, imageTexture);
-        }
+        this.image = this.scene.add.image(0, 0, 'game', 'buildings/' + imageTexture);
+        // if (this.getType() === BuildingsEnum.MILL) {
+        //     this.image = this.scene.add.image(0, 0, 'game', 'buildings/mill_base').setScale(1);
+        // } else {
+        // }
         this.add(this.image);
 
         this.draw();

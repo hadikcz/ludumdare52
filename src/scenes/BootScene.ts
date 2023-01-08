@@ -38,7 +38,8 @@ export default class BootScene extends Phaser.Scene {
 
 
         this.load.setPath('assets/images');
-        this.load.atlas('game', 'game.png', 'game.json');
+        // this.load.atlas('game', 'game.png', 'game.json');
+        this.load.atlas('game', 'game_atlas.png', 'game_atlas.json');
 
 
         this.load.setPath('assets/images');

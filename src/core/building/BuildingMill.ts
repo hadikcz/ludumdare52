@@ -19,7 +19,7 @@ export default class BuildingMill extends AbstractBuilding implements IBuilding 
             scene,
             x,
             y,
-            'mill',
+            'mill_base',
             BuildingHandler.DEFAULT_STORAGE,
             BuildingsEnum.MILL,
             ResourceItem.FLOUR,
