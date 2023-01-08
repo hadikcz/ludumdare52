@@ -58,7 +58,7 @@ export default class UnitCarrier extends Container {
         // let unitImage = this.scene.add.image(0, 0, 'carrier').setOrigin(0.5, 1);
         // this.add(unitImage);
 
-        this.unitImage = this.scene.add.sprite(0, 0, 'character1', 0).setOrigin(0.5, 1).setScale(UnitCarrier.SCALE);
+        this.unitImage = this.scene.add.sprite(0, 0, 'character1', 0).setOrigin(0.5, 0.7).setScale(UnitCarrier.SCALE);
         this.add(this.unitImage);
 
         let type = NumberHelpers.randomIntInRange(1, 2);
@@ -92,7 +92,7 @@ export default class UnitCarrier extends Container {
         // this.unitImage.play(ANIM.IDLE);
 
         this.carryXOffest = 20;
-        this.carryItemImage = this.scene.add.image(this.carryXOffest, -50, 'game', 'ingame_ui/flour').setVisible(false);
+        this.carryItemImage = this.scene.add.image(this.carryXOffest, -27, 'game', 'ingame_ui/flour').setVisible(false);
         this.add(this.carryItemImage);
 
         this.draw();

@@ -65,4 +65,11 @@ export default class PathwayTilemap {
             }
         }
     }
+
+    forceSpawn (x: number, y: number): void {
+        let pointerTileX = this.layer.worldToTileX(x);
+        let pointerTileY = this.layer.worldToTileY(y);
+
+        this.layer.fill(0, pointerTileX, pointerTileY, 1, 1);
+    }
 }

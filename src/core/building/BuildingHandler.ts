@@ -80,7 +80,7 @@ export default class BuildingHandler {
 
 
         // real game init
-        let warehouse = this.spawnBuilding(1500, 1500, BuildingsEnum.WAREHOUSE);
+        let warehouse = this.spawnBuilding(1520, 1500, BuildingsEnum.WAREHOUSE);
         if (warehouse) {
             warehouse.inputStorage.push(ResourceItem.BREAD);
             warehouse.inputStorage.push(ResourceItem.BREAD);
@@ -89,7 +89,47 @@ export default class BuildingHandler {
             warehouse.inputStorage.push(ResourceItem.BREAD);
         }
 
-        this.spawnBuilding(1700, 1530, BuildingsEnum.FARM);
+        this.spawnBuilding(1760, 1530, BuildingsEnum.FARM);
+
+        let vectors = [
+            { x: 1500, y: 1500 }, // start
+            { x: 1500, y: 1520 },
+            { x: 1500, y: 1530 },
+            { x: 1500, y: 1540 },
+            { x: 1500, y: 1550 },
+            { x: 1500, y: 1560 },
+            { x: 1500, y: 1570 },
+            { x: 1500, y: 1580 },
+            { x: 1500, y: 1590 },
+
+            { x: 1500, y: 1600 }, // start
+            { x: 1530, y: 1600 },
+            { x: 1560, y: 1600 },
+            { x: 1590, y: 1600 },
+            { x: 1610, y: 1600 },
+            { x: 1640, y: 1600 },
+            { x: 1660, y: 1600 },
+            { x: 1680, y: 1600 },
+            { x: 1700, y: 1600 },
+
+
+            { x: 1700, y: 1600 },//start
+            { x: 1700, y: 1590 },
+            { x: 1700, y: 1580 },
+            { x: 1700, y: 1570 },
+            { x: 1700, y: 1550 },
+            { x: 1700, y: 1530 },
+
+
+
+            { x: 1700, y: 1530 },
+        ];
+
+        for (let vector of vectors) {
+            this.scene.pathwayTilemap.forceSpawn(vector.x, vector.y);
+        }
+
+        // this.scene.matrixWorld.updateGrid();
     }
 
 
