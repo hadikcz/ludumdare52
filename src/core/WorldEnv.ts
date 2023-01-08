@@ -4,17 +4,27 @@ import GameScene from 'scenes/GameScene';
 import Vector2 = Phaser.Math.Vector2;
 import Image = Phaser.GameObjects.Image;
 import { Depths } from 'enums/Depths';
+import Group = Phaser.GameObjects.Group;
+import ArrayHelpers from 'helpers/ArrayHelpers';
+import GameObject = Phaser.GameObjects.GameObject;
+import TransformHelpers from 'helpers/TransformHelpers';
 
 export default class WorldEnv {
 
-    public smallBushes: Image[] = [];
-    public bushes: Image[] = [];
-    public rocks: Image[] = [];
-    public ponds: Image[] = [];
+    public smallBushes: Group;
+    public bushes: Group;
+    public rocks: Group;
+    public ponds: Group;
 
     constructor (
         private scene: GameScene
     ) {
+
+        this.smallBushes = this.scene.add.group();
+        this.bushes = this.scene.add.group();
+        this.rocks = this.scene.add.group();
+        this.ponds = this.scene.add.group();
+
         this.generateGreenDots();
         this.generateGrass();
         this.generateStonky();
@@ -34,9 +44,34 @@ export default class WorldEnv {
         // });
     }
 
+    clearFromNearestBuilding (): void {
+        let cleanUp = (array: any) => {
+            let limitDistance = 400;
+            for (let building of this.scene.buildingHandler.buildings) {
+                // smallbushes
+                let nearest = ArrayHelpers.findLowest<GameObject>(array, (gameObject) => {
+                    return TransformHelpers.getDistanceBetween(building.x, building.y, gameObject.x, gameObject.y);
+                });
+                if (nearest) {
+                    // @ts-ignore
+                    let distance = TransformHelpers.getDistanceBetween(nearest.x, nearest.y, building.x, building.y);
+                    if (distance < limitDistance) {
+                        nearest.destroy();
+                    }
+                }
+            }
+        };
+
+        cleanUp(this.smallBushes.getChildren());
+        cleanUp(this.bushes.getChildren());
+        cleanUp(this.rocks.getChildren());
+        cleanUp(this.ponds.getChildren());
+    }
+
     private generateGreenDots (): void {
         for (let i = 0; i < 100; i++) {
             let spawn = this.generateRandomPos();
+            if (!spawn) continue;
             this.scene.add.image(spawn.x, spawn.y, 'game', 'env/grassDot' + NumberHelpers.randomIntInRange(1, 8)).setDepth(Depths.DECOR_GREEN_DOTS);
         }
     }
@@ -44,6 +79,7 @@ export default class WorldEnv {
     private generateStonky (): void {
         for (let i = 0; i < 200; i++) {
             let spawn = this.generateRandomPos();
+            if (!spawn) continue;
             this.scene.add.image(spawn.x, spawn.y, 'game', 'env/stonky' + NumberHelpers.randomIntInRange(1, 2)).setDepth(Depths.DECOR_STONKY);
         }
     }
@@ -51,6 +87,7 @@ export default class WorldEnv {
     private generateGrass (): void {
         for (let i = 0; i < 200; i++) {
             let spawn = this.generateRandomPos();
+            if (!spawn) continue;
             this.scene.add.image(spawn.x, spawn.y, 'game', 'env/grass' + NumberHelpers.randomIntInRange(1, 2)).setDepth(Depths.DECOR_GRASS);
         }
     }
@@ -58,40 +95,106 @@ export default class WorldEnv {
     private generateSmallbush (): void {
         for (let i = 0; i < 200; i++) {
             let spawn = this.generateRandomPos();
+            if (!spawn) continue;
             let img = this.scene.add.image(spawn.x, spawn.y, 'game', 'env/smallbush' + NumberHelpers.randomIntInRange(1, 3)).setDepth(Depths.DECOR_SMALLBUSH);
-            this.smallBushes.push(img);
+            this.smallBushes.add(img);
         }
     }
 
     private generateBush (): void {
         for (let i = 0; i < 200; i++) {
             let spawn = this.generateRandomPos();
+            if (!spawn) continue;
             let img = this.scene.add.image(spawn.x, spawn.y, 'game', 'env/bush' + NumberHelpers.randomIntInRange(1, 4)).setDepth(Depths.DECOR_BUSH);
-            this.bushes.push(img);
+            this.bushes.add(img);
         }
     }
 
     private generateRocks (): void {
         for (let i = 0; i < 200; i++) {
             let spawn = this.generateRandomPos();
+            if (!spawn) continue;
             let img = this.scene.add.image(spawn.x, spawn.y, 'game', 'env/rock' + NumberHelpers.randomIntInRange(1, 4)).setDepth(Depths.DECOR_ROCKS);
-            this.rocks.push(img);
+            this.rocks.add(img);
         }
     }
 
     private generatePonds (): void {
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 60; i++) {
             let spawn = this.generateRandomPos();
+            if (!spawn) continue;
             let img = this.scene.add.image(spawn.x, spawn.y, 'game', 'env/pond' + NumberHelpers.randomIntInRange(1, 2)).setDepth(Depths.DECOR_PONDS);
-            this.ponds.push(img);
+            this.ponds.add(img);
         }
     }
 
 
-    private generateRandomPos (): Vector2 {
-        return new Vector2(
-            NumberHelpers.randomIntInRange(0, GameConfig.World.size.width),
-            NumberHelpers.randomIntInRange(0, GameConfig.World.size.height)
-        );
+    private generateRandomPos (): Vector2|null {
+        let run = true;
+        let spawn;
+
+        let limitDistance = 50;
+        let tries = 0;
+        do {
+            tries++;
+            spawn = new Vector2(
+                NumberHelpers.randomIntInRange(0, GameConfig.World.size.width),
+                NumberHelpers.randomIntInRange(0, GameConfig.World.size.height)
+            );
+            if (tries > 100) {
+                console.log('skipping pos');
+                return spawn;
+            }
+
+            // smallbushes
+            let nearest = ArrayHelpers.findLowest<GameObject>(this.smallBushes.getChildren(), (gameObject) => {
+                return TransformHelpers.getDistanceBetween(spawn.x, spawn.y, gameObject.x, gameObject.y);
+            });
+            if (nearest) {
+                // @ts-ignore
+                let distance = TransformHelpers.getDistanceBetween(nearest.x, nearest.y, spawn.x, spawn.y);
+                if (distance > limitDistance) {
+                    run = false;
+                }
+            }
+
+
+            // bushes
+            nearest = ArrayHelpers.findLowest<GameObject>(this.bushes.getChildren(), (gameObject) => {
+                return TransformHelpers.getDistanceBetween(spawn.x, spawn.y, gameObject.x, gameObject.y);
+            });
+            if (nearest) {
+                // @ts-ignore
+                let distance = TransformHelpers.getDistanceBetween(nearest.x, nearest.y, spawn.x, spawn.y);
+                if (distance > limitDistance) {
+                    run = false;
+                }
+            }
+            // rocks
+            nearest = ArrayHelpers.findLowest<GameObject>(this.rocks.getChildren(), (gameObject) => {
+                return TransformHelpers.getDistanceBetween(spawn.x, spawn.y, gameObject.x, gameObject.y);
+            });
+            if (nearest) {
+                // @ts-ignore
+                let distance = TransformHelpers.getDistanceBetween(nearest.x, nearest.y, spawn.x, spawn.y);
+                if (distance > limitDistance) {
+                    run = false;
+                }
+            }
+            // ponds
+            nearest = ArrayHelpers.findLowest<GameObject>(this.ponds.getChildren(), (gameObject) => {
+                return TransformHelpers.getDistanceBetween(spawn.x, spawn.y, gameObject.x, gameObject.y);
+            });
+            if (nearest) {
+                // @ts-ignore
+                let distance = TransformHelpers.getDistanceBetween(nearest.x, nearest.y, spawn.x, spawn.y);
+                if (distance > limitDistance) {
+                    run = false;
+                }
+            }
+
+        } while (run);
+
+        return spawn;
     }
 }
