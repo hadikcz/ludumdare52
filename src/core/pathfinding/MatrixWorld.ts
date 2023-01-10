@@ -142,13 +142,18 @@ export default class MatrixWorld {
 
         for (let building of this.scene.buildingHandler.buildings) {
             let bounds = building.getImageBounds()
-            let points = bounds.getPoints(64);
+            let percent = 0.65;
+            let height = bounds.height * percent;
+            let diff = bounds.height - height;
+
+            let boundsShorter = new Phaser.Geom.Rectangle(bounds.x, bounds.y + diff, bounds.width, height)
+            let points = boundsShorter.getPoints(64);
             for (let point of points) {
                 this.debugGridLayer.putTileAtWorldXY(EasyStarAdapter.BLOCK_TILE, point.x, point.y);
             }
 
             for (let i = 0; i < 200; i++) {
-                let point = bounds.getRandomPoint();
+                let point = boundsShorter.getRandomPoint();
                 this.debugGridLayer.putTileAtWorldXY(EasyStarAdapter.BLOCK_TILE, point.x, point.y);
             }
 

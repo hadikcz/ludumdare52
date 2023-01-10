@@ -4,7 +4,6 @@ import BuildingShopBuilder from 'core/building/BuildingShopBuilder';
 import { BuildingStateEnum } from 'core/building/BuildingStateEnum';
 import { IBuilding } from 'core/building/IBuilding';
 import { ResourceItem } from 'core/resources/ResourceItem';
-import { Depths } from 'enums/Depths';
 import { Events } from 'enums/Events';
 import { Subject } from 'rxjs';
 import GameScene from 'scenes/GameScene';
@@ -61,7 +60,8 @@ export default abstract class AbstractBuilding extends Container implements IBui
 
         this.draw();
 
-        this.setDepth(Depths.BUILDINGS);
+        // this.setDepth(Depths.BUILDINGS);
+        this.setDepth(this.y);
 
         this.image.setInteractive({ useHandCursor: true });
         this.image.on('pointerdown', () => {

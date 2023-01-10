@@ -110,7 +110,8 @@ export default class UnitCarrier extends Container {
         this.add(this.carryItemImage);
 
         this.draw();
-        this.setDepth(Depths.CARRIER);
+        // this.setDepth(Depths.CARRIER);
+        this.setDepth(this.y);
 
         this.resource$ = new Subject<ResourceItem|null>();
         this.hunger$ = new Subject<number>();
@@ -132,6 +133,7 @@ export default class UnitCarrier extends Container {
     }
 
     preUpdate (): void {
+        this.setDepth(this.y);
 
         this.bubble.setPosition(this.x + this.bubbleOffest.x, this.y + this.bubbleOffest.y);
         // if (this.body === undefined || this.body.velocity === undefined) {
